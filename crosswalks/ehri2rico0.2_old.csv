@@ -1,0 +1,92 @@
+Type,Origin attribute,Predicate,Object type,Class,Input source
+Country,id,,Subject,,Country @ EHRI Portal Search API
+,name,schema:name,Literal,schema:Country,Country @ EHRI Portal Search API
+,name,rdfs:label,Literal,,Country @ EHRI Portal Search API
+,name,rico:name,Literal,rico:Place,Country @ EHRI Portal Search API
+,,owl:sameAs,IRI -> dbo:Place,,Country @ EHRI Portal Search API
+,history,ehri:history,Literal,TBD,Country @ EHRI Portal Search API
+,situation,ehri:situation,Literal,TBD,Country @ EHRI Portal Search API
+,summary,ehri:summary,Literal,TBD,Country @ EHRI Portal Search API
+,extensive,ehri:extensive,Literal,TBD,Country @ EHRI Portal Search API
+,id (organization),rico:containsOrContained,IRI (as ehri_institution:_),rico:Place,Repository @ EHRI Portal Search API
+Institution,id,,Subject,,Repository @ EHRI Portal Search API
+,name,rdfs:label,Literal,,Repository @ EHRI Portal Search API
+,fax,schema:faxNumber,Literal,schema:ArchiveOrganization,Repository @ EHRI Portal Search API
+,telephone,schema:telephone,Literal,schema:ArchiveOrganization,Repository @ EHRI Portal Search API
+,email,schema:email,Literal,schema:ArchiveOrganization,Repository @ EHRI Portal Search API
+,openingTimes,schema:openingHours,Literal,schema:ArchiveOrganization,Repository @ EHRI Portal Search API
+,history,rico:history,Literal,rico:CoporateBody,Repository @ EHRI Portal Search API
+,descriptiveNote,rico:descriptiveNote,Literal,rico:CoporateBody,Repository @ EHRI Portal Search API
+,conditions,ehri:conditions,Literal,TBD,Repository @ EHRI Portal Search API
+,reproductionServices,ehri:reproductionServices,Literal,TBD,Repository @ EHRI Portal Search API
+,generalContext,ehri:generalContext,Literal,TBD,Repository @ EHRI Portal Search API
+,url,owl:sameAs,IRI,,Repository @ EHRI Portal Search API
+,instantiation_id (holding_id + local_id),rico:isOrWasHolderOf,IRI (as ehri_instantiation:_),,Holding @ EHRI Portal Search API
+,,rico:hasOrHadLocation,IRI -> InstitutionLocation,,Repository @ EHRI Portal Search API
+,,rico:hasAgentName,IRI -> InstitutionName,,Repository @ EHRI Portal Search API
+,,rico:hasAgentName,IRI -> InstitutionParallelName,,Repository @ EHRI Portal Search API
+,,rico:hasAgentName,IRI -> InstitutionOtherName,,Repository @ EHRI Portal Search API
+,,rico:authorizedBy,IRI -> Mandate,,Repository @ EHRI Portal Search API
+InstitutionLocation,artificially generated id as Bnode,,Subject as Bnode,,
+,"lat + "", "" + long",rico:geographicalCoordinates,Literal,rico:Place,Repository @ EHRI Portal Search API
+,country.data.id,schema:addressCountry,IRI (as ehri_country:_),schema:PostalAddress,Repository @ EHRI Portal Search API
+,country.data.id,rico:isOrWasContainedBy,IRI (as ehri_country:_),rico:Place,Repository @ EHRI Portal Search API
+,region,schema:addressRegion,Literal,schema:PostalAddress,Repository @ EHRI Portal Search API
+,postalCode,schema:postalCode,Literal,schema:PostalAddress,Repository @ EHRI Portal Search API
+,"streetAddress + "", "" + city",rico:location,Literal,,Repository @ EHRI Portal Search API
+InstitutionName,artificially generated id as Bnode,,,,
+,name,rdfs:label,Literal,rico:AgentName,Repository @ EHRI Portal Search API
+InstitutionParallelName,artificially generated id as Bnode,,,,
+,parallelFormsOfName,rdfs:label,Literal,rico:AgentName,Repository @ EHRI Portal Search API
+InstitutionOtherName,artificially generated id as Bnode,,,,
+,otherFormsOfName,rdfs:label,Literal,rico:AgentName,Repository @ EHRI Portal Search API
+Mandate,artificially generated id as Bnode,,,,
+,mandates,rdf:value,Literal,rico:Mandate,
+Holding,id,,Subject,rico:Record,Holding @ EHRI Portal Search API
+,,rico:hasDocumentaryFormType,IRI (constant: https://www.ica.org/standards/RiC/vocabularies/documentaryFormTypes#findingAid,rico:Record,Holding @ EHRI Portal Search API
+,name,rico:title,Literal,rico:Record,Holding @ EHRI Portal Search API
+,name,rdfs:label,Literal,rico:Record,Holding @ EHRI Portal Search API
+,parallelFormsOfName,rico:title,Literal,rico:Record,Holding @ EHRI Portal Search API
+,parallelFormsOfName,rdfs:label,Literal,rico:Record,Holding @ EHRI Portal Search API
+,abstract,rico:scopeAndContent,Literal,rico:Record,Holding @ EHRI Portal Search API
+,extentAndMedium,rico:recordResourceExtent,Literal,rico:Record,Holding @ EHRI Portal Search API
+,systemOfArrangement,rico:recordResourceStructure,Literal,rico:Record,Holding @ EHRI Portal Search API
+,unitDates,rico:date,Literal,rico:Record,Holding @ EHRI Portal Search API
+,parent.id,rico:isOrWasIncludedIn,IRI (as ehri_units:_),rico:Record,Holding @ EHRI Portal Search API
+,id,rico:includesOrIncluded,IRI (as ehri_units:_),rico:Record,Holding @ EHRI Portal Search API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_terms:_),rico:Record,CvocVocabulary @ EHRI GraphQL API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_camps:_),rico:Record,CvocVocabulary @ EHRI GraphQL API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_ghettos:_),rico:Record,CvocVocabulary @ EHRI GraphQL API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_pers:_),rico:Record,AuthoritativeSet @ EHRI GraphQL API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_cb:_),rico:Record,AuthoritativeSet @ EHRI GraphQL API
+,,rico:hasInstantiation,IRI -> Instantiation,,
+,,rico:hasOrHadLanguage,IRI -> Language,,
+,,rico:resultsOrResultedFrom,IRI -> Acquisition,,Holding @ EHRI Portal Search API
+Instantiation,"id + ""-"" + local_id",,Subject,rico:Instantiation,Holding @ EHRI Portal Search API
+,localId,rico:identifier,Literal,rico:Instantiation,Holding @ EHRI Portal Search API
+,biographicalHistory,rico:history,Literal,rico:Instantiation,Holding @ EHRI Portal Search API
+,holding.id,rico:isInstantiationOf,IRI (as ehri_units:_),rico:Instantiation,Holding @ EHRI Portal Search API
+,name,rico:title,Literal,rico:Instantiation,Holding @ EHRI Portal Search API
+,name,rico:label,Literal,rico:Instantiation,Holding @ EHRI Portal Search API
+,holder.id,rico:hasOrHadHolder,IRI (as ehri_institution:_),rico:Instantiation,Holding @ EHRI Portal Search API
+Language,languageOfMaterials.lang,,Subject,rico:Language,Holding @ EHRI Portal Search API
+,languageOfMaterials.lang,rico:name,Literal,rico:Language,Holding @ EHRI Portal Search API
+Acquisition,"id + ""-"" + local_id",,Subject,rico:Activity,Holding @ EHRI Portal Search API
+,,rico:type,"Literal (constant: ""Acquisition"")",rico:Activity,Holding @ EHRI Portal Search API
+,acquisition,rdf:value,Literal,rico:Activity,Holding @ EHRI Portal Search API
+Term,,,,,
+Camp,,,,,
+Ghetto,,,,,
+Person,identifier,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,name,rdfs:label,Literal,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,biographicalHistory,rico:history,Literal,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,,rico:hasAgentName,IRI -> PersonOtherFormName,,
+,,rico:hasAgentName,IRI -> PersonParallelFormName,,
+PersonOtherFormName,identifier,,Subject,rico:AgentName,AuthoritativeSet @ EHRI GraphQL API
+,otherFormsOfName,rdfs:label,Literal,,AuthoritativeSet @ EHRI GraphQL API
+PersonParallelFormName,identifier,,Subject,rico:AgentName,AuthoritativeSet @ EHRI GraphQL API
+,parallelFormsOfName,rdfs:label,Literal,,AuthoritativeSet @ EHRI GraphQL API
+Corporate Body,identifier,,Subject,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,name,rdfs:label,Literal,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,biographicalHistory,rico:history,Literal,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,source,owl:sameAs,IRI,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
