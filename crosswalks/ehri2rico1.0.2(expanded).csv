@@ -1,0 +1,207 @@
+Type,Origin attribute,Predicate,Object type,Class,Input source
+Country,id,,Subject,,Country @ EHRI Portal Search API
+,name,rico:name,Literal,rico:Place,Country @ EHRI Portal Search API
+,,owl:sameAs,IRI -> dbo:Place,,Country @ EHRI Portal Search API
+,history,rico:history,Literal,rico:Place,Country @ EHRI Portal Search API
+,situation,ehri:archivalSituation,Literal,ehri:Country,Country @ EHRI Portal Search API
+,summary,ehri:researchSummary,Literal,ehri:Country,Country @ EHRI Portal Search API
+,extensive,ehri:researchExtensive,Literal,ehri:Country,Country @ EHRI Portal Search API
+,id (organization),rico:isOrWasLocationOfAgent,IRI (as ehri_institution:_),rico:Place,Repository @ EHRI Portal Search API
+,region,rico:containsOrContained,IRI (as ehri_regions:_),rico:Place,Repository @ EHRI Portal Search API
+,city,rico:containsOrContained,IRI (as ehri_cities:_),rico:Place,Repository @ EHRI Portal Search API
+Institution,id,,Subject,,Repository @ EHRI Portal Search API
+,name,rico:name,Literal,rico:CorporateBody,Repository @ EHRI Portal Search API
+,openingTimes,schema:openingHours,Literal,schema:ArchiveOrganization,Repository @ EHRI Portal Search API
+,history,rico:history,Literal,rico:CorporateBody,Repository @ EHRI Portal Search API
+,descriptiveNote,rico:generalDescription,Literal,rico:CorporateBody,Repository @ EHRI Portal Search API
+,conditions,ehri:institutionConditionsOfAccess,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,reproductionServices,ehri:institutionReproductionServices,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,generalContext,ehri:generalContext,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,administrativeStructure,ehri:administrativeStructure,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,records,ehri:recordsManagementAndCollectingPolicies,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,buildings,ehri:buildings,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,holdings,ehri:holdings,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,accesibility,ehri:accesibility,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,researchServices,ehri:researchServices,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,publicAreas,ehri:publicAreas,Literal,ehri:Institution,Repository @ EHRI Portal Search API
+,url,rdfs:seeAlso,IRI,,Repository @ EHRI Portal Search API
+,connected.item.id,ehri:hasCopy,IRI -> (as ehri_units:_ or ehri_repositories:_),ehri:Institution,Repositories @ EHRI GraphQL API
+,id,ehri:isCopyOf,IRI,ehri:Institution,Repositories @ EHRI GraphQL API
+,holding_id,rico:isOrWasHolderOf,IRI (as ehri_units:_),rico:CorporateBody,Holding @ EHRI Portal Search API
+,,rico:agentHasOrHadLocation,IRI -> InstitutionLocation,rico:CorporateBody,Repository @ EHRI Portal Search API
+,,rico:hasOrHadAgentName,IRI -> InstitutionParallelName,rico:CorporateBody,Repository @ EHRI Portal Search API
+,,rico:hasOrHadAgentName,IRI -> InstitutionOtherName,rico:CorporateBody,Repository @ EHRI Portal Search API
+,,rico:authorizedBy,IRI -> Mandate,rico:CorporateBody,Repository @ EHRI Portal Search API
+InstitutionLocation,subject generated with the institution id (in case of multiple locations we might want to add the coordinates or a name into the subject),,Subject,,Repository @ EHRI Portal Search API
+,,rico:isOrWasContainedBy,IRI -> Region,rico:Place,Repository @ EHRI Portal Search API
+,,rico:isOrWasContainedBy,IRI -> City,rico:Place,Repository @ EHRI Portal Search API
+,country.data.id,rico:isOrWasContainedBy,IRI (as ehri_countries:_),rico:Place,Repository @ EHRI Portal Search API
+,,rico:hasOrHadPhysicalLocation,IRI -> PhysicalLocation,rico:Place,Repository @ EHRI Portal Search API
+PhysicalLocation,subject generated with the institution id (as in the the InstitutionLocation we need somethign else in case of multiple addresses).,,,,Repository @ EHRI Portal Search API
+,,rico:hasOrHadCoordinates,IRI -> Coordinates,rico:PhysicalLocation,Repository @ EHRI Portal Search API
+,postalCode,schema:postalCode,Literal,schema:PostalAddress,Repository @ EHRI Portal Search API
+,streetAddress,rico:name,Literal,rico:PhysicalLocation,Repository @ EHRI Portal Search API
+,fax,schema:faxNumber,Literal,schema:PostalAddress,Repository @ EHRI Portal Search API
+,telephone,schema:telephone,Literal,schema:PostalAddress,Repository @ EHRI Portal Search API
+,email,schema:email,Literal,schema:PostalAddress,Repository @ EHRI Portal Search API
+,contactPerson,ehri:contactPerson,Literal,ehri:InstitutionAddress,Repository @ EHRI Portal Search API
+,address.name,schema:contactType,Literal,schema:PostalAddress,Repository @ EHRI Portal Search API
+,,rico:isOrWasPhysicalLocationOf,IRI (as ehri_institutions_locations:_),rico:PhysicalLocation,Repository @ EHRI Portal Search API
+Coordinates,subject generated with the coordinates concatenation,,,,Repository @ EHRI Portal Search API
+,lat,rico:latitude,Literal,rico:Coordinates,Repository @ EHRI Portal Search API
+,long,rico:longitude,Literal,rico:Coordinates,Repository @ EHRI Portal Search API
+,,rico:isOrWasCoordinatesOf,IRI (as ehri_physical_locations:_),rico:Coordinates,Repository @ EHRI Portal Search API
+Region,region,,Subject,,Repository @ EHRI Portal Search API
+,region,rico:name,Literal,rico:Place,Repository @ EHRI Portal Search API
+,country,rico:isOrWasContainedBy,IRI (as ehri_countries:_),rico:Place,Repository @ EHRI Portal Search API
+,city,rico:containsOrContained,IRI (as ehri_regions:_),rico:Place,Repository @ EHRI Portal Search API
+,,owl:sameAs,IRI,,
+City,city,,Subject,,Repository @ EHRI Portal Search API
+,city,rico:name,Literal,rico:Place,Repository @ EHRI Portal Search API
+,region,rico:isOrWasContainedBy,IRI (as ehri_regions:_),rico:Place,Repository @ EHRI Portal Search API
+,country,rico:isOrWasContainedBy,IRI (as ehri_countries:_),rico:Place,Repository @ EHRI Portal Search API
+,,owl:sameAs,IRI,,
+InstitutionParallelName,"subject generated by the institution id + ""-parallelName"" (possibly a number too for multiple parallel names)",,,,Repository @ EHRI Portal Search API
+,parallelFormsOfName,rico:name,,rico:AgentName,Repository @ EHRI Portal Search API
+InstitutionOtherName,"subject generated by the institution id + ""-otherName"" (possibly a number too for multiple parallel names)",,,,Repository @ EHRI Portal Search API
+,otherFormsOfName,rico:name,,rico:AgentName,Repository @ EHRI Portal Search API
+Mandate,"subject generated by the institution id + ""-mandate""",,,,Repository @ EHRI Portal Search API
+,mandates,rico:generalDescription,,rico:Mandate,Repository @ EHRI Portal Search API
+Holding,id,,Subject,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,level,rico:hasRecordSetType,IRI (controlled term of type rico:RecordSetType),rico:RecordSet,Holding @ EHRI Portal Search API
+,name,rico:title,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,parallelFormsOfName,rico:hasOrHadTitle,IRI -> HoldingParallelFormOfName,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,abstract,rico:scopeAndContent,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,extendAndMedium,rico:recordResourceExtent,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,systemOfArrangement,rico:recordResourceStructure,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,unitDates (left part),rico:hasBeginningDate,IRI -> HoldingBeginningDate,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,unitDates (right part),rico:hasEndDate,IRI -> HoldingEndDate,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,parent.id,rico:isOrWasIncludedIn,IRI (as ehri_units:_),rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,id,rico:includesOrIncluded,IRI (as ehri_units:_),rico:RecordSet,Holding @ EHRI Portal Search API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_terms:_),rico:Record | rico:RecordSet,CvocVocabulary @ EHRI GraphQL API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_camps:_),rico:Record | rico:RecordSet,CvocVocabulary @ EHRI GraphQL API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_ghettos:_),rico:Record | rico:RecordSet,CvocVocabulary @ EHRI GraphQL API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_pers:_),rico:Record | rico:RecordSet,AuthoritativeSet @ EHRI GraphQL API
+,identifier,rico:hasOrHadSubject,IRI (as ehri_cb:_),rico:Record | rico:RecordSet,AuthoritativeSet @ EHRI GraphQL API
+,,rico:hasOrHadLanguage,IRI -> Language,rico:Record,Holding @ EHRI Portal Search API
+,,rico:hasOrHadSomeMembersWithLanguage,IRI -> Language,rico:RecordSet,Holding @ EHRI Portal Search API
+,,rico:resultsOrResultedFrom,IRI -> Acquisition,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,localId,rico:identifier,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,biographicalHistory,rico:history,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,archivalHistory,rico:history,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,appraisal,ehri:appraisal,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,accruals,rico:accruals,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,conditionsOfAccess,rico:conditionsOfAccess,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,conditionsOfReproduction,rico:conditionsOfUse,Literal,rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,scriptOfMaterials,ehri:scriptOfMaterials,IRI -> MaterialScript,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,physicalCharacteristicsAndTechnicalRequirements,ehri:physicalCharacterisiticsAndTechnicalRequirements,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,findingAids,ehri:otherFindingAids,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,locationOfOriginals,ehri:locationOfOriginals,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,locationOfCopies,ehri:locationOfCopies,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,publicationNote,ehri:wasUsedAsSourceIn,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,sources,ehri:sources,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,notes,ehri:notes,Literal,ehri:Thing,Holding @ EHRI Portal Search API
+,archivistNote,ehri:archivistNote,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,relatedMaterial,ehri:relatedMaterial,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,separatedMaterial,ehri:separatedMaterial,Literal,ehri:Record | ehri:RecordSet,Holding @ EHRI Portal Search API
+,holder.id,rico:hasOrHadHolder,IRI (as ehri_institutions:_),rico:Record | rico:RecordSet,Holding @ EHRI Portal Search API
+,webSource,rdfs:seeAlso,IRI,,Holding @ EHRI Portal Search API
+,alternateIds,rico:hasOrHadIdentifier,IRI -> AlternateIdentifier,,Holding @ EHRI Portal Search API
+,connected.item.id,ehri:hasCopy,IRI -> (as ehri_units:_ or ehri_repositories:_),ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
+,id,ehri:isCopyOf,IRI,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
+,connected.item.id,rico:hasCreator,IRI -> (as ehri_pers:_),rico:Record | rico:RecordSet,DocumentaryUnits @ EHRI GraphQL API
+AlternateIds,id + alternateIds,,Subject,,Holding @ EHRI Portal Search API
+,alternateIds,rico:textualValue,Literal,rico:Identifier,Holding @ EHRI Portal Search API
+,id,rico:isOrWasIdentifierOf,IRI (as ehri_units:_),rico:Identifier,Holding @ EHRI Portal Search API
+HoldingParallelFormOfName,subject generated by the record id + some unique feature,,Subject,,Holding @ EHRI Portal Search API
+,parallelFormsOfName,rico:name,,,Holding @ EHRI Portal Search API
+HoldingBeginningDate,unitDates (normalized value),,Subject,,Holding @ EHRI Portal Search API
+,unitDates (left part),rico:normalizedDateValue,Literal,rico:Date,Holding @ EHRI Portal Search API
+,id,rico:isBeginningDateOf,IRI (as ehri_units:_),rico:Date,Holding @ EHRI Portal Search API
+HoldingEndDate,unitDates (normalized value),,,,Holding @ EHRI Portal Search API
+,unitDates (right part),rico:normalizedDateValue,,rico:Date,Holding @ EHRI Portal Search API
+,id,rico:isBeginningDateOf,IRI (as ehri_units:_),rico:Date,Holding @ EHRI Portal Search API
+Language,languageOfMaterials.lang,,Subject,rico:Language,Holding @ EHRI Portal Search API
+,languageOfMaterials.lang,rico:name,Literal,rico:Language,Holding @ EHRI Portal Search API
+Acquisition,id,,Subject,rico:Activity,Holding @ EHRI Portal Search API
+,,rico:hasActivityType,IRI (constant as ehri:AcquisitionType),rico:Activity,
+,acquisition,rico:generalDescription,,rico:Activity,Holding @ EHRI Portal Search API
+MaterialScript,scriptOfMaterials,,Subject,ehri:MaterialScript,Holding @ EHRI Portal Search API
+,scriptOfMaterials,rico:name,Literal,ehri:MaterialScript,Holding @ EHRI Portal Search API
+Term,,,,,Bulk import EHRI Terms
+Camp,,,,,Bulk import EHRI Camps
+Ghetto,,,,,Bulk import EHRI Ghettos
+Person,identifier,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,name,rico:name,Literal,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,biographicalHistory,rico:history,Literal,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,,rico:hasOrHadAgentName,IRI -> PersonOtherFormName,,AuthoritativeSet @ EHRI GraphQL API
+,,rico:hasOrHadAgentName,IRI -> PersonParallelFormName,,AuthoritativeSet @ EHRI GraphQL API
+,connected.item.id,rico:isCreatorOf,IRI -> (as ehri_units:_),rico:Person,DocumentaryUnits @ EHRI GraphQL API
+,dates (left part),rico:hasBeginningDate,IRI -> AuthorityBeginningDate,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,dates (right part),rico:hasEndDate,IRI -> AuthorityEndDate,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,datesOfExistance (left part),rico:hasBirthDate,IRI -> PersonBirthDate,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,datesOfExistance (right part),rico:hasDeathDate,IRI -> PersonDeathDate,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,places,rico:agentHasOrHadLocation,IRI -> AuthorityPlace,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,legalStatus,rico:hasOrHadLegalStatus,IRI -> AuthorityLegalStatus,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,functions,rico:performsOrPerformed,IRI -> AuthorityActivity,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,mandates,rico:authorizedBy,IRI -> AuthorityMandate,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,internalStructure,ehri:structureOrGenealogy,Literal,ehri:Person,AuthoritativeSet @ EHRI GraphQL API
+,generalContext,rico:generalDescription,Literal,rico:Person,AuthoritativeSet @ EHRI GraphQL API
+,sources,ehri:sources,Literal,ehri:Person,AuthoritativeSet @ EHRI GraphQL API
+PersonBirthDate,date (normalized value),,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,date,rico:normalizedDateValue,Literal,rico:Date,AuthoritativeSet @ EHRI GraphQL API
+,id,rico:isBeginningDateOf,IRI (ehri_pers:_ or ehri_cb:_ or ehri_family:_),rico:Date,AuthoritativeSet @ EHRI GraphQL API
+PersonDeathDate,date (normalized value),,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,date,rico:normalizedDateValue,Literal,rico:Date,AuthoritativeSet @ EHRI GraphQL API
+,id,rico:isEndDateOf,IRI (ehri_pers:_ or ehri_cb:_ or ehri_family:_),rico:Date,AuthoritativeSet @ EHRI GraphQL API
+Family,identifier,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,name,rico:name,Literal,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,biographicalHistory,rico:history,Literal,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,,rico:hasOrHadAgentName,IRI -> PersonOtherFormName,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,,rico:hasOrHadAgentName,IRI -> PersonParallelFormName,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,connected.item.id,rico:isCreatorOf,IRI -> (as ehri_units:_),rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,dates (left part),rico:hasBeginningDate,IRI -> AuthorityBeginningDate,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,dates (right part),rico:hasEndDate,IRI -> AuthorityEndDate,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,datesOfExistance (left part),rico:hasBeginningDate,IRI -> AuthorityBeginningDate,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,datesOfExistance (right part),rico:hasEndDate,IRI -> AuthorityEndDate,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,places,rico:agentHasOrHadLocation,IRI -> AuthorityPlace,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,legalStatus,rico:hasOrHadLegalStatus,IRI -> AuthorityLegalStatus,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,functions,rico:performsOrPerformed,IRI -> AuthorityActivity,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,mandates,rico:authorizedBy,IRI -> AuthorityMandate,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,internalStructure,ehri:structureOrGenealogy,Literal,ehri:Family,AuthoritativeSet @ EHRI GraphQL API
+,generalContext,rico:generalDescription,Literal,rico:Family,AuthoritativeSet @ EHRI GraphQL API
+,sources,ehri:sources,Literal,ehri:Family,AuthoritativeSet @ EHRI GraphQL API
+PersonOtherFormName,identifier,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,otherFormsOfName,rico:name,Literal,rico:AgentName,AuthoritativeSet @ EHRI GraphQL API
+PersonParallelFormName,identifier,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,parallelFormsOfName,rico:name,,rico:AgentName,AuthoritativeSet @ EHRI GraphQL API
+Corporate Body,identifier,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,name,rico:name,Literal,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,biographicalHistory,rico:history,Literal,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,source,rdfs:seeAlso,IRI,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,dates (left part),rico:hasBeginningDate,IRI -> AuthorityBeginningDate,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,dates (right part),rico:hasEndDate,IRI -> AuthorityEndDate,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,datesOfExistance (left part),rico:hasBeginningDate,IRI -> AuthorityBeginningDate,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,datesOfExistance (right part),rico:hasEndDate,IRI -> AuthorityEndDate,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,places,rico:agentHasOrHadLocation,IRI -> AuthorityPlace,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,legalStatus,rico:hasOrHadLegalStatus,IRI -> AuthorityLegalStatus,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,functions,rico:performsOrPerformed,IRI -> AuthorityActivity,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,mandates,rico:authorizedBy,IRI -> AuthorityMandate,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,internalStructure,ehri:structureOrGenealogy,Literal,ehri:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,generalContext,rico:generalDescription,Literal,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+,sources,ehri:sources,Literal,rico:CorporateBody,AuthoritativeSet @ EHRI GraphQL API
+AuthorityBeginningDate,date (normalized value),,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,date,rico:normalizedDateValue,Literal,rico:Date,AuthoritativeSet @ EHRI GraphQL API
+,id,rico:isBeginningDateOf,IRI (ehri_pers:_ or ehri_cb:_ or ehri_family:_),rico:Date,AuthoritativeSet @ EHRI GraphQL API
+AuthorityEndDate,date (normalized value),,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,date,rico:normalizedDateValue,Literal,rico:Date,AuthoritativeSet @ EHRI GraphQL API
+,id,rico:isEndDateOf,IRI (ehri_pers:_ or ehri_cb:_ or ehri_family:_),rico:Date,AuthoritativeSet @ EHRI GraphQL API
+AuthorityLegalStatus,,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,legalStatus,rico:generalDescription,Literal,rico:LegalStatus,AuthoritativeSet @ EHRI GraphQL API
+,id,rico:isOrWasLegalStatusOf,IRI (ehri_pers:_ or ehri_cb:_ or ehri_family:_),rico:LegalStatus,AuthoritativeSet @ EHRI GraphQL API
+AuthorityActivity,,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,functions,rico:generalDescription,Literal,rico:Activity,AuthoritativeSet @ EHRI GraphQL API
+,id,rico:isOrWasPerformedBy,IRI (ehri_pers:_ or ehri_cb:_ or ehri_family:_),rico:Activity,AuthoritativeSet @ EHRI GraphQL API
+AuthorityMandate,,,Subject,,AuthoritativeSet @ EHRI GraphQL API
+,mandates,rico:generalDescription,Literal,rico:Mandate,AuthoritativeSet @ EHRI GraphQL API
+,id,rico:authorizes,IRI (ehri_pers:_ or ehri_cb:_ or ehri_family:_),rico:Mandate,AuthoritativeSet @ EHRI GraphQL API
