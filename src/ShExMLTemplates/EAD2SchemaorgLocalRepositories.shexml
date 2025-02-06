@@ -1,19 +1,26 @@
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX : <http://example.com/>
 PREFIX ehri: <http://lod.ehri-project-test.eu/ontology#>
 PREFIX ehri_country: <http://lod.ehri-project-test.eu/countries/>
-#TODO instutions with mixed paths
+PREFIX ehri_region: <http://lod.ehri-project-test.eu/regions/>
+PREFIX ehri_city: <http://lod.ehri-project-test.eu/cities/>
 PREFIX ehri_institution: <http://lod.ehri-project-test.eu/institutions/>
+PREFIX ehri_institution_location: <http://lod.ehri-project-test.eu/institutions/locations/>
+PREFIX ehri_institution_address: <http://lod.ehri-project-test.eu/institutions/address/>
+PREFIX ehri_institution_coordinates: <http://lod.ehri-project-test.eu/institutions/coordinates/>
+PREFIX ehri_other_name: <http://lod.ehri-project-test.eu/otherNames/>
+PREFIX ehri_parallel_name: <http://lod.ehri-project-test.eu/parallelNames/>
+PREFIX ehri_institution_mandate: <http://lod.ehri-project-test.eu/institutions/mandates/>
 PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
-PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
+PREFIX ehri_terms: <http://lod.ehri-project-test.eu/vocabularies/ehri-terms/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
-PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-SOURCE repositories <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\institutions\institutions_*.json>
+FUNCTIONS transformers <scala: file:///C:\Users\Herminio\Git\EHRI2LOD\src\ShExMLTemplates\functions\Transformers.scala>
+SOURCE repositories <institutions\institutions_*.json>
 
 ITERATOR repositories_iterator <jsonpath: $.data[*]> {
 	FIELD id <id>
@@ -30,7 +37,7 @@ ITERATOR repositories_iterator <jsonpath: $.data[*]> {
   	FIELD postal_code <attributes.address.postalCode>
   	FIELD country <attributes.address.country>
   	FIELD country_code <relationships.country.data.id>
-  	FIELD accesibility <attributes.address.accesibility>
+  	FIELD accessibility <attributes.accessibility>
   	FIELD geo_type <attributes.geo.type>
   	FIELD lat <attributes.geo.coordinates[0]>
   	FIELD long <attributes.geo.coordinates[1]>
@@ -39,84 +46,109 @@ ITERATOR repositories_iterator <jsonpath: $.data[*]> {
   	FIELD url <attributes.address.url[*]>
 	FIELD email <attributes.address.email[*]>
 	FIELD openingTimes <attributes.address.openingTimes>
+	FIELD contactPerson <attributes.address.contactPerson>
 	FIELD mandates <attributes.mandates>
 	FIELD conditions <attributes.conditions>
 	FIELD reproductionServices <attributes.reproductionServices>
 	FIELD generalContext <attributes.generalContext>
+	FIELD administrativeStructure <attributes.administrativeStructure>
+	FIELD records <attributes.records>
+	FIELD buildings <attributes.buildings>
+	FIELD holdings <attributes.holdings>
+	FIELD researchServices <attributes.researchServices>
+	FIELD publicAreas <attributes.publicAreas>
 }
 
 EXPRESSION organization <repositories.repositories_iterator>
-EXPRESSION coordinates <repositories.repositories_iterator.lat + ", " + repositories.repositories_iterator.long>
-EXPRESSION location <repositories.repositories_iterator.street_address + ", " + repositories.repositories_iterator.city>
-
-AUTOINCREMENT person_id <"person_" + 0 to 99999999>
-AUTOINCREMENT organization_id <"organization_" + 0 to 99999999>
-AUTOINCREMENT genreform_id <"genreform_" + 0 to 99999999>
-AUTOINCREMENT authfilenumber_id <"authfilenumber_" + 0 to 99999999>
-AUTOINCREMENT location_id <"location" + 0 to 99999999>
-AUTOINCREMENT agent_name_id <"agentName" + 0 to 99999999>
-AUTOINCREMENT mandate_id <"mandate" + 0 to 99999999>
-
-MATCHER languages <English AS Q1860 &
-	German AS Q188 &
-	Hebrew AS Q9288 >
-  
-MATCHER languages_codes <English AS eng &
-	German AS deu &
-	Hebrew AS heb >
+EXPRESSION coordinates <repositories.repositories_iterator.lat + "-" + repositories.repositories_iterator.long>
 
 ehri:Institution ehri_institution:[organization.id] {
-	a rico:CorporateBody ;
-	a schema:ArchiveOrganization ;
-  	rdfs:label [organization.name] ;
-  	schema:faxNumber [organization.fax] ;
-  	schema:telephone [organization.telephone] ;
-	schema:email [organization.email] ;
+	a ehri:Institution ;
+  	rico:name [organization.name] ;
 	schema:openingHours [organization.openingTimes] ;
-  	rico:history [organization.history] @eng ;
-	rico:descriptiveNote [organization.description] @eng ;
-	ehri:conditions [organization.conditions] @eng ;
-	ehri:reproductionServices [organization.reproductionServices] @eng ;
+	rico:history [organization.history] @eng ; #the language is not offered by the API but it would be safer to generate this dynamically
+	rico:generalDescription [organization.description] @eng ;
+	ehri:institutionConditionsOfAccess [organization.conditions] @eng ;
+	ehri:institutionReproductionServices [organization.reproductionServices] @eng ;
 	ehri:generalContext [organization.generalContext] @eng ;
-  	owl:sameAs [organization.url] ;
-  	rico:hasOrHadLocation @ehri:InstitutionLocation ;
-	rico:hasAgentName @ehri:AgentName ;
-	rico:hasAgentName @ehri:AgentParallelName ;
-	rico:hasAgentName @ehri:AgentOtherName ;
+	ehri:administrativeStructure [organization.administrativeStructure] @eng ;
+	ehri:recordsManagementAndCollectingPolicies [organization.records] @eng ;
+	ehri:buildings [organization.buildings] @eng ;
+	ehri:holdings [organization.holdings] @eng ;
+	ehri:accesibility [organization.accessibility] @eng ;
+	ehri:researchServices [organization.researchServices] @eng ;
+	ehri:publicAreas [organization.publicAreas] @eng ;
+	rdfs:seeAlso [organization.url] ;
+  	rico:agentHasOrHadLocation @ehri:InstitutionLocation ;
+	rico:hasOrHadAgentName @ehri:AgentParallelName ;
+	rico:hasOrHadAgentName @ehri:AgentOtherName ;
 	rico:authorizedBy @ehri:Mandate ;
 }
- 
-ehri:InstitutionLocation _:[location_id] {
+
+ehri:InstitutionLocation ehri_institution_location:[organization.id] { # better id is needed and for now it only takes into account that one address can exist
 	a rico:Place ;
-	a schema:PostalAddress ;
-	rico:geographicalCoordinates [coordinates] ;
-  	schema:addressCountry ehri_country:[organization.country_code] ;
+	rico:isOrWasContainedBy @ehri:Region ;
+	rico:isOrWasContainedBy @ehri:City ;
 	rico:isOrWasContainedBy ehri_country:[organization.country_code] ;
-  	schema:addressRegion [organization.region] ;
-  	schema:postalCode [organization.postal_code] ;
-  	rico:location [location] ;
+	rico:hasOrHadPhysicalLocation @ehri:InstitutionAddress ;
+}
+ 
+ehri:InstitutionAddress ehri_institution_address:[organization.id] { # better id is needed and for now it only takes into account that one address can exist
+	a ehri:InstitutionAddress ;
+	rico:hasOrHadCoordinates @ehri:Coordinates ;
+	schema:postalCode [organization.postal_code] ;
+	rico:name [organization.street_address] ;
+	schema:faxNumber [organization.fax] ;
+  	schema:telephone [organization.telephone] ;
+	schema:email [organization.email] ;
+	ehri:contactPerson [organization.contactPerson] ;
+	schema:contactType [organization.address_name] ;
+	rico:isOrWasPhysicalLocationOf ehri_institution_location:[organization.id] ;
 }
 
-ehri:AgentName _:[agent_name_id] {
+ehri:Coordinates ehri_institution_coordinates:[coordinates] {
+	a rico:Coordinates ;
+	rico:latitude [organization.lat] ;
+	rico:longitude [organization.long] ;
+	rico:isOrWasCoordinatesOf ehri_institution_address:[organization.id] ; # this may not work as expected
+}
+
+ehri:Region ehri_region:[organization.region] {
+	a rico:Place ;
+	rico:name [organization.region] ;
+	rico:isOrWasContainedBy ehri_country:[transformers.toLowerCase(organization.country_code)] ;
+	rico:containsOrContained ehri_city:[organization.city] ;
+	# To be implemented owl:sameAs
+}
+
+ehri:City ehri_region:[organization.city] {
+	a rico:Place ;
+	rico:name [organization.city] ;
+	rico:isOrWasContainedBy ehri_region:[organization.region] ;
+	rico:isOrWasContainedBy ehri_country:[transformers.toLowerCase(organization.country_code)] ;
+	# To be implemented owl:sameAs
+}
+
+ehri:AgentParallelName ehri_parallel_name:[organization.id] { # better id is needed and a way to separate the different names has to be found
 	a rico:AgentName ;
-	rdfs:label [organization.name] ;
+	rico:name [organization.parallelNames] ;
+	rico:isOrWasAgentNameOf ehri_institution:[organization.id] ;
 }
 
-ehri:AgentParallelName _:[agent_name_id] {
+ehri:AgentOtherName ehri_other_name:[organization.id] { # better id is needed and a way to separate the different names has to be found
 	a rico:AgentName ;
-	rdfs:label [organization.parallelNames] ;
+	rico:name [organization.otherNames] ;
+	rico:isOrWasAgentNameOf ehri_institution:[organization.id] ;
 }
 
-ehri:AgentOtherName _:[agent_name_id] {
-	a rico:AgentName ;
-	rdfs:label [organization.otherNames] ;
-}
-
-ehri:Mandate _:[mandate_id] {
+ehri:Mandate ehri_institution_mandate:[organization.id] { # better id is needed
 	a rico:Mandate ;
-	rdf:value [organization.mandates] @eng ;
+	rico:generalDescription [organization.mandates] @eng ; # the lang code should come from the API
+	rico:authorizes ehri_institution:[organization.id] ;
 }
 
-ehri:Country ehri_country:[organization.country_code] {
-	rico:containsOrContained ehri_institution:[organization.id] ;
+ehri:Country ehri_country:[transformers.toLowerCase(organization.country_code)] { 
+	rico:isOrWasLocationOfAgent ehri_institution:[organization.id] ;
+	rico:containsOrContained ehri_region:[organization.region] ;
+	rico:containsOrContained ehri_city:[organization.country] ;
 }
