@@ -23,11 +23,9 @@ FUNCTIONS transformers <scala: file:///C:\Users\Herminio\Git\EHRI2LOD\src\ShExML
 SOURCE repositories <institutions\institutions_*.json>
 
 ITERATOR repositories_iterator <jsonpath: $.data[*]> {
-	FIELD id <id>
+	PUSHED_FIELD id <id>
   	FIELD type <type>
   	FIELD name <attributes.name>
-	FIELD parallelNames <attributes.parallelFormsOfName[*]>
-	FIELD otherNames <attributes.otherFormsOfName[*]>
   	FIELD history <attributes.history>
 	FIELD description <attributes.holdings>
   	FIELD address_name <attributes.address.name>
@@ -57,10 +55,20 @@ ITERATOR repositories_iterator <jsonpath: $.data[*]> {
 	FIELD holdings <attributes.holdings>
 	FIELD researchServices <attributes.researchServices>
 	FIELD publicAreas <attributes.publicAreas>
+	ITERATOR parallelNames <attributes.parallelFormsOfName> {
+		FIELD name <[*]>
+		POPPED_FIELD repository_id <id>
+	}
+	ITERATOR otherNames <attributes.otherFormsOfName> {
+		FIELD name <[*]>
+		POPPED_FIELD repository_id <id>
+	}
 }
 
 EXPRESSION organization <repositories.repositories_iterator>
 EXPRESSION coordinates <repositories.repositories_iterator.lat + "-" + repositories.repositories_iterator.long>
+EXPRESSION parallel_name_id <repositories.repositories_iterator.parallelNames.repository_id + "-" + repositories.repositories_iterator.parallelNames.name>
+EXPRESSION other_name_id <repositories.repositories_iterator.otherNames.repository_id + "-" + repositories.repositories_iterator.otherNames.name>
 
 ehri:Institution ehri_institution:[organization.id] {
 	a ehri:Institution ;
@@ -129,16 +137,16 @@ ehri:City ehri_region:[organization.city] {
 	# To be implemented owl:sameAs
 }
 
-ehri:AgentParallelName ehri_parallel_name:[organization.id] { # better id is needed and a way to separate the different names has to be found
+ehri:AgentParallelName ehri_parallel_name:[parallel_name_id] { # better id is needed and a way to separate the different names has to be found
 	a rico:AgentName ;
-	rico:name [organization.parallelNames] ;
-	rico:isOrWasAgentNameOf ehri_institution:[organization.id] ;
+	rico:name [organization.parallelNames.name] ;
+	rico:isOrWasAgentNameOf ehri_institution:[organization.parallelNames.repository_id] ;
 }
 
-ehri:AgentOtherName ehri_other_name:[organization.id] { # better id is needed and a way to separate the different names has to be found
+ehri:AgentOtherName ehri_other_name:[other_name_id] { # better id is needed and a way to separate the different names has to be found
 	a rico:AgentName ;
-	rico:name [organization.otherNames] ;
-	rico:isOrWasAgentNameOf ehri_institution:[organization.id] ;
+	rico:name [organization.otherNames.name] ;
+	rico:isOrWasAgentNameOf ehri_institution:[organization.parallelNames.repository_id] ;
 }
 
 ehri:Mandate ehri_institution_mandate:[organization.id] { # better id is needed
