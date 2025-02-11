@@ -1,0 +1,46 @@
+ITERATOR components_iterator <jsonpath: $.data[*]> {
+	PUSHED_FIELD id <id>
+	PUSHED_FIELD id_if_acquisition <[?(@.attributes.descriptions[*].acquisition)].id>
+  	PUSHED_FIELD archived_at <relationships.holder.data.id>
+	FIELD parent <relationships.parent.data.id>
+	FIELD local_id <attributes.localId>
+	ITERATOR alternate_ids <attributes.alternateIds> {
+		FIELD id <[*]>
+		POPPED_FIELD holding_id <id>
+	}
+  	ITERATOR descriptions <attributes.descriptions[*]> {
+		FIELD description <*>
+    	FIELD name <name>
+		FIELD local_id <localId>
+		FIELD local_id_if_acquisition <[?(@.acquisition)].localId>
+        FIELD abstract <scopeAndContent>
+        FIELD physdesc <extentAndMedium>
+        FIELD system_arrangement <systemOfArrangement>
+        FIELD bioghist <biographicalHistory>
+		FIELD arch_hist <archivalHistory>
+        FIELD acquisition <acquisition>
+		FIELD appraisal <appraisal>
+		PUSHED_FIELD language_code <languageCode>
+		POPPED_FIELD holding_id <id>
+		POPPED_FIELD holding_id_if_acquisition <id_if_acquisition>
+		POPPED_FIELD archive_id <archived_at>
+		ITERATOR language_of_materials <languageOfMaterials> {
+			FIELD lang <[*]>
+		}
+		ITERATOR script_of_materials <scriptOfMaterials> {
+			FIELD script <[*]>
+		}
+		ITERATOR parallel_names <parallelFormsOfName> {
+			FIELD name <[*]>
+			POPPED_FIELD lang_code <language_code>
+			POPPED_FIELD unit_id <id>
+		}
+		ITERATOR dates <unitDates> {
+			FIELD date <[*]>
+		}
+    }
+}
+
+EXPRESSION holding <holdings.components_iterator>
+EXPRESSION instantiation_id_if_acquisition <holdings.components_iterator.descriptions.holding_id_if_acquisition + "-" + holdings.components_iterator.descriptions.local_id_if_acquisition>
+EXPRESSION alternateIdComposedId <holdings.components_iterator.alternate_ids.holding_id + "-" + holdings.components_iterator.alternate_ids.id>
