@@ -1,0 +1,15 @@
+ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
+	PUSHED_FIELD item_id <identifier>
+  	ITERATOR links <links[*]> {
+          ITERATOR targets <targets[?(@.type=='DocumentaryUnit')]> {
+              FIELD unit_id <id>
+              POPPED_FIELD parent_id <item_id>
+          }    
+      }
+}
+
+EXPRESSION term <terms.terms_iterator>
+
+ehri:Camp ehri_units:[term.links.targets.unit_id] {
+    rico:hasOrHadSubject ehri_camps:[term.links.targets.parent_id] ;
+}
