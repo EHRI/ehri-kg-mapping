@@ -1,0 +1,86 @@
+ehri:Holding ehri_units:[holding.id] { # common shape
+  	a ehri:Record ; # to do a function to check the level and the parents
+	# rico:hasRecordSetType TBD when the API outputs this information (level attribute)
+	rico:title [holding.descriptions.name] @[holding.descriptions.language_code] ;
+	rico:hasOrHadTitle @ehri:HoldingParralelFormOfName ;
+	rico:scopeAndContent [holding.descriptions.abstract] @[holding.descriptions.language_code] ;
+	rico:recordResourceExtent [holding.descriptions.physdesc] @[holding.descriptions.language_code] ;
+	rico:recordResourceStructure [holding.descriptions.system_arrangement] @[holding.descriptions.language_code] ;
+	rico:date [holding.descriptions.dates.date IF validators.nonDateInterval(holding.descriptions.dates.date)] ; # Pending a fix to a possible bug in ShExML
+	rico:hasBeginningDate @ehri:HoldingBeginningDate ;
+	rico:hasEndDate @ehri:HoldingEndDate ;
+	rico:isOrWasIncludedIn ehri_units:[holding.parent] ;
+	rico:resultsOrResultedFrom @ehri:Acquisition ;
+	rico:identifier [holding.local_id] ;
+	rico:history [holding.descriptions.bioghist] @[holding.descriptions.language_code] ;
+	rico:history [holding.descriptions.arch_hist] @[holding.descriptions.language_code] ;
+	ehri:appraisal [holding.descriptions.appraisal] @[holding.descriptions.language_code] ;
+	# rico:accruals [] Has to be implemented in the API
+	# rico:conditionsOfAccess [] Has to be implemented in the API
+	# rico:conditionOfUse [] Has to be implemented in the API
+	ehri:scriptOfMaterials @ehri:MaterialScript ;
+	# ehri:physicalCharacterisiticsAndTechnicalRequirements [] Has to be implemented in the API
+	# ehri:otherFindingAids [] Has to be implemented in the API
+	# ehri:locationOfOriginals [] Has to be implemented in the API
+	# ehri:locationOfCopies [] Has to be implemented in the API
+	# ehri:wasUsedAsSourceIn [] Has to be implemented in the API
+	# ehri:sources [] Has to be implemented in the API
+	# ehri:notes [] Has to be implemented in the API
+	# ehri:archivistNote [] Has to be implemented in the API
+	# ehri:relatedMaterial [] Has to be implemented in the API
+	# ehri:separatedMaterial [] Has to be implemented in the API
+	rico:hasOrHadHolder ehri_institution:[holding.descriptions.archive_id] ;
+	# rdfs:seeAlso [] Has to be implemented in the API
+	rico:hasOrHadIdentifier @ehri:AlternateIds ;
+}
+
+ehri:HoldingRecordSet ehri_units:[holding.id IF validators.isRecord(holding.parent)] { # the function can be improved to include the level and the children once they are present in the API
+	rico:hasOrHadLanguage @ehri:Language ;
+}
+
+ehri:HoldingRecord ehri_units:[holding.id IF validators.isRecordSet(holding.parent)] { # the function can be improved to include the level and the children once they are present in the API
+	rico:hasOrHadSomeMembersWithLanguage @ehri:Language ;
+}
+
+ehri:HoldingParralelFormOfName ehri_parallel_name:[holding.descriptions.parallel_names.unit_id] { # better id is needed and for now it only takes into account that one parallel name can exist
+	a rico:Title ;
+	rico:name [holding.descriptions.parallel_names.name] @[holding.descriptions.parallel_names.lang_code] ;
+}
+
+ehri:HoldingBeginningDate ehri_date:[transformers.toBeginningDateID(holding.id) IF validators.validateDateInterval(holding.descriptions.dates.date)] { # better id is needed and for now it only takes into account that one address can exist. # Pending to fix a possible error in ShExML
+	a rico:Date ;
+	rico:normalizedDateValue [holding.descriptions.dates] ;
+	rico:isBeginningDateOf ehri_units:[holding.descriptions.holding_id] ;
+}
+
+ehri:HoldingEndDate ehri_date:[transformers.toEndDateID(holding.id) IF validators.validateDateInterval(holding.descriptions.dates.date)] { # better id is needed and for now it only takes into account that one address can exist # Pending to fix a possible error in ShExML
+	a rico:Date ;
+	rico:normalizedDateValue [holding.descriptions.dates] ;
+	rico:isBeginningDateOf ehri_units:[holding.descriptions.holding_id] ;
+}
+
+ehri:ArchiveComponent ehri_units:[holding.parent] {
+	rico:includesOrIncluded ehri_units:[holding.id] ;
+}
+
+ehri:Language ehri_language:[holding.descriptions.language_of_materials.lang] {
+   	a rico:Language ;
+   	rico:name [holding.descriptions.language_of_materials.lang] ;
+}
+
+ehri:Acquisition ehri_acquisition:[instantiation_id_if_acquisition] {
+	a rico:Activity ;
+	rico:hasActivityType ehri:AcquisitionType ;
+	rico:generalDescription [holding.descriptions.acquisition] @[holding.descriptions.language_code] ;
+}
+
+ehri:MaterialScript ehri_material_script:[holding.descriptions.script_of_materials.script] {
+	a ehri:MaterialScript ;
+	rico:name [holding.descriptions.script_of_materials.script] ;
+}
+
+ehri:AlternateIds ehri_alternate_ids:[alternateIdComposedId] {
+	a rico:Identifier ;
+	rico:textualValue [holding.alternate_ids.id] ;
+	rico:isOrWasIdentifierOf ehri_units:[holding.alternate_ids.holding_id] ;
+}
