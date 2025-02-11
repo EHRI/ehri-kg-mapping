@@ -8,8 +8,8 @@ src/ghettos/*
 src/people/*
 src/cb/*
 src/institutions/*
-src/shexmlOutput/*
-src/shexmlRules/*
+src/shexmlOutputHoldings/*
+src/shexmlRulesHoldings/*
 src/shexmlOutputTerms/*
 src/shexmlRulesTerms/*
 src/shexmlOutputCamps/*
