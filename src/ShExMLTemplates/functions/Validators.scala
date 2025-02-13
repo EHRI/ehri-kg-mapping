@@ -20,4 +20,28 @@ class Validators {
     def nonEmpty(str: String): Boolean = {
         str.nonEmpty
     }
+
+    def isFamily(cbType: String): Boolean = {
+        cbType == "family"
+    }
+
+    def isCB(cbType: String): Boolean = {
+        !isFamily(cbType)
+    }
+
+    def isURL(input: String): Boolean = {
+        try {
+            // For the moment this allows to parse the output
+            val processedInput = input.replaceFirst("\\[", "").reverse.replaceFirst("\\]", "").reverse
+            new java.net.URL(processedInput)
+            true
+        } catch {
+            case e: java.net.MalformedURLException => false
+            case _ => false
+        }
+    }
+
+    def nonURL(input: String): Boolean = {
+        !isURL(input)
+    }
 }

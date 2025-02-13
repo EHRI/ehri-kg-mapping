@@ -8,7 +8,7 @@ from functools import partial
 
 shexml_first_part = r"""
 IMPORT <ShExMLTemplates/partial/CampsHeader.shexml>
-SOURCE terms <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\camps\camps_"""
+SOURCE terms <camps\camps_"""
 
 shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/CampsIteratorsAndShapes.shexml>

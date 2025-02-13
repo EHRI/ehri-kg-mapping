@@ -9,7 +9,7 @@ class Transformers {
     }
 
     def rightPartDate(unitDate: String): String = {
-        unitDate.split("-")(1)
+        unitDate.split("-").drop(1).headOption.getOrElse("")
     }
 
     def toBeginningDateID(id: String): String = {
@@ -18,6 +18,10 @@ class Transformers {
 
     def toEndDateID(id: String): String = {
         id + "-endDate"
+    }
+
+    def removeSquareBrackets(input: String): String = {
+        input.replaceFirst("\\[", "").reverse.replaceFirst("\\]", "").reverse
     }
 
 }

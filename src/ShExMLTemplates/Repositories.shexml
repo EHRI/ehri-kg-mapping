@@ -10,7 +10,7 @@ PREFIX ehri_institution_address: <http://lod.ehri-project-test.eu/institutions/a
 PREFIX ehri_institution_coordinates: <http://lod.ehri-project-test.eu/institutions/coordinates/>
 PREFIX ehri_other_name: <http://lod.ehri-project-test.eu/otherNames/>
 PREFIX ehri_parallel_name: <http://lod.ehri-project-test.eu/parallelNames/>
-PREFIX ehri_institution_mandate: <http://lod.ehri-project-test.eu/institutions/mandates/>
+PREFIX ehri_mandate: <http://lod.ehri-project-test.eu/mandates/>
 PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
 PREFIX ehri_terms: <http://lod.ehri-project-test.eu/vocabularies/ehri-terms/>
 PREFIX dbr: <http://dbpedia.org/resource/>
