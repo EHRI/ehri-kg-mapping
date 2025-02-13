@@ -20,4 +20,8 @@ class Transformers {
         id + "-endDate"
     }
 
+    def removeSquareBrackets(input: String): String = {
+        input.replaceFirst("\\[", "").reverse.replaceFirst("\\]", "").reverse
+    }
+
 }

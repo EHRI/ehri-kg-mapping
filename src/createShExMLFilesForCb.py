@@ -7,63 +7,17 @@ import multiprocessing as mp
 from functools import partial
 
 shexml_first_part = r"""
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX : <http://example.com/>
-PREFIX ehri: <http://lod.ehri-project-test.eu/>
-PREFIX ehri_country: <http://lod.ehri-project-test.eu/countries/>
-#TODO instutions with mixed paths
-PREFIX ehri_institution: <http://lod.ehri-project-test.eu/institutions/>
-PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
-PREFIX ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/>
-PREFIX dbr: <http://dbpedia.org/resource/>
-PREFIX schema: <http://schema.org/>
-PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
-SOURCE cb <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\cb\cb_"""
+IMPORT <ShExMLTemplates/partial/CBHeader.shexml>
+SOURCE cb <cb\cb_"""
 
 shexml_second_part = r""".json>
-
-ITERATOR cb_iterator <jsonpath: $.data.AuthoritativeSet.authorities.items[*]> {
-	PUSHED_FIELD item_id <identifier>
-    FIELD name <description.name>
-    FIELD lastName <description.lastName>
-    FIELD firstName <description.firstName>
-    FIELD languageCode <description.languageCode>
-    FIELD sourceLink <description.source>
-    FIELD datesOfExistence <description.datesOfExistence>
-    FIELD biographicalHistory <description.biographicalHistory>
-    FIELD otherFormsOfName <description.otherFormsOfName>
-    FIELD parallelFormsOfName <description.parallelFormsOfName>
-  	ITERATOR links <links[*]> {
-          FIELD fakefield <fakefield>
-          ITERATOR targets <targets[?(@.type=='DocumentaryUnit')]> {
-              FIELD unit_id <id>
-              POPPED_FIELD parent_id <item_id>
-          }    
-      }
-}
-
-EXPRESSION cbs <cb.cb_iterator>
-
-ehri:Thing ehri_cb:[cbs.item_id] {
-    a rico:CorporateBody ;
-    rdfs:label [cbs.name] @[cbs.languageCode] ;
-    owl:sameAs [cbs.sourceLink] ;
-    rico:history [cbs.biographicalHistory] @eng ;
-}
-
-ehri:Link ehri_units:[cbs.links.targets.unit_id] {
-    rico:hasOrHadSubject ehri_cb:[cbs.links.targets.parent_id] ;
-}
-
+IMPORT <ShExMLTemplates/partial/CBIteratorsAndShapes.shexml>
 """
 
 created_files = []
 
 def call_shexml(i, output_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.5.1.jar", "-m", i, "-o", output_filename, "-id", "-nu"])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "shexml.jar", "-m", i, "-o", output_filename, "-id", "-nu"])
 
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)
