@@ -49,8 +49,8 @@ ehri:CBAndFamily ehri_cb:[cbs.item_id] { # it is possible to use different prefi
     ehri:sources [transformers.removeSquareBrackets(cbs.sourceLink) IF validators.nonURL(cbs.sourceLink)] ; 
    	#rico:date [cbs.dates.date IF validators.nonDateInterval(cbs.dates.date)] ; # this field is not mapped in the API, pending a fix to a possible bug in ShExML and it could be divided into beginning and ending dates.
     rico:date [cbs.datesOfExistence IF validators.nonDateInterval(cbs.datesOfExistence)] ; # Pending a fix to a possible bug in ShExML
-	rico:hasBeginningDate @ehri:HoldingBeginningDate ;
-	rico:hasEndDate @ehri:HoldingEndDate ;
+	rico:hasBeginningDate @ehri:CBBeginningDate ;
+	rico:hasEndDate @ehri:CBEndDate ;
     # rico:agentHasOrHadLocation @ehri:AuthorityPlace ; # This is not present in the API and it will be difficult to determine the correct prefix among cities, countries and regions.
     rico:hasOrHadLegalStatus @ehri:AuthorityLegalStatus ;
     rico:performsOrPerformed @ehri:AuthorityActivity ;
@@ -75,13 +75,13 @@ ehri:AgentParallelName ehri_parallel_name:[parallel_name_id] { # better id is ne
 	rico:isOrWasAgentNameOf ehri_cb:[cbs.parallelFormsOfName.name] ;
 }
 
-ehri:HoldingBeginningDate ehri_date:[transformers.toBeginningDateID(cbs.item_id) IF validators.validateDateInterval(cbs.datesOfExistence)] { # better id is needed and for now it only takes into account that one address can exist. # Pending to fix a possible error in ShExML
+ehri:CBBeginningDate ehri_date:[transformers.toBeginningDateID(cbs.item_id) IF validators.validateDateInterval(cbs.datesOfExistence)] { # better id is needed and for now it only takes into account that one address can exist. # Pending to fix a possible error in ShExML
 	a rico:Date ;
 	rico:normalizedDateValue [transformers.leftPartDate(cbs.datesOfExistence)] ;
 	rico:isBeginningDateOf ehri_cb:[cbs.item_id] ;
 }
 
-ehri:HoldingEndDate ehri_date:[transformers.toEndDateID(cbs.item_id) IF validators.validateDateInterval(cbs.datesOfExistence)] { # better id is needed and for now it only takes into account that one address can exist # Pending to fix a possible error in ShExML
+ehri:CBEndDate ehri_date:[transformers.toEndDateID(cbs.item_id) IF validators.validateDateInterval(cbs.datesOfExistence)] { # better id is needed and for now it only takes into account that one address can exist # Pending to fix a possible error in ShExML
 	a rico:Date ;
 	rico:normalizedDateValue [transformers.rightPartDate(cbs.datesOfExistence)] ;
 	rico:isBeginningDateOf ehri_units:[cbs.item_id] ;
