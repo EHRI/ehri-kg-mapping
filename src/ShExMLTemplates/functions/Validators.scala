@@ -44,4 +44,20 @@ class Validators {
     def nonURL(input: String): Boolean = {
         !isURL(input)
     }
+
+    def isDocumentaryUnit(id: String, targetID: String, theType: String): Boolean = {
+        id == targetID && theType == "DocumentaryUnit"
+    }
+
+    def isObjectDocumentaryUnit(id: String, targetID: String, theType: String): Boolean = {
+        id != targetID && theType == "DocumentaryUnit"
+    }
+
+    def isObjectInstitution(id: String, targetID: String, theType: String): Boolean = {
+        id != targetID && theType == "Repository"
+    }
+
+    def isInstitution(id: String, targetID: String, theType: String): Boolean = {
+        id == targetID && theType == "Repository"
+    }
 }
