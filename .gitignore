@@ -8,6 +8,8 @@ src/ghettos/*
 src/people/*
 src/cb/*
 src/institutions/*
+src/holdingsCopiesAndLinks/*
+src/institutionsCopiesAndLinks/*
 src/shexmlOutputHoldings/*
 src/shexmlRulesHoldings/*
 src/shexmlOutputTerms/*
@@ -20,6 +22,10 @@ src/shexmlOutputPeople/*
 src/shexmlRulesPeople/*
 src/shexmlOutputCb/*
 src/shexmlRulesCb/*
+src/shexmlOutputHoldingsCopiesAndLinks/*
+src/shexmlRulesHoldingsCopiesAndLinks/*
+src/shexmlOutputInstitutionsCopiesAndLinks/*
+src/shexmlRulesInstitutionsCopiesAndLinks/*
 src/holdings.ttl
 src/repositories.ttl
 src/institutions.ttl
