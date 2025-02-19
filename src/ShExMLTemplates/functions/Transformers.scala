@@ -24,4 +24,7 @@ class Transformers {
         input.replaceFirst("\\[", "").reverse.replaceFirst("\\]", "").reverse
     }
 
+    def removeCBPrefix(value: String): String = {
+        value.replaceFirst("ehri_cb-", "")
+    }
 }

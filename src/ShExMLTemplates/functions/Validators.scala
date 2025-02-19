@@ -60,4 +60,8 @@ class Validators {
     def isInstitution(id: String, targetID: String, theType: String): Boolean = {
         id == targetID && theType == "Repository"
     }
+
+    def hasCBPrefix(value: String): Boolean = {
+        value.startsWith("ehri_cb-")
+    }
 }
