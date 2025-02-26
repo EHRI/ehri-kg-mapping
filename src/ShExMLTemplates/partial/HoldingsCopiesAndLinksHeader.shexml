@@ -4,5 +4,5 @@ PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
 PREFIX ehri_institution: <http://lod.ehri-project-test.eu/institutions/>
 PREFIX ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/>
 PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
-FUNCTIONS validators <scala: file:///C:\Users\Herminio\Git\EHRI2LOD\src\ShExMLTemplates\functions\Validators.scala>
-FUNCTIONS transformers <scala: file:///C:\Users\Herminio\Git\EHRI2LOD\src\ShExMLTemplates\functions\Transformers.scala>
+FUNCTIONS validators <scala: ShExMLTemplates/functions/Validators.scala>
+FUNCTIONS transformers <scala: ShExMLTemplates/functions/Transformers.scala>

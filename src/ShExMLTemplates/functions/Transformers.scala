@@ -27,4 +27,20 @@ class Transformers {
     def removeCBPrefix(value: String): String = {
         value.replaceFirst("ehri_cb-", "")
     }
+
+    def combinedPathInstitutionLocation(institutionID: String): String = {
+        institutionID + "/locations/primary"
+    }
+
+    def combinedPathInstitutionAddress(institutionID: String): String = {
+        institutionID + "/addresses/primary"
+    }
+
+    def combinedPathInstitutionCoordinates(institutionID: String, lat: String, long: String): String = {
+        institutionID + "/coordinates/" + lat + "-" + long
+    }
+
+    def combinedPathInstitutionMandates(institutionID: String): String = {
+        institutionID + "/mandates/main"
+    }
 }

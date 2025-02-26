@@ -64,4 +64,8 @@ class Validators {
     def hasCBPrefix(value: String): Boolean = {
         value.startsWith("ehri_cb-")
     }
+    
+    def nonEmptyTwo(id: String, attribute: String): Boolean = {
+        id.nonEmpty && attribute.nonEmpty
+    }
 }

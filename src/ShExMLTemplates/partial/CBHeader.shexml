@@ -9,5 +9,5 @@ PREFIX ehri_legal_status: <http://lod.ehri-project-test.eu/legalStatuses/>
 PREFIX ehri_mandate: <http://lod.ehri-project-test.eu/mandates/>
 PREFIX ehri_activity: <http://lod.ehri-project-test.eu/activities/>
 PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
-FUNCTIONS validators <scala: file:///C:\Users\Herminio\Git\EHRI2LOD\src\ShExMLTemplates\functions\Validators.scala>
-FUNCTIONS transformers <scala: file:///C:\Users\Herminio\Git\EHRI2LOD\src\ShExMLTemplates\functions\Transformers.scala>
+FUNCTIONS validators <scala: ShExMLTemplates/functions/Validators.scala>
+FUNCTIONS transformers <scala: ShExMLTemplates/functions/Transformers.scala>
