@@ -19,3 +19,6 @@ mkdir shexmlRulesPeople
 mkdir cb
 mkdir shexmlOutputCb
 mkdir shexmlRulesCb
+mkdir institutionsCopiesAndLinks
+mkdir shexmlOutputInstitutionsCopiesAndLinks
+mkdir shexmlRulesInstitutionsCopiesAndLinks
