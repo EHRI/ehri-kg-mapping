@@ -1,23 +1,20 @@
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ehri: <http://lod.ehri-project-test.eu/ontology#>
-PREFIX ehri_country: <http://lod.ehri-project-test.eu/countries/>
-#TODO instutions with mixed paths
-PREFIX ehri_institution: <http://lod.ehri-project-test.eu/institutions/>
+PREFIX ehri_institutions: <http://lod.ehri-project-test.eu/institutions/>
 PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
 PREFIX ehri_terms: <http://data.ehri-project.eu/vocabularies/ehri-terms/>
-PREFIX ehri_language: <http://lod.ehri-project-test.eu/languages/>
-PREFIX ehri_acquisition: <http://lod.ehri-project-test.eu/acquisitions/>
+PREFIX ehri_languages: <http://lod.ehri-project-test.eu/languages/>
 PREFIX ehri_parallel_name: <http://lod.ehri-project-test.eu/parallelNames/>
 PREFIX ehri_material_script: <http://lod.ehri-project-test.eu/materialScripts/>
-PREFIX ehri_date: <http://lod.ehri-project-test.eu/dates/>
-PREFIX ehri_acquisition: <http://lod.ehri-project-test.eu/acquisitions/>
 PREFIX ehri_alternate_ids: <http://lod.ehri-project-test.eu/alternateIds/>
+PREFIX ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
-PREFIX ricoVocab: <https://www.ica.org/standards/RiC/vocabularies/documentaryFormTypes#>
+PREFIX ric_rst: <https://www.ica.org/standards/RiC/vocabularies/recordSetTypes#>
+PREFIX ehri_rst: <http://lod.ehri-project-test.eu/vocabularies/recordSetTypes#>
 FUNCTIONS transformers <scala: ShExMLTemplates/functions/Transformers.scala>
 FUNCTIONS validators <scala: ShExMLTemplates/functions/Validators.scala>

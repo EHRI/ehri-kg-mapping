@@ -9,12 +9,12 @@ class Validators {
         !validateDateInterval(unitDate)
     }
 
-    def isRecord(parentID: String): Boolean = {
-        parentID.nonEmpty
+    def isRecord(itemCount: Int): Boolean = {
+        itemCount == 0
     }
 
-    def isRecordSet(parentID: String): Boolean = {
-        !isRecord(parentID)
+    def isRecordSet(itemCount: Int): Boolean = {
+        !isRecord(itemCount)
     }
 
     def nonEmpty(str: String): Boolean = {
@@ -67,5 +67,20 @@ class Validators {
     
     def nonEmptyTwo(id: String, attribute: String): Boolean = {
         id.nonEmpty && attribute.nonEmpty
+    }
+
+     def isRecordSetTypeDefinedInRiC(levelOfDescription: String): Boolean = {
+        levelOfDescription == "fonds" ||
+        levelOfDescription == "series" ||
+        levelOfDescription == "collection" ||
+        levelOfDescription == "file" 
+    }
+
+    def isRecordSetTypeDefinedInEHRI(levelOfDescription: String): Boolean = {
+        levelOfDescription == "subfonds" ||
+        levelOfDescription == "subseries" ||
+        levelOfDescription == "recordgrp" ||
+        levelOfDescription == "subgrp" ||
+        levelOfDescription == "subcollection"
     }
 }

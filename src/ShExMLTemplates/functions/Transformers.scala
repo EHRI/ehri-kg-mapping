@@ -43,4 +43,29 @@ class Transformers {
     def combinedPathInstitutionMandates(institutionID: String): String = {
         institutionID + "/mandates/main"
     }
+
+    def combinedPathHoldingAcquisition(holdingID: String): String = {
+        holdingID + "/acquisitions/1"
+    }
+
+    def recordOrRecordSet(levelOfDescription: String, itemCount: Int): String = {
+        if(levelOfDescription == "item" && itemCount == 0) "Record" else "RecordSet"
+    }
+
+    def getRecordSetType(levelOfDescription: String): String = {
+        if(levelOfDescription == "fonds") "Fonds"
+        else if(levelOfDescription == "series") "Series"
+        else if(levelOfDescription == "collection") "Collection"
+        else if(levelOfDescription == "file") "File"
+        else ""
+    }
+
+    def getEHRIDefinedRecordSetType(levelOfDescription: String): String = {
+        if(levelOfDescription == "subfonds") "Subfonds"
+        else if(levelOfDescription == "subseries") "Subseries"
+        else if(levelOfDescription == "recordgrp") "RecordGroup"
+        else if(levelOfDescription == "subgrp") "Subgroup"
+        else if(levelOfDescription == "subcollection") "Subcollection"
+        else ""
+    }
 }
