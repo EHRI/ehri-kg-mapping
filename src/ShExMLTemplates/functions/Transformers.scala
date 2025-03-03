@@ -28,20 +28,20 @@ class Transformers {
         value.replaceFirst("ehri_cb-", "")
     }
 
-    def combinedPathInstitutionLocation(institutionID: String): String = {
-        institutionID + "/locations/primary"
+    def combinedPathInstitutionLocation(institutionID: String, index: String): String = {
+        institutionID + "/locations/" + (index.toInt + 1)
     }
 
-    def combinedPathInstitutionAddress(institutionID: String): String = {
-        institutionID + "/addresses/primary"
+    def combinedPathInstitutionAddress(institutionID: String, index: String): String = {
+        institutionID + "/addresses/" + (index.toInt + 1)
     }
 
-    def combinedPathInstitutionCoordinates(institutionID: String, lat: String, long: String): String = {
-        institutionID + "/coordinates/" + lat + "-" + long
+    def combinedPathInstitutionCoordinates(institutionID: String): String = {
+        institutionID + "/coordinates/1"
     }
 
     def combinedPathInstitutionMandates(institutionID: String): String = {
-        institutionID + "/mandates/main"
+        institutionID + "/mandates/1"
     }
 
     def combinedPathHoldingAcquisition(holdingID: String): String = {
