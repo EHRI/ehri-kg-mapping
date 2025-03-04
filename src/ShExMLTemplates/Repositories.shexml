@@ -166,13 +166,13 @@ ehri:City ehri_cities:[organization.descriptions.addresses.municipality] {
 }
 
 ehri:AgentParallelName ehri_institutions:[parallel_name_id] {
-	a rico:AgentName ;
+	a ehri:ParallelAgentName ;
 	rico:name [organization.descriptions.parallelFormsOfName] ;
 	rico:isOrWasAgentNameOf ehri_institutions:[organization.descriptions.repository_id] ;
 }
 
 ehri:AgentOtherName ehri_institutions:[other_name_id] { 
-	a rico:AgentName ;
+	a ehri:AlternateAgentName ;
 	rico:name [organization.descriptions.otherFormsOfName] ;
 	rico:isOrWasAgentNameOf ehri_institutions:[organization.descriptions.repository_id] ;
 }
