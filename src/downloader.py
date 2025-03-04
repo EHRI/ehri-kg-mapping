@@ -44,6 +44,10 @@ ehri_historical_query_end = """\") {
             languageCode
             name
             identifier
+            dates {
+              startDate
+              endDate
+            }
             lastName
             firstName
             source
@@ -56,6 +60,9 @@ ehri_historical_query_end = """\") {
             occupation
             otherFormsOfName
             parallelFormsOfName
+            place
+            functions
+            mandates
           }
           links {
             targets {
@@ -80,39 +87,185 @@ ehri_historical_query_start = """{
 ehri_historical_query_middle = """\") {
     authorities(after: \""""
 
+ehri_holdings_start = """{
+  documentaryUnits(after: \""""
 
+ehri_repositories_start = """{
+  repositories(after: \""""
 
-def get_number_of_pages(url):
-    with urllib.request.urlopen(url) as response:
-        json_content = response.read()
-        data = json.loads(json_content)
-        return data['meta']['pages']
+ehri_countries_start = """{
+  countries(after: \""""
 
-def download_content_to_disk(type_name, url, pages, wait_seconds=0):
-    number_of_cpus = mp.cpu_count()
-    parallel = sys.argv[1] if len(sys.argv) > 1 else None
-    if parallel is not None and parallel == "--parallel":
-        with Pool(number_of_cpus) as p:
-            p.map(partial(download_by_page, type_name=type_name, url=url, pages=pages), range(1, pages + 1))
-    else:
-        for i in range(1, pages + 1):
-            download_by_page(i, type_name, url, pages, wait_seconds)
-        
-def download_by_page(i, type_name, url, pages, wait_seconds=0):
-    final_url = url + "&page=" + str(i)
-    filename = type_name + "/" + type_name + "_" + str(i) + ".json"
-    print(type_name + ": " + str(i) + " of " + str(pages))
-    if os.path.isfile(filename):
-        print(filename + " not downloaded as it already exists")
-    else:
-        success = False
-        while not(success):
-            try:
-                time.sleep(wait_seconds)
-                urllib.request.urlretrieve(final_url, filename)
-                success = True
-            except Exception as err:
-                print("Error while downloading the file " + filename + ": " + err)
+ehri_holdings_end = """\") {
+    items {
+      id
+      type
+    	descriptions {
+        languageCode
+        name
+        identifier
+        accessPoints {
+          id
+          name
+          type
+        }
+        dates {
+          startDate
+          endDate
+        }
+        archivistNote
+        archivalHistory
+        acquisition
+        appraisal
+        accruals
+        biographicalHistory
+        conditionsOfAccess
+        conditionsOfReproduction
+        datesOfDescriptions
+        extentAndMedium
+        levelOfDescription
+        relatedUnitsOfDescription
+        physicalCharacteristics
+        publicationNote
+        rulesAndConventions
+        scopeAndContent
+        separatedUnitsOfDescription
+        systemOfArrangement
+        findingAids
+        languageOfMaterial
+        locationOfOriginals
+        locationOfCopies
+        physicalLocation
+        notes
+        scriptOfMaterial
+        sources
+        unitDates
+      }
+      parent {
+        id
+      }
+      itemCount
+      repository {
+        id
+      }
+      links {
+        id
+        type
+        description
+        field
+        body {
+          id
+          name
+          type
+        }
+        targets {
+          id
+          type
+        }
+      }
+    }
+    pageInfo {
+      hasPreviousPage
+      previousPage
+      hasNextPage
+      nextPage
+    }
+  }
+}"""
+
+ehri_repositories_end = """\") {
+    items {
+      id
+      type
+      identifier
+      latitude
+      longitude
+      descriptions {
+        languageCode
+        name
+        identifier
+        addresses {
+          contactPerson
+          street
+          municipality
+          firstdem
+          countryCode
+          postalCode
+          email
+          telephone
+          fax
+          webpage
+        }
+        typeOfEntity
+        history
+        geoculturalContext
+        mandates
+        administrativeStructure
+        records
+        buildings
+        holdings
+        findingAids
+        openingTimes
+        conditions
+        accessibility
+        researchServices
+        reproductionServices
+        publicAreas
+        rulesAndConventions
+        status
+        datesOfDescriptions
+        maintenanceNotes
+        otherFormsOfName
+        parallelFormsOfName
+        languages
+        scripts
+        sources
+      }
+      country {
+        id
+      }
+      links {
+        id
+        type
+        description
+        field
+        body {
+          type
+        }
+        targets {
+          id
+          type
+        }
+      }
+    }
+    pageInfo {
+      hasPreviousPage
+      previousPage
+      hasNextPage
+      nextPage
+    }
+  }
+}"""
+
+ehri_countries_end = """\") {
+    items {
+      id
+      type
+      identifier
+      name
+      history
+      situation
+      summary
+      extensive
+    }
+    pageInfo {
+      hasPreviousPage
+      previousPage
+      hasNextPage
+      nextPage
+    }
+  }
+}"""
 
 def download_from_graphql(type_name, url, query_start, query_end, wait_seconds=0):
     i = 1
@@ -120,6 +273,7 @@ def download_from_graphql(type_name, url, query_start, query_end, wait_seconds=0
     next_page = True
     while next_page:
         filename = type_name + "/" + type_name + "_" + str(i) + ".json"
+        print(type_name + ": " + str(i))
         final_query = query_start + after + query_end
         json_query = {'query': final_query}
         headers = {'Content-type': 'application/json'}
@@ -135,46 +289,53 @@ def download_from_graphql(type_name, url, query_start, query_end, wait_seconds=0
                 if 'CvocVocabulary' in data['data']:
                     next_page = data['data']['CvocVocabulary']['concepts']['pageInfo']['hasNextPage']
                     after = data['data']['CvocVocabulary']['concepts']['pageInfo']['nextPage']
-                else:
+                elif 'AuthoritativeSet' in data['data']:
                     next_page = data['data']['AuthoritativeSet']['authorities']['pageInfo']['hasNextPage']
                     after = data['data']['AuthoritativeSet']['authorities']['pageInfo']['nextPage']
+                elif 'documentaryUnits' in data['data']:
+                    next_page = data['data']['documentaryUnits']['pageInfo']['hasNextPage']
+                    after = data['data']['documentaryUnits']['pageInfo']['nextPage']
+                elif 'repositories' in data['data']:
+                    next_page = data['data']['repositories']['pageInfo']['hasNextPage']
+                    after = data['data']['repositories']['pageInfo']['nextPage']
+                elif 'countries' in data['data']:
+                    next_page = data['data']['countries']['pageInfo']['hasNextPage']
+                    after = data['data']['countries']['pageInfo']['nextPage']
+                else:
+                    raise Exception("Unsupported data type")
                 success = True
             except Exception as err:
                 print("Error while downloading from GraphQL URL " + url + ": " + err)
         i += 1
 
 if __name__ == '__main__':
-    print("Downloading contents from the EHRI portal API")
+    print("Downloading contents from the EHRI Portal API")
 
     wait_seconds = 5
     
-    countries_url = "https://portal.ehri-project.eu/api/v1/search?type=country&limit=100"
-    institutions_url = "https://portal.ehri-project.eu/api/v1/search?type=Repository&limit=100"
-    holdings_url = "https://portal.ehri-project.eu/api/v1/search?type=DocumentaryUnit&limit=100"
     grapql_url = "https://portal.ehri-project.eu/api/graphql"
 
-    countries_pages = get_number_of_pages(countries_url)
-    institutions_pages = get_number_of_pages(institutions_url)
-    holdings_pages = get_number_of_pages(holdings_url)
+    print("Downloading EHRI countries...")
+    query_start = ehri_countries_start
+    download_from_graphql("countries", grapql_url, query_start, ehri_countries_end, wait_seconds)
 
-    print("Downloading countries...")
-    download_content_to_disk("countries", countries_url, countries_pages, wait_seconds)
+    print("Downloading EHRI institutions...")
+    query_start = ehri_repositories_start
+    download_from_graphql("institutions", grapql_url, query_start, ehri_repositories_end, wait_seconds)
 
-    print("Downloading institutions...")
-    download_content_to_disk("institutions", institutions_url, institutions_pages, wait_seconds)
-
-    print("Downloading holdings...")
-    download_content_to_disk("holdings", holdings_url, holdings_pages, wait_seconds)
+    print("Downloading EHRI documentary units...")
+    query_start = ehri_holdings_start
+    download_from_graphql("holdings", grapql_url, query_start, ehri_holdings_end, wait_seconds)
     
-    print("Downloading EHRI terms and links...")
+    print("Downloading EHRI terms...")
     query_start = ehri_terms_query_start + "ehri_terms" + ehri_terms_query_middle
     download_from_graphql("terms", grapql_url, query_start, ehri_terms_query_end, wait_seconds)
 
-    print("Downloading EHRI ghettos and links...")
+    print("Downloading EHRI ghettos...")
     query_start = ehri_terms_query_start + "ehri_ghettos" + ehri_terms_query_middle
     download_from_graphql("ghettos", grapql_url, query_start, ehri_terms_query_end, wait_seconds)
 
-    print("Downloading EHRI camps and links...")
+    print("Downloading EHRI camps...")
     query_start = ehri_terms_query_start + "ehri_camps" + ehri_terms_query_middle
     download_from_graphql("camps", grapql_url, query_start, ehri_terms_query_end, wait_seconds)
 
@@ -185,4 +346,3 @@ if __name__ == '__main__':
     print("Downloading EHRI corporate bodies...")
     query_start = ehri_historical_query_start + "ehri_cb" + ehri_historical_query_middle
     download_from_graphql("cb", grapql_url, query_start, ehri_historical_query_end, wait_seconds)
-
