@@ -48,8 +48,8 @@ ITERATOR people_iterator <jsonpath: $.data.AuthoritativeSet.authorities.items[*]
 }
 
 EXPRESSION person <people.people_iterator>
-EXPRESSION other_name_id <people.people_iterator.parallelFormsOfName.person_id + "/parallelNames/" + people.people_iterator.otherFormsOfName.name>
-EXPRESSION parallel_name_id <people.people_iterator.parallelFormsOfName.person_id + "/otherNames/" + people.people_iterator.parallelFormsOfName.name>
+EXPRESSION other_name_id <people.people_iterator.otherFormsOfName.person_id + "/otherNames/" + people.people_iterator.otherFormsOfName.name>
+EXPRESSION parallel_name_id <people.people_iterator.parallelFormsOfName.person_id + "/parallelNames/" + people.people_iterator.parallelFormsOfName.name>
 
 ehri:Person ehri_pers:[person.id] {
     a ehri:Person ;
@@ -96,7 +96,7 @@ ehri:PersonBeginningDate _:[transformers.toBeginningDateID(person.dates.person_i
 ehri:PersonEndDate _:[transformers.toEndDateID(person.dates.person_id, person.dates.person_id.index()) IF validators.nonEmpty(person.dates.endDate)] { 
 	a rico:Date ;
 	rico:normalizedDateValue [person.dates.endDate] ;
-	rico:isBeginningDateOf ehri_units:[person.dates.person_id] ;
+	rico:isBeginningDateOf ehri_pers:[person.dates.person_id] ;
 }
 
 ehri:AuthorityLegalStatus ehri_pers:[transformers.combinedPathHistoricalAgentLegalStatus(person.id) IF validators.nonEmpty(person.legalStatus)] {
@@ -121,6 +121,6 @@ ehri:AuthorityFunction ehri_pers:[transformers.combinedPathHistoricalAgentFuncti
 
 ehri:AuthorityMandate ehri_pers:[transformers.combinedPathHistoricalAgentMandate(person.mandates.person_id, person.mandates.mandate.index())] {
     a rico:Mandate ;
-    rico:generalDescription [person.mandates.mandate] @[person.funcs.langCode] ;
+    rico:generalDescription [person.mandates.mandate] @[person.mandates.langCode] ;
     rico:authorizes ehri_pers:[person.mandates.person_id] ;
 } 
