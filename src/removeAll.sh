@@ -26,13 +26,13 @@ rm -rf holdings_hash
 rm -rf institutions
 rm -rf terms
 rm -rf people
-rm -rf shexmlOutput
+rm -rf shexmlOutputHoldings
 rm -rf shexmlOutputCamps
 rm -rf shexmlOutputCb
 rm -rf shexmlOutputGhettos
 rm -rf shexmlOutputPeople
 rm -rf shexmlOutputTerms
-rm -rf shexmlRules
+rm -rf shexmlRulesHoldings
 rm -rf shexmlRulesCamps
 rm -rf shexmlRulesCb
 rm -rf shexmlRulesGhettos

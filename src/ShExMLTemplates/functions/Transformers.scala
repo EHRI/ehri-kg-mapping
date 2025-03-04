@@ -4,20 +4,12 @@ class Transformers {
         input.toLowerCase()
     }
 
-    def leftPartDate(unitDate: String): String = {
-        unitDate.split("-").head
+    def toBeginningDateID(mainEntityID: String, dateID: String): String = {
+        mainEntityID + "-" + dateID + "-beginningDate"
     }
 
-    def rightPartDate(unitDate: String): String = {
-        unitDate.split("-").drop(1).headOption.getOrElse("")
-    }
-
-    def toBeginningDateID(id: String): String = {
-        id + "-beginningDate"
-    }
-
-    def toEndDateID(id: String): String = {
-        id + "-endDate"
+    def toEndDateID(mainEntityID: String, dateID: String): String = {
+        mainEntityID + "-" + dateID + "-endDate"
     }
 
     def removeSquareBrackets(input: String): String = {
@@ -46,6 +38,22 @@ class Transformers {
 
     def combinedPathHoldingAcquisition(holdingID: String): String = {
         holdingID + "/acquisitions/1"
+    }
+
+    def combinedPathHistoricalAgentLegalStatus(historicalAgentID: String): String = {
+        historicalAgentID + "/legalStatuses/1"
+    }
+
+    def combinedPathHistoricalAgentOccupation(historicalAgentID: String): String = {
+        historicalAgentID + "/occupations/1"
+    }
+
+    def combinedPathHistoricalAgentFunction(historicalAgentID: String, index: String): String = {
+        historicalAgentID + "/functions/" + (index.toInt + 1)
+    }
+
+    def combinedPathHistoricalAgentMandate(historicalAgentID: String, index: String): String = {
+        historicalAgentID + "/mandates/" + (index.toInt + 1)
     }
 
     def recordOrRecordSet(levelOfDescription: String, itemCount: Int): String = {

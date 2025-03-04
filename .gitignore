@@ -40,6 +40,7 @@ src/people.ttl
 src/cb.ttl
 src/all.ttl
 src/allWithExtras.ttl
+src/*.jar
 
 ### Generic for Python
 
