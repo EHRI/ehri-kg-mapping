@@ -1,10 +1,11 @@
 ITERATOR components_iterator <jsonpath: $.data.documentaryUnits.items[*]> {
 	PUSHED_FIELD holding_id <id>
 	FIELD parentId <parent.id>
+	FIELD identifier <identifier>
 	FIELD itemCount <itemCount>
 	FIELD repositoryId <repository.id>
 	ITERATOR descriptions <descriptions[*]> {
-		FIELD languageCode <languageCode>
+		PUSHED_FIELD languageCode <languageCode>
 		FIELD name <name>
 		FIELD identifier <identifier>
 		FIELD archivistNote <archivistNote>
@@ -22,6 +23,7 @@ ITERATOR components_iterator <jsonpath: $.data.documentaryUnits.items[*]> {
 		FIELD relatedUnitsOfDescription <relatedUnitsOfDescription>
 		FIELD physicalCharacteristics <physicalCharacteristics>
 		FIELD publicationNote <publicationNote>
+		FIELD ref <ref>
 		FIELD rulesAndConventions <rulesAndConventions>
 		FIELD scopeAndContent <scopeAndContent>
 		FIELD separatedUnitsOfDescription <separatedUnitsOfDescription>
@@ -44,7 +46,16 @@ ITERATOR components_iterator <jsonpath: $.data.documentaryUnits.items[*]> {
 		ITERATOR scriptOfMaterial <scriptOfMaterial> {
 			FIELD script <[*]>
 		}
+		ITERATOR parallelFormsOfName <parallelFormsOfName> {
+			FIELD name <[*]>
+			POPPED_FIELD holding_id <holding_id>
+			POPPED_FIELD langCode <languageCode>
+		}
     }
+	ITERATOR otherIdentifiers <otherIdentifiers> {
+		FIELD identifier <[*]>
+		POPPED_FIELD holding_id <holding_id>
+	}
 	ITERATOR links <links[*]> {
         ITERATOR loc_org <[?(@.field=='locationOfOriginals')]> {
             FIELD description <description>
@@ -70,3 +81,4 @@ ITERATOR components_iterator <jsonpath: $.data.documentaryUnits.items[*]> {
 }
 
 EXPRESSION holding <holdings.components_iterator>
+EXPRESSION parallel_name_id <holdings.components_iterator.descriptions.parallelFormsOfName.holding_id + "/parallelNames/" + holdings.components_iterator.descriptions.parallelFormsOfName.name>

@@ -55,7 +55,7 @@ ITERATOR repositories_iterator <jsonpath: $.data.repositories.items[*]> {
 		POPPED_FIELD repository_id <id>
 		ITERATOR addresses <addresses[*]> {
 			FIELD contactPerson <contactPerson>
-			FIELD name <name>
+			FIELD addressName <addressName>
 			FIELD street <street>
 			FIELD municipality <municipality>
 			FIELD region <firstdem>
@@ -138,7 +138,7 @@ ehri:InstitutionAddress ehri_institutions:[transformers.combinedPathInstitutionA
   	schema:telephone [organization.descriptions.addresses.telephone] ;
 	schema:email [organization.descriptions.addresses.email] ;
 	ehri:contactPerson [organization.descriptions.addresses.contactPerson] ;
-	#schema:contactType [organization.address_name] ; # this does not exist in the GraphQL API
+	schema:contactType [organization.descriptions.addresses.addressName] ;
 	rico:isOrWasPhysicalLocationOf ehri_institutions:[transformers.combinedPathInstitutionLocation(organization.descriptions.addresses.repository_id, organization.descriptions.addresses.repository_id.index())] ;
 }
 

@@ -100,6 +100,8 @@ ehri_holdings_end = """\") {
     items {
       id
       type
+      identifier
+      otherIdentifiers
     	descriptions {
         languageCode
         name
@@ -127,6 +129,7 @@ ehri_holdings_end = """\") {
         relatedUnitsOfDescription
         physicalCharacteristics
         publicationNote
+        ref
         rulesAndConventions
         scopeAndContent
         separatedUnitsOfDescription
@@ -135,6 +138,7 @@ ehri_holdings_end = """\") {
         languageOfMaterial
         locationOfOriginals
         locationOfCopies
+        parallelFormsOfName
         physicalLocation
         notes
         scriptOfMaterial
@@ -185,6 +189,7 @@ ehri_repositories_end = """\") {
         name
         identifier
         addresses {
+          addressName
           contactPerson
           street
           municipality
