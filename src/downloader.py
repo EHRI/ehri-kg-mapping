@@ -185,7 +185,7 @@ ehri_repositories_end = """\") {
         name
         identifier
         addresses {
-          name
+          addressName
           contactPerson
           street
           municipality
