@@ -19,7 +19,7 @@ ehri:Holding ehri_units:[holding.holding_id] { # common shape
 	rico:hasRecordSetType ric_rst:[transformers.getRecordSetType(holding.descriptions.levelOfDescription) IF validators.isRecordSetTypeDefinedInRiC(holding.descriptions.levelOfDescription)] ;
 	rico:hasRecordSetType ehri_rst:[transformers.getEHRIDefinedRecordSetType(holding.descriptions.levelOfDescription) IF validators.isRecordSetTypeDefinedInEHRI(holding.descriptions.levelOfDescription)] ;
 	rico:title [holding.descriptions.name] @[holding.descriptions.languageCode] ;
-	#rico:hasOrHadTitle @ehri:HoldingParralelFormOfName ;
+	rico:hasOrHadTitle @ehri:HoldingParralelFormOfName ;
 	rico:scopeAndContent [holding.descriptions.scopeAndContent] @[holding.descriptions.languageCode] ;
 	rico:recordResourceExtent [holding.descriptions.extentAndMedium] @[holding.descriptions.languageCode] ;
 	rico:recordResourceStructure [holding.descriptions.systemOfArrangement] @[holding.descriptions.languageCode] ;
@@ -29,7 +29,7 @@ ehri:Holding ehri_units:[holding.holding_id] { # common shape
 	rico:hasEndDate @ehri:HoldingEndDate ;
 	rico:isOrWasIncludedIn ehri_units:[holding.parentId] ;
 	rico:resultsOrResultedFrom @ehri:Acquisition ;
-	rico:identifier [holding.descriptions.identifier] ;
+	rico:identifier [holding.identifier] ;
 	rico:history [holding.descriptions.biographicalHistory] @[holding.descriptions.languageCode] ;
 	rico:history [holding.descriptions.archivalHistory] @[holding.descriptions.languageCode] ;
 	ehri:appraisal [holding.descriptions.appraisal] @[holding.descriptions.languageCode] ;
@@ -49,14 +49,15 @@ ehri:Holding ehri_units:[holding.holding_id] { # common shape
 	ehri:relatedMaterial [holding.descriptions.relatedUnitsOfDescription] @[holding.descriptions.languageCode] ; 
 	ehri:separatedMaterial [holding.descriptions.separatedUnitsOfDescription] @[holding.descriptions.languageCode] ; 
 	rico:hasOrHadHolder ehri_institutions:[holding.repositoryId] ;
-	# rdfs:seeAlso [] Has to be implemented in the API
-	#rico:hasOrHadIdentifier @ehri:AlternateIds ;
+	rdfs:seeAlso [holding.descriptions.ref] ;
+	rico:hasOrHadIdentifier @ehri:AlternateIds ;
 }
 
-# ehri:HoldingParralelFormOfName ehri_parallel_name:[holding.descriptions.parallel_names.holding_id] { # better id is needed and for now it only takes into account that one parallel name can exist
-# 	a rico:Title ;
-# 	rico:name [holding.descriptions.parallel_names.name] @[holding.descriptions.parallel_names.lang_code] ;
-# }
+ehri:HoldingParralelFormOfName ehri_units:[parallel_name_id] { 
+	a rico:Title ;
+	rico:name [holding.descriptions.parallelFormsOfName.name] @[holding.descriptions.parallelFormsOfName.langCode] ;
+	rico:isOrWasTitleOf ehri_units:[holding.descriptions.parallelFormsOfName.holding_id] ;
+}
 
 ehri:HoldingBeginningDate _:[holding.descriptions.dates.startDate] { 
 	a rico:Date ;
@@ -90,11 +91,11 @@ ehri:MaterialScript ehri_material_script:[holding.descriptions.scriptOfMaterial.
 	rico:name [holding.descriptions.scriptOfMaterial.script] ;
 }
 
-# ehri:AlternateIds ehri_alternate_ids:[alternateIdComposedId] {
-# 	a rico:Identifier ;
-# 	rico:textualValue [holding.alternate_ids.holding_id] ;
-# 	rico:isOrWasIdentifierOf ehri_units:[holding.alternate_ids.holding_id] ;
-# }
+ehri:AlternateIds ehri_units:[transformers.combinedPathHoldingAlternateIDs(holding.otherIdentifiers.holding_id, holding.otherIdentifiers.holding_id.index()) IF validators.nonEmpty(holding.otherIdentifiers.identifier)] {
+	a rico:Identifier ;
+	rico:textualValue [holding.otherIdentifiers.identifier] ;
+	rico:isOrWasIdentifierOf ehri_units:[holding.otherIdentifiers.holding_id] ;
+}
 
 ##################
 ### Copy links ###

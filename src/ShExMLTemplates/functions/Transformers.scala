@@ -40,6 +40,10 @@ class Transformers {
         holdingID + "/acquisitions/1"
     }
 
+    def combinedPathHoldingAlternateIDs(holdingID: String, index: String): String = {
+        holdingID + "/alternateIDs/" + (index.toInt + 1)
+    }
+
     def combinedPathHistoricalAgentLegalStatus(historicalAgentID: String): String = {
         historicalAgentID + "/legalStatuses/1"
     }
