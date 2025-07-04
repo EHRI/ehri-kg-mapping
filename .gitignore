@@ -12,6 +12,8 @@ src/holdingsCopiesAndLinks/*
 src/institutionsCopiesAndLinks/*
 src/shexmlOutputHoldings/*
 src/shexmlRulesHoldings/*
+src/shexmlOutputInstitutions/*
+src/shexmlRulesInstitutions/*
 src/shexmlOutputTerms/*
 src/shexmlRulesTerms/*
 src/shexmlOutputCamps/*
@@ -41,6 +43,7 @@ src/cb.ttl
 src/all.ttl
 src/allWithExtras.ttl
 src/*.jar
+src/apache-jena
 
 ### Generic for Python
 

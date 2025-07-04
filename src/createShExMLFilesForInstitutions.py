@@ -7,12 +7,12 @@ import multiprocessing as mp
 from functools import partial
 
 shexml_first_part = r"""
-IMPORT <ShExMLTemplates/partial/PeopleHeader.shexml>
+IMPORT <ShExMLTemplates/partial/RepositoriesHeader.shexml>
 IMPORT <ShExMLTemplates/partial/MatcherLanguageCode2Digit.shexml>
-SOURCE people <people\people_"""
+SOURCE repositories <institutions\institutions_"""
 
 shexml_second_part = r""".json>
-IMPORT <ShExMLTemplates/partial/PeopleIteratorsAndShapes.shexml>
+IMPORT <ShExMLTemplates/partial/RepositoriesIteratorsAndShapes.shexml>
 """
 
 created_files = []
@@ -23,30 +23,28 @@ def call_shexml(i, output_filename):
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)
     total = str(len(created_files))
-    output_filename = "./shexmlOutputPeople/people_" + str(index + 1) + ".ttl"
-    content_filename = "./" + folder + "/people_" + str(index + 1) + ".json"
+    output_filename = "./shexmlOutputInstitutions/institutions_" + str(index + 1) + ".ttl"
+    content_filename = "./" + folder + "/institutions_" + str(index + 1) + ".json"
     print("Mapping file " + str(index + 1) + " of " + total + " in " + output_filename)
     if os.path.isfile(output_filename):
         print("Output file "  + output_filename + " not created as it already exists")
     else:
         call_shexml(i, output_filename)
 
-
-
 if __name__ == '__main__':
 
     folder = sys.argv[1]
     parallel = sys.argv[2] if len(sys.argv) > 2 else None
 
-    print("Creating ShExML files for terms in folder: " + folder)
+    print("Creating ShExML files for institutions in folder: " + folder)
 
     index = 0
     for i in os.scandir(folder):
-        filename = "people_" + str(index + 1) + ".shexml"
-        f = open("./shexmlRulesPeople/" + filename, "w")
+        filename = "institutions_" + str(index + 1) + ".shexml"
+        f = open("./shexmlRulesInstitutions/" + filename, "w", encoding="utf-8")
         f.write(shexml_first_part + str(index + 1) + shexml_second_part)
         f.close()
-        created_files.append("./shexmlRulesPeople/" + filename)
+        created_files.append("./shexmlRulesInstitutions/" + filename)
         print("Created file " + filename)
         index += 1
 

@@ -285,11 +285,15 @@ def download_from_graphql(type_name, url, query_start, query_end, wait_seconds=0
         success = False
         while not(success):
             try:
-                time.sleep(wait_seconds)
-                r = requests.post(url=url, json=json_query, headers=headers)
-                with open(filename, "w", encoding="utf-8") as file:
-                    file.write(r.text)
-                json_content = r.text
+                if os.path.isfile(filename):
+                    print(filename + " not downloaded as it already exists")
+                else:
+                    time.sleep(wait_seconds)
+                    r = requests.post(url=url, json=json_query, headers=headers)
+                    with open(filename, "w", encoding="utf-8") as file:
+                        file.write(r.text)
+                with open(filename, "r", encoding="utf-8") as file:
+                    json_content = file.read()
                 data = json.loads(json_content)
                 if 'CvocVocabulary' in data['data']:
                     next_page = data['data']['CvocVocabulary']['concepts']['pageInfo']['hasNextPage']

@@ -54,11 +54,11 @@ EXPRESSION parallel_name_id <people.people_iterator.parallelFormsOfName.person_i
 ehri:Person ehri_pers:[person.id] {
     a ehri:Person ;
     rico:name [person.name] ;
-    rico:history [person.biographicalHistory] @[person.languageCode] ;
+    rico:history [person.biographicalHistory] @[person.languageCode MATCHING langcode_two_digit_equivalent] ;
     rico:hasOrHadAgentName @ehri:AgentParallelName ;
     rico:hasOrHadAgentName @ehri:AgentOtherName ;
     rdfs:seeAlso [transformers.removeSquareBrackets(person.sourceLink) IF validators.isURL(person.sourceLink)] ;
-    ehri:sources [transformers.removeSquareBrackets(person.sourceLink) IF validators.nonURL(person.sourceLink)] @[person.languageCode] ; 
+    ehri:sources [transformers.removeSquareBrackets(person.sourceLink) IF validators.nonURL(person.sourceLink)] @[person.languageCode MATCHING langcode_two_digit_equivalent] ; 
     rico:date [person.datesOfExistence] ; 
 	rico:hasBirthDate @ehri:PersonBeginningDate ;
 	rico:hasDeathDate @ehri:PersonEndDate ;
@@ -67,8 +67,8 @@ ehri:Person ehri_pers:[person.id] {
     rico:performsOrPerformed @ehri:AuthorityOccupation ;
     rico:performsOrPerformed @ehri:AuthorityFunction ;
     rico:authorizedBy @ehri:AuthorityMandate ;
-    ehri:structureOrGenealogy [person.structure] @[person.languageCode] ; # This can be divided in structure of cb and genealogy of family if needed
-    rico:generalDescription [person.generalContext] @[person.languageCode] ;
+    ehri:structureOrGenealogy [person.structure] @[person.languageCode MATCHING langcode_two_digit_equivalent] ; # This can be divided in structure of cb and genealogy of family if needed
+    rico:generalDescription [person.generalContext] @[person.languageCode MATCHING langcode_two_digit_equivalent] ;
 }
 
 ehri:Link ehri_units:[person.links.targets.unit_id] {
@@ -96,31 +96,31 @@ ehri:PersonBeginningDate _:[transformers.toBeginningDateID(person.dates.person_i
 ehri:PersonEndDate _:[transformers.toEndDateID(person.dates.person_id, person.dates.person_id.index()) IF validators.nonEmpty(person.dates.endDate)] { 
 	a rico:Date ;
 	rico:normalizedDateValue [person.dates.endDate] ;
-	rico:isBeginningDateOf ehri_pers:[person.dates.person_id] ;
+	rico:isEndDateOf ehri_pers:[person.dates.person_id] ;
 }
 
 ehri:AuthorityLegalStatus ehri_pers:[transformers.combinedPathHistoricalAgentLegalStatus(person.id) IF validators.nonEmpty(person.legalStatus)] {
     a rico:LegalStatus ;
-    rico:generalDescription [person.legalStatus] @[person.languageCode] ;
+    rico:generalDescription [person.legalStatus] @[person.languageCode MATCHING langcode_two_digit_equivalent] ;
     rico:isOrWasLegalStatusOf ehri_pers:[person.id] ;
 }
 
 ehri:AuthorityOccupation ehri_pers:[transformers.combinedPathHistoricalAgentOccupation(person.id) IF validators.nonEmpty(person.occupation)] {
     a rico:Activity ;
     rico:hasOrHadActivityType rico:OccupationType ;
-    rico:generalDescription [person.occupation] @[person.languageCode] ;
+    rico:generalDescription [person.occupation] @[person.languageCode MATCHING langcode_two_digit_equivalent] ;
     rico:isOrWasPerformedBy ehri_pers:[person.id] ;
 }
 
 ehri:AuthorityFunction ehri_pers:[transformers.combinedPathHistoricalAgentFunction(person.funcs.person_id, person.funcs.func.index())] {
     a rico:Activity ;
     rico:hasOrHadActivityType ehri:FunctionType ;
-    rico:generalDescription [person.funcs.func] @[person.funcs.langCode] ;
+    rico:generalDescription [person.funcs.func] @[person.funcs.langCode MATCHING langcode_two_digit_equivalent] ;
     rico:isOrWasPerformedBy ehri_pers:[person.funcs.person_id] ;
 }
 
 ehri:AuthorityMandate ehri_pers:[transformers.combinedPathHistoricalAgentMandate(person.mandates.person_id, person.mandates.mandate.index())] {
     a rico:Mandate ;
-    rico:generalDescription [person.mandates.mandate] @[person.mandates.langCode] ;
+    rico:generalDescription [person.mandates.mandate] @[person.mandates.langCode MATCHING langcode_two_digit_equivalent] ;
     rico:authorizes ehri_pers:[person.mandates.person_id] ;
 } 

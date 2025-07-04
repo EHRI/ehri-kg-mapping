@@ -60,12 +60,12 @@ ehri:Family ehri_cb:[cbs.id IF validators.isFamily(cbs.typeOfEntity)] { # it is 
 }
 
 ehri:CBAndFamily ehri_cb:[cbs.id] { # it is possible to use different prefixes for families and cbs
-    rico:name [cbs.name] @[cbs.languageCode] ;
-    rico:history [cbs.biographicalHistory] @[cbs.languageCode] ;
+    rico:name [cbs.name] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
+    rico:history [cbs.biographicalHistory] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
     rico:hasOrHadAgentName @ehri:AgentParallelName ;
     rico:hasOrHadAgentName @ehri:AgentOtherName ;
     rdfs:seeAlso [transformers.removeSquareBrackets(cbs.sourceLink) IF validators.isURL(cbs.sourceLink)] ;
-    ehri:sources [transformers.removeSquareBrackets(cbs.sourceLink) IF validators.nonURL(cbs.sourceLink)] @[cbs.languageCode] ; 
+    ehri:sources [transformers.removeSquareBrackets(cbs.sourceLink) IF validators.nonURL(cbs.sourceLink)] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ; 
     rico:date [cbs.datesOfExistence] ; 
 	rico:hasBeginningDate @ehri:CBBeginningDate ;
 	rico:hasEndDate @ehri:CBEndDate ;
@@ -74,8 +74,8 @@ ehri:CBAndFamily ehri_cb:[cbs.id] { # it is possible to use different prefixes f
     rico:performsOrPerformed @ehri:AuthorityOccupation ;
     rico:performsOrPerformed @ehri:AuthorityFunction ;
     rico:authorizedBy @ehri:AuthorityMandate ;
-    ehri:structureOrGenealogy [cbs.structure] @[cbs.languageCode] ; # This can be divided in structure of cb and genealogy of family if needed
-    rico:generalDescription [cbs.generalContext] @[cbs.languageCode] ;
+    ehri:structureOrGenealogy [cbs.structure] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ; # This can be divided in structure of cb and genealogy of family if needed
+    rico:generalDescription [cbs.generalContext] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
 }
 
 ehri:Link ehri_units:[cbs.links.targets.unit_id] { 
@@ -103,31 +103,31 @@ ehri:CBBeginningDate _:[transformers.toBeginningDateID(cbs.dates.cb_id, cbs.date
 ehri:CBEndDate _:[transformers.toEndDateID(cbs.dates.cb_id, cbs.dates.cb_id.index()) IF validators.nonEmpty(cbs.dates.endDate)] { 
 	a rico:Date ;
 	rico:normalizedDateValue [cbs.dates.endDate] ;
-	rico:isBeginningDateOf ehri_cb:[cbs.dates.cb_id] ;
+	rico:isEndDateOf ehri_cb:[cbs.dates.cb_id] ;
 }
 
 ehri:AuthorityLegalStatus ehri_cb:[transformers.combinedPathHistoricalAgentLegalStatus(cbs.id) IF validators.nonEmpty(cbs.legalStatus)] { 
     a rico:LegalStatus ;
-    rico:generalDescription [cbs.legalStatus] @[cbs.languageCode] ;
+    rico:generalDescription [cbs.legalStatus] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
     rico:isOrWasLegalStatusOf ehri_cb:[cbs.id] ;
 }
 
 ehri:AuthorityOccupation ehri_cb:[transformers.combinedPathHistoricalAgentOccupation(cbs.id) IF validators.nonEmpty(cbs.occupation)] {
     a rico:Activity ;
     rico:hasOrHadActivityType rico:OccupationType ;
-    rico:generalDescription [cbs.occupation] @[cbs.languageCode] ;
-    rico:isOrWasPerformedBy ehri_pers:[cbs.id] ;
+    rico:generalDescription [cbs.occupation] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
+    rico:isOrWasPerformedBy ehri_cb:[cbs.id] ;
 }
 
 ehri:AuthorityFunction ehri_cb:[transformers.combinedPathHistoricalAgentFunction(cbs.funcs.cb_id, cbs.funcs.func.index())] {
     a rico:Activity ;
     rico:hasOrHadActivityType ehri:FunctionType ;
-    rico:generalDescription [cbs.funcs.func] @[cbs.funcs.langCode] ;
+    rico:generalDescription [cbs.funcs.func] @[cbs.funcs.langCode MATCHING langcode_two_digit_equivalent] ;
     rico:isOrWasPerformedBy ehri_cb:[cbs.funcs.cb_id] ;
 }
 
 ehri:AuthorityMandate ehri_cb:[transformers.combinedPathHistoricalAgentMandate(cbs.mandates.cb_id, cbs.mandates.mandate.index())] {
     a rico:Mandate ;
-    rico:generalDescription [cbs.mandates.mandate] @[cbs.mandates.langCode] ;
+    rico:generalDescription [cbs.mandates.mandate] @[cbs.mandates.langCode MATCHING langcode_two_digit_equivalent] ;
     rico:authorizes ehri_cb:[cbs.mandates.cb_id] ;
 } 

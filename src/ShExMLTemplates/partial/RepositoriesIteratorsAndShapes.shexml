@@ -1,28 +1,9 @@
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX ehri: <http://lod.ehri-project-test.eu/ontology#>
-PREFIX ehri_countries: <http://lod.ehri-project-test.eu/countries/>
-PREFIX ehri_regions: <http://lod.ehri-project-test.eu/regions/>
-PREFIX ehri_cities: <http://lod.ehri-project-test.eu/cities/>
-PREFIX ehri_institutions: <http://lod.ehri-project-test.eu/institutions/>
-PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
-PREFIX ehri_terms: <http://lod.ehri-project-test.eu/vocabularies/ehri-terms/>
-PREFIX dbr: <http://dbpedia.org/resource/>
-PREFIX schema: <http://schema.org/>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-FUNCTIONS transformers <scala: ShExMLTemplates/functions/Transformers.scala>
-FUNCTIONS validators <scala: ShExMLTemplates/functions/Validators.scala>
-SOURCE repositories <institutions\institutions_*.json>
-
 ITERATOR repositories_iterator <jsonpath: $.data.repositories.items[*]> {
 	PUSHED_FIELD id <id>
   	FIELD type <type>
 	FIELD identifier <identifier>
-	FIELD lat <latitude>
-	FIELD long <longitude>
+	PUSHED_FIELD lat <latitude>
+	PUSHED_FIELD long <longitude>
 	FIELD countryId <country.id>
 	ITERATOR descriptions <descriptions[*]> {
 		FIELD languageCode <languageCode>
@@ -47,8 +28,6 @@ ITERATOR repositories_iterator <jsonpath: $.data.repositories.items[*]> {
 		FIELD status <status>
 		FIELD datesOfDescription <datesOfDescription>
 		FIELD maintenanceNotes <maintenanceNotes>
-		FIELD otherFormsOfName <otherFormsOfName>
-		FIELD parallelFormsOfName <parallelFormsOfName>
 		FIELD languages <languages>
 		FIELD scripts <scripts>
 		FIELD sources <sources>
@@ -65,7 +44,17 @@ ITERATOR repositories_iterator <jsonpath: $.data.repositories.items[*]> {
 			FIELD telephone <telephone>
 			FIELD fax <fax>
 			FIELD webpage <webpage>
+			POPPED_FIELD lat <lat>
+			POPPED_FIELD long <long>
 			POPPED_FIELD repository_id <id>
+		}
+		ITERATOR otherFormsOfName <otherFormsOfName> {
+			FIELD name<[*]>
+        	POPPED_FIELD repository_id <id>
+		}
+		ITERATOR parallelFormsOfName <parallelFormsOfName> {
+			FIELD name<[*]>
+        	POPPED_FIELD repository_id <id>
 		}
 	}
 	ITERATOR links <links[*]> {
@@ -89,8 +78,8 @@ ITERATOR repositories_iterator <jsonpath: $.data.repositories.items[*]> {
 }
 
 EXPRESSION organization <repositories.repositories_iterator>
-EXPRESSION parallel_name_id <repositories.repositories_iterator.descriptions.repository_id + "/parallelNames/" + repositories.repositories_iterator.descriptions.parallelFormsOfName>
-EXPRESSION other_name_id <repositories.repositories_iterator.descriptions.repository_id + "/otherNames/" + repositories.repositories_iterator.descriptions.otherFormsOfName>
+EXPRESSION parallel_name_id <repositories.repositories_iterator.descriptions.parallelFormsOfName.repository_id + "/parallelNames/" + repositories.repositories_iterator.descriptions.parallelFormsOfName.name>
+EXPRESSION other_name_id <repositories.repositories_iterator.descriptions.otherFormsOfName.repository_id + "/otherNames/" + repositories.repositories_iterator.descriptions.otherFormsOfName.name>
 
 
 ####################
@@ -99,22 +88,22 @@ EXPRESSION other_name_id <repositories.repositories_iterator.descriptions.reposi
 
 ehri:Institution ehri_institutions:[organization.id] {
 	a ehri:Institution ;
-  	rico:name [organization.descriptions.name] @[organization.descriptions.languageCode] ;
-	rico:history [organization.descriptions.history] @[organization.descriptions.languageCode] ;
-	schema:openingHours [organization.descriptions.openingTimes] @[organization.descriptions.languageCode] ;
-	rico:generalDescription [organization.descriptions.holdings] @[organization.descriptions.languageCode] ;
-	ehri:institutionConditionsOfAccess [organization.descriptions.conditions] @[organization.descriptions.languageCode] ;
-	ehri:institutionReproductionServices [organization.descriptions.reproductionServices] @[organization.descriptions.languageCode] ;
-	ehri:generalContext [organization.descriptions.geoculturalContext] @[organization.descriptions.languageCode] ;
-	ehri:administrativeStructure [organization.descriptions.administrativeStructure] @[organization.descriptions.languageCode] ;
-	ehri:recordsManagementAndCollectingPolicies [organization.descriptions.records] @[organization.descriptions.languageCode] ;
-	ehri:buildings [organization.descriptions.buildings] @[organization.descriptions.languageCode] ;
-	ehri:accessibility [organization.descriptions.accessibility] @[organization.descriptions.languageCode] ;
-	ehri:researchServices [organization.descriptions.researchServices] @[organization.descriptions.languageCode] ;
-	ehri:publicAreas [organization.descriptions.publicAreas] @[organization.descriptions.languageCode] ;
+  	rico:name [organization.descriptions.name] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	rico:history [organization.descriptions.history] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	schema:openingHours [organization.descriptions.openingTimes] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	rico:generalDescription [organization.descriptions.holdings] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:institutionConditionsOfAccess [organization.descriptions.conditions] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:institutionReproductionServices [organization.descriptions.reproductionServices] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:generalContext [organization.descriptions.geoculturalContext] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:administrativeStructure [organization.descriptions.administrativeStructure] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:recordsManagementAndCollectingPolicies [organization.descriptions.records] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:buildings [organization.descriptions.buildings] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:accessibility [organization.descriptions.accessibility] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:researchServices [organization.descriptions.researchServices] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:publicAreas [organization.descriptions.publicAreas] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	rdfs:seeAlso [organization.descriptions.addresses.webpage] ;
-	ehri:findingAids [organization.descriptions.findingAids] @[organization.descriptions.languageCode] ;
-	ehri:sources [organization.descriptions.sources] @[organization.descriptions.languageCode] ;
+	ehri:findingAids [organization.descriptions.findingAids] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:sources [organization.descriptions.sources] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
   	rico:agentHasOrHadLocation @ehri:InstitutionLocation ;
 	rico:hasOrHadAgentName @ehri:AgentParallelName ;
 	rico:hasOrHadAgentName @ehri:AgentOtherName ;
@@ -142,15 +131,15 @@ ehri:InstitutionAddress ehri_institutions:[transformers.combinedPathInstitutionA
 	rico:isOrWasPhysicalLocationOf ehri_institutions:[transformers.combinedPathInstitutionLocation(organization.descriptions.addresses.repository_id, organization.descriptions.addresses.repository_id.index())] ;
 }
 
-ehri:Coordinates ehri_institutions:[transformers.combinedPathInstitutionCoordinates(organization.id)] {
+ehri:Coordinates ehri_institutions:[transformers.combinedPathInstitutionCoordinates(organization.descriptions.addresses.repository_id)] {
 	a rico:Coordinates ;
-	rico:latitude [organization.lat] ;
-	rico:longitude [organization.long] ;
-	rico:isOrWasCoordinatesOf ehri_institutions:[transformers.combinedPathInstitutionLocation(organization.descriptions.addresses.repository_id, organization.descriptions.addresses.repository_id.index())] ; 
+	rico:latitude [organization.descriptions.addresses.lat] ;
+	rico:longitude [organization.descriptions.addresses.long] ;
+	rico:isOrWasCoordinatesOf ehri_institutions:[transformers.combinedPathInstitutionAddress(organization.descriptions.addresses.repository_id, organization.descriptions.addresses.repository_id.index())] ; 
 }
 
 ehri:Region ehri_regions:[organization.descriptions.addresses.region] {
-	a rico:Place ;
+	a ehri:Region ;
 	rico:name [organization.descriptions.addresses.region] ;
 	rico:isOrWasContainedBy ehri_countries:[transformers.toLowerCase(organization.descriptions.addresses.countryCode)] ;
 	rico:containsOrContained ehri_cities:[organization.descriptions.addresses.municipality] ;
@@ -158,7 +147,7 @@ ehri:Region ehri_regions:[organization.descriptions.addresses.region] {
 }
 
 ehri:City ehri_cities:[organization.descriptions.addresses.municipality] {
-	a rico:Place ;
+	a ehri:City ;
 	rico:name [organization.descriptions.addresses.municipality] ;
 	rico:isOrWasContainedBy ehri_regions:[organization.descriptions.addresses.region] ;
 	rico:isOrWasContainedBy ehri_countries:[transformers.toLowerCase(organization.descriptions.addresses.countryCode)] ;
@@ -167,19 +156,19 @@ ehri:City ehri_cities:[organization.descriptions.addresses.municipality] {
 
 ehri:AgentParallelName ehri_institutions:[parallel_name_id] {
 	a ehri:ParallelAgentName ;
-	rico:name [organization.descriptions.parallelFormsOfName] ;
-	rico:isOrWasAgentNameOf ehri_institutions:[organization.descriptions.repository_id] ;
+	rico:name [organization.descriptions.parallelFormsOfName.name] ;
+	rico:isOrWasAgentNameOf ehri_institutions:[organization.descriptions.parallelFormsOfName.repository_id] ;
 }
 
 ehri:AgentOtherName ehri_institutions:[other_name_id] { 
 	a ehri:AlternateAgentName ;
-	rico:name [organization.descriptions.otherFormsOfName] ;
-	rico:isOrWasAgentNameOf ehri_institutions:[organization.descriptions.repository_id] ;
+	rico:name [organization.descriptions.otherFormsOfName.name] ;
+	rico:isOrWasAgentNameOf ehri_institutions:[organization.descriptions.otherFormsOfName.repository_id] ;
 }
 
 ehri:Mandate ehri_institutions:[transformers.combinedPathInstitutionMandates(organization.id) IF validators.nonEmpty(organization.descriptions.mandates)] {
 	a rico:Mandate ;
-	rico:generalDescription [organization.descriptions.mandates] @[organization.descriptions.languageCode] ;
+	rico:generalDescription [organization.descriptions.mandates] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	rico:authorizes ehri_institutions:[organization.descriptions.repository_id] ;
 }
 
