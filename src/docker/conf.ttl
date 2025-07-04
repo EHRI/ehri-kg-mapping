@@ -53,7 +53,7 @@
 @prefix crm120111: <http://erlangen-crm.org/120111/> .
 @prefix rel: <http://purl.org/vocab/relationship/> .
 @prefix rico:  <https://www.ica.org/standards/RiC/ontology#> .
-@prefix ehri:  <http://lod.ehri-project-test.eu/> .
+@prefix ehri:  <http://lod.ehri-project-test.eu/ontology#> .
 
 
 <> a conf:Configuration;

@@ -1,7 +1,11 @@
-FROM ubuntu
+FROM ubuntu:jammy
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y openjdk-11-jdk git curl tomcat9 maven
-RUN curl https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-4.9.0.tar.gz --output fuseki.tar.gz
+RUN apt update
+# To use in later versions of Ubuntu
+#RUN apt install software-properties-common
+#RUN add-apt-repository -y -s "deb http://archive.ubuntu.com/ubuntu/ jammy main universe" 
+RUN apt install -y openjdk-17-jdk git curl tomcat9 maven
+RUN curl https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-5.4.0.tar.gz --output fuseki.tar.gz
 RUN tar -xvzf fuseki.tar.gz
 RUN git clone https://github.com/EHRI/LodView.git
 RUN cd LodView && mvn compile war:war

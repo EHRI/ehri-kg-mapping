@@ -1,7 +1,11 @@
 #!/bin/bash
 
-echo "Downloading ShExML..."
-curl -L https://github.com/herminiogg/ShExML/releases/download/v0.5.4/ShExML-v0.5.4.jar -o shexml.jar
+set -e # Prevents the script to continue if one of the commands returns an error
+
+if [ ! -f shexml.jar ]; then
+    echo "Downloading ShExML..."
+    curl -L https://github.com/herminiogg/ShExML/releases/download/v0.5.4/ShExML-v0.5.4.jar -o shexml.jar
+fi
 
 echo "Creating working folders..."
 sh createWorkingFolders.sh
@@ -13,7 +17,7 @@ echo "Converting countries..."
 java -Dfile.encoding=UTF8 -jar shexml.jar -m ShExMLTemplates/Countries.shexml -o countries.ttl -id -nu
 
 echo "Converting institutions..."
-java -Dfile.encoding=UTF8 -jar shexml.jar -m ShExMLTemplates/Repositories.shexml -o repositories.ttl -id -nu
+python createShExMLFilesForInstitutions.py institutions
 
 echo "Converting holdings..."
 python createShExMLFilesForHoldings.py holdings
@@ -33,8 +37,11 @@ python createShExMLFilesForCamps.py camps
 echo "Converting ghettos..."
 python createShExMLFilesForGhettos.py ghettos
 
+echo "Mixing all the institutions in a single big Turtle file..."
+sh createSingleInstitutionsFile.sh
+
 echo "Mixing all the holdings in a single big Turtle file..."
-sh createSingleFile.sh
+sh createSingleHoldingsFile.sh
 
 echo "Mixing all the terms in a single big Turtle file..."
 sh createSingleTermsFile.sh

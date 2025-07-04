@@ -24,10 +24,11 @@ class Validators {
         try {
             // For the moment this allows to parse the output
             val processedInput = input.replaceFirst("\\[", "").reverse.replaceFirst("\\]", "").reverse
-            new java.net.URL(processedInput)
+            new java.net.URL(processedInput).toURI()
             true
         } catch {
             case e: java.net.MalformedURLException => false
+            case ue: java.net.URISyntaxException => false
             case _ => false
         }
     }

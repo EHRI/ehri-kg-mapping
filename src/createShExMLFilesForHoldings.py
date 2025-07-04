@@ -14,6 +14,7 @@ shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/HoldingsIterators.shexml>
 IMPORT <ShExMLTemplates/partial/MatcherLanguages.shexml>
 IMPORT <ShExMLTemplates/partial/MatcherLanguagesCodes.shexml>
+IMPORT <ShExMLTemplates/partial/MatcherLanguageCode2Digit.shexml>
 IMPORT <ShExMLTemplates/partial/HoldingsShapes.shexml>
 """
 

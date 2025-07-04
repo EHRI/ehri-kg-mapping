@@ -28,10 +28,10 @@ EXPRESSION country <countries.countries_iterator>
 
 ehri:Country ehri_countries:[country.id] {
 	a ehri:Country ;
-  	rico:name [country.name] @eng ;
+  	rico:name [country.name] @en ;
 	owl:sameAs dbr:[country.name] ; #this is a direct correlation but it may be better to create matchers for the countries against DBpedia, Geonames and Wikidata.
-	ehri:archivalHistory [country.history] @eng ;
-	ehri:archivalSituation [country.situation] @eng ;
-	ehri:researchSummary [country.summary] @eng ;
-	ehri:researchExtensive [country.extensive] @eng ;
+	ehri:archivalHistory [country.history] @en ;
+	ehri:archivalSituation [country.situation] @en ;
+	ehri:researchSummary [country.summary] @en ;
+	ehri:researchExtensive [country.extensive] @en ;
 }
