@@ -14,10 +14,10 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 ehri:Country IRI {
 	rdf:type [ ehri:Country ] ;
-	rico:name [ @eng ] ;
+	rico:name [ @en ] ;
 	owl:sameAs IRI  ;
-	ehri:archivalHistory [ @eng ] ? ;
-	ehri:archivalSituation [ @eng ] ? ;
-	ehri:researchSummary [ @eng ] ? ;
-	ehri:researchExtensive [ @eng ] ? ;
+	ehri:archivalHistory [ @en ] ? ;
+	ehri:archivalSituation [ @en ] ? ;
+	ehri:researchSummary [ @en ] ? ;
+	ehri:researchExtensive [ @en ] ? ;
 }

@@ -5,8 +5,8 @@ echo "" > shexCommandOutput.txt # Clears the ShEx command output file
 
 if [ ! -d apache-jena ]; then
     echo "Downloading Apache Jena..."
-    curl -L https://dlcdn.apache.org/jena/binaries/apache-jena-5.4.0.zip -o apache-jena.jar
-    unzip -q apache-jena.jar -d apache-jena
+    curl -L https://dlcdn.apache.org/jena/binaries/apache-jena-5.4.0.zip -o apache-jena.zip
+    unzip -q apache-jena.zip -d apache-jena
 fi
 
 #export _JAVA_OPTIONS="-Xmx12g"
