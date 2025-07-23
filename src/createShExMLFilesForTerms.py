@@ -8,7 +8,7 @@ from functools import partial
 
 shexml_first_part = r"""
 IMPORT <ShExMLTemplates/partial/TermsHeader.shexml>
-SOURCE terms <terms\terms_"""
+SOURCE terms <terms/terms_"""
 
 shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/TermsIteratorsAndShapes.shexml>

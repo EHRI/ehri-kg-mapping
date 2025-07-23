@@ -9,7 +9,7 @@ from functools import partial
 shexml_first_part = r"""
 IMPORT <ShExMLTemplates/partial/PeopleHeader.shexml>
 IMPORT <ShExMLTemplates/partial/MatcherLanguageCode2Digit.shexml>
-SOURCE people <people\people_"""
+SOURCE people <people/people_"""
 
 shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/PeopleIteratorsAndShapes.shexml>

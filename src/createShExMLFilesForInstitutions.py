@@ -9,7 +9,7 @@ from functools import partial
 shexml_first_part = r"""
 IMPORT <ShExMLTemplates/partial/RepositoriesHeader.shexml>
 IMPORT <ShExMLTemplates/partial/MatcherLanguageCode2Digit.shexml>
-SOURCE repositories <institutions\institutions_"""
+SOURCE repositories <institutions/institutions_"""
 
 shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/RepositoriesIteratorsAndShapes.shexml>

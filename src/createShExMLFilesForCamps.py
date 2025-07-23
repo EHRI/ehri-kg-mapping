@@ -8,7 +8,7 @@ from functools import partial
 
 shexml_first_part = r"""
 IMPORT <ShExMLTemplates/partial/CampsHeader.shexml>
-SOURCE terms <camps\camps_"""
+SOURCE terms <camps/camps_"""
 
 shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/CampsIteratorsAndShapes.shexml>

@@ -8,7 +8,7 @@ from functools import partial
 
 shexml_first_part = r"""
 IMPORT <ShExMLTemplates/partial/GhettosHeader.shexml>
-SOURCE terms <ghettos\ghettos_"""
+SOURCE terms <ghettos/ghettos_"""
 
 shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/GhettosIteratorsAndShapes.shexml>

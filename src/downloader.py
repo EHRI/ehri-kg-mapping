@@ -34,7 +34,7 @@ ehri_terms_query_start = """{
 
 ehri_terms_query_middle = """\") {
     id
-    concepts(after: \""""
+    concepts(first: 100, after: \""""
     
 ehri_historical_query_end = """\") {
       items {
@@ -85,16 +85,16 @@ ehri_historical_query_start = """{
   AuthoritativeSet(id: \""""
   
 ehri_historical_query_middle = """\") {
-    authorities(after: \""""
+    authorities(first: 100, after: \""""
 
 ehri_holdings_start = """{
-  documentaryUnits(after: \""""
+  documentaryUnits(first: 100, after: \""""
 
 ehri_repositories_start = """{
-  repositories(after: \""""
+  repositories(first: 100, after: \""""
 
 ehri_countries_start = """{
-  countries(after: \""""
+  countries(first: 100, after: \""""
 
 ehri_holdings_end = """\") {
     items {
@@ -163,6 +163,10 @@ ehri_holdings_end = """\") {
           type
         }
         targets {
+          id
+          type
+        }
+        source {
           id
           type
         }
@@ -238,6 +242,10 @@ ehri_repositories_end = """\") {
           type
         }
         targets {
+          id
+          type
+        }
+        source {
           id
           type
         }

@@ -14,6 +14,7 @@ rm ghettos.ttl
 rm holdings.ttl
 rm people.ttl
 rm terms.ttl
+rm institutions.ttl
 
 echo "Removing folders..."
 
@@ -32,11 +33,13 @@ rm -rf shexmlOutputCb
 rm -rf shexmlOutputGhettos
 rm -rf shexmlOutputPeople
 rm -rf shexmlOutputTerms
+rm -rf shexmlOutputInstitutions
 rm -rf shexmlRulesHoldings
 rm -rf shexmlRulesCamps
 rm -rf shexmlRulesCb
 rm -rf shexmlRulesGhettos
 rm -rf shexmlRulesPeople
 rm -rf shexmlRulesTerms
+rm -rf shexmlRulesInstitutions
 
 echo "Everything has been removed. You can start anew!"

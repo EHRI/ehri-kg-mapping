@@ -8,7 +8,7 @@ from functools import partial
 
 shexml_first_part = r"""
 IMPORT <ShExMLTemplates/partial/HoldingsHeader.shexml>
-SOURCE holdings <holdings\holdings_"""
+SOURCE holdings <holdings/holdings_"""
 
 shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/HoldingsIterators.shexml>

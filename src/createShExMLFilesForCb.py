@@ -9,7 +9,7 @@ from functools import partial
 shexml_first_part = r"""
 IMPORT <ShExMLTemplates/partial/CBHeader.shexml>
 IMPORT <ShExMLTemplates/partial/MatcherLanguageCode2Digit.shexml>
-SOURCE cb <cb\cb_"""
+SOURCE cb <cb/cb_"""
 
 shexml_second_part = r""".json>
 IMPORT <ShExMLTemplates/partial/CBIteratorsAndShapes.shexml>

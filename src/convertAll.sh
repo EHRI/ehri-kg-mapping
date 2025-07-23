@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e # Prevents the script to continue if one of the commands returns an error
-
 if [ ! -f shexml.jar ]; then
     echo "Downloading ShExML..."
     curl -L https://github.com/herminiogg/ShExML/releases/download/v0.5.4/ShExML-v0.5.4.jar -o shexml.jar
@@ -9,6 +7,8 @@ fi
 
 echo "Creating working folders..."
 sh createWorkingFolders.sh
+
+set -e # Prevents the script to continue if one of the commands returns an error
 
 echo "Downloading contents from the EHRI portal"
 python downloader.py
