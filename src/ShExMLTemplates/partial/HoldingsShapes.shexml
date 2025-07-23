@@ -107,35 +107,48 @@ ehri:AlternateIds ehri_units:[transformers.combinedPathHoldingAlternateIDs(holdi
 
 # In these links it is not possible to put the description unless we reify the data model, TBD.
 
-# Subject documentary unit
-ehri:HoldingLocationOfOriginals ehri_units:[holding.holding_id IF validators.isDocumentaryUnit(holding.links.loc_org.targets.subject_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.type)] {
+## Location of Originals ##
+# unit to unit or unit to institution
+ehri:HoldingLocationOfOriginals ehri_units:[holding.links.loc_org.targets.source_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(holding.links.loc_org.targets.source_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.source_type)] {
     # The object is a documentary unit
-    ehri:isCopyOf ehri_units:[holding.links.loc_org.targets.target_id IF validators.isObjectDocumentaryUnit(holding.links.loc_org.targets.subject_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.type)] ;
+    ehri:isCopyOf ehri_units:[holding.links.loc_org.targets.target_id IF validators.isDocumentaryUnit(holding.links.loc_org.targets.type)] ;
     # The object is an institution
-    ehri:isCopyOf ehri_institutions:[holding.links.loc_org.targets.target_id IF validators.isObjectInstitution(holding.links.loc_org.targets.subject_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.type)] ;
+    ehri:isCopyOf ehri_institutions:[holding.links.loc_org.targets.target_id IF validators.isInstitution(holding.links.loc_org.targets.type)] ;
+}
+# institution to unit
+ehri:HoldingLocationOfOriginalsUnitSubject ehri_institutions:[holding.links.loc_org.targets.source_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(holding.links.loc_org.targets.source_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.source_type)] {
+	ehri:isCopyOf ehri_units:[holding.links.loc_org.targets.target_id IF validators.isDocumentaryUnit(holding.links.loc_org.targets.type)] ;
+}
+# unit to unit or institution to unit (inverse)
+ehri:HoldingLocationOfOriginalsInverse ehri_units:[holding.links.loc_org.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(holding.links.loc_org.targets.source_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.type)] {
+    ehri:hasCopy ehri_institutions:[holding.links.loc_org.targets.source_id IF validators.isInstitution(holding.links.loc_org.targets.source_type)] ;
+	ehri:hasCopy ehri_units:[holding.links.loc_org.targets.source_id IF validators.isDocumentaryUnit(holding.links.loc_org.targets.source_type)] ;
+}
+# unit to institution (inverse)
+ehri:HoldingLocationOfOriginalsInverseInstitutionSubject ehri_institutions:[holding.links.loc_org.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(holding.links.loc_org.targets.source_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.type)] { 
+    ehri:hasCopy ehri_units:[holding.links.loc_org.targets.source_id IF validators.isDocumentaryUnit(holding.links.loc_org.targets.source_type)] ;
 }
 
-ehri:HoldingLocationOfCopies ehri_units:[holding.holding_id IF validators.isDocumentaryUnit(holding.links.loc_cop.targets.subject_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.type)] {
+## Location of Copies ##
+# institution to unit or institution to institution
+ehri:HoldingLocationOfCopies ehri_units:[holding.links.loc_cop.targets.source_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(holding.links.loc_cop.targets.source_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.source_type)] {
     # The object is a documentary unit
-    ehri:hasCopy ehri_units:[holding.links.loc_cop.targets.target_id IF validators.isObjectDocumentaryUnit(holding.links.loc_cop.targets.subject_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.type)] ;
+    ehri:hasCopy ehri_units:[holding.links.loc_cop.targets.target_id IF validators.isDocumentaryUnit(holding.links.loc_cop.targets.type)] ;
     # The object is an institution
-    ehri:hasCopy ehri_institutions:[holding.links.loc_cop.targets.target_id IF validators.isObjectInstitution(holding.links.loc_cop.targets.subject_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.type)] ;
+    ehri:hasCopy ehri_institutions:[holding.links.loc_cop.targets.target_id IF validators.isInstitution(holding.links.loc_cop.targets.type)] ;
 }
-
-ehri:HoldingLocationOfOriginalsInverse ehri_units:[holding.links.loc_org.targets.target_id] {
-    ehri:hasCopy ehri_units:[holding.links.loc_org.targets.subject_id IF validators.isObjectDocumentaryUnit(holding.links.loc_org.targets.subject_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.type)] ;
+# institution to unit
+ehri:HoldingLocationOfCopiesUnitSubject ehri_institutions:[holding.links.loc_cop.targets.source_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(holding.links.loc_cop.targets.source_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.source_type)] {
+	ehri:hasCopy ehri_units:[holding.links.loc_cop.targets.target_id IF validators.isDocumentaryUnit(holding.links.loc_cop.targets.type)] ;
 }
-
-ehri:HoldingLocationOfOriginalsInverseInstitutionSubject ehri_institutions:[holding.links.loc_org.targets.target_id IF validators.isObjectInstitution(holding.links.loc_org.targets.subject_id, holding.links.loc_org.targets.target_id, holding.links.loc_org.targets.type)] { 
-    ehri:hasCopy ehri_units:[holding.links.loc_org.targets.subject_id] ;
-}    
-
-ehri:HoldingLocationOfCopiesInverse ehri_units:[holding.links.loc_cop.targets.target_id] {
-    ehri:isCopyOf ehri_units:[holding.links.loc_cop.targets.subject_id IF validators.isObjectDocumentaryUnit(holding.links.loc_cop.targets.subject_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.type)] ;
+# unit to unti or institution to unit (inverse)
+ehri:HoldingLocationOfCopiesInverse ehri_units:[holding.links.loc_cop.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(holding.links.loc_cop.targets.source_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.type)] {
+    ehri:isCopyOf ehri_institutions:[holding.links.loc_cop.targets.source_id IF validators.isInstitution(holding.links.loc_cop.targets.source_type)] ;
+	ehri:isCopyOf ehri_units:[holding.links.loc_cop.targets.source_id IF validators.isDocumentaryUnit(holding.links.loc_cop.targets.source_type)] ;
 }
-
-ehri:HoldingLocationOfCopiesInverseInstitutionSubject ehri_institutions:[holding.links.loc_cop.targets.target_id IF validators.isObjectInstitution(holding.links.loc_cop.targets.subject_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.type)] { 
-    ehri:isCopyOf ehri_units:[holding.links.loc_cop.targets.subject_id] ;
+# unit to institution (inverse)
+ehri:HoldingLocationOfCopiesInverseHoldingSubject ehri_institutions:[holding.links.loc_cop.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(holding.links.loc_cop.targets.source_id, holding.links.loc_cop.targets.target_id, holding.links.loc_cop.targets.type)] { 
+    ehri:isCopyOf ehri_units:[holding.links.loc_cop.targets.source_id IF validators.isDocumentaryUnit(holding.links.loc_cop.targets.source_type)] ;
 }
 
 #####################

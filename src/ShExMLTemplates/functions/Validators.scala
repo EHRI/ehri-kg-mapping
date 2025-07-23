@@ -37,20 +37,20 @@ class Validators {
         !isURL(input)
     }
 
-    def isDocumentaryUnit(id: String, targetID: String, theType: String): Boolean = {
-        id == targetID && theType == "DocumentaryUnit"
+    def areSourceAndTargetDifferentAndIsSubjectInstitution(sourceId: String, targetId: String, sourceType: String): Boolean = {
+        sourceId != targetId && sourceType == "Repository"
     }
 
-    def isObjectDocumentaryUnit(id: String, targetID: String, theType: String): Boolean = {
-        id != targetID && theType == "DocumentaryUnit"
+    def areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(sourceId: String, targetId: String, sourceType: String): Boolean = {
+        sourceId != targetId && sourceType == "DocumentaryUnit"
     }
 
-    def isObjectInstitution(id: String, targetID: String, theType: String): Boolean = {
-        id != targetID && theType == "Repository"
+    def isDocumentaryUnit(theType: String): Boolean = {
+        theType == "DocumentaryUnit"
     }
 
-    def isInstitution(id: String, targetID: String, theType: String): Boolean = {
-        id == targetID && theType == "Repository"
+    def isInstitution(theType: String): Boolean = {
+        theType == "Repository"
     }
 
     def hasCBPrefix(value: String): Boolean = {
