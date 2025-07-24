@@ -90,13 +90,13 @@ ehri:AgentParallelName ehri_pers:[parallel_name_id] {
 ehri:PersonBeginningDate _:[transformers.toBeginningDateID(person.dates.person_id, person.dates.person_id.index()) IF validators.nonEmpty(person.dates.startDate)] { 
 	a rico:Date ;
 	rico:normalizedDateValue [person.dates.startDate] ;
-	rico:isBeginningDateOf ehri_pers:[person.dates.person_id] ;
+	rico:isBirthDateOf ehri_pers:[person.dates.person_id] ;
 }
 
 ehri:PersonEndDate _:[transformers.toEndDateID(person.dates.person_id, person.dates.person_id.index()) IF validators.nonEmpty(person.dates.endDate)] { 
 	a rico:Date ;
 	rico:normalizedDateValue [person.dates.endDate] ;
-	rico:isEndDateOf ehri_pers:[person.dates.person_id] ;
+	rico:isDeathDateOf ehri_pers:[person.dates.person_id] ;
 }
 
 ehri:AuthorityLegalStatus ehri_pers:[transformers.combinedPathHistoricalAgentLegalStatus(person.id) IF validators.nonEmpty(person.legalStatus)] {

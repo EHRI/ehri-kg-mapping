@@ -80,7 +80,7 @@ ehri:PersonBeginningDate
         sh:property     [ sh:maxCount  1 ;
                           sh:minCount  1 ;
                           sh:nodeKind  sh:IRI ;
-                          sh:path      rico:isBeginningDateOf
+                          sh:path      rico:isBirthDateOf
                         ] ;
         sh:property     [ sh:nodeKind  sh:Literal ;
                           sh:maxCount  1 ;
@@ -134,7 +134,7 @@ ehri:PersonEndDate  a   sh:NodeShape ;
         sh:property     [ sh:maxCount  1 ;
                           sh:minCount  1 ;
                           sh:nodeKind  sh:IRI ;
-                          sh:path      rico:isEndDateOf
+                          sh:path      rico:isDeathDateOf
                         ] ;
         sh:property     [ sh:nodeKind  sh:Literal ;
                           sh:maxCount  1 ;
