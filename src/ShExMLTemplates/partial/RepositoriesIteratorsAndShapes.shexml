@@ -57,30 +57,6 @@ ITERATOR repositories_iterator <jsonpath: $.data.repositories.items[*]> {
         	POPPED_FIELD repository_id <id>
 		}
 	}
-	ITERATOR links <links[*]> {
-		PUSHED_FIELD source_id <source.id>
-		PUSHED_FIELD source_type <source.type>
-        ITERATOR loc_org <[?(@.field=='locationOfOriginals' && @.source.id)]> {
-            FIELD description <description>
-            ITERATOR targets <targets[*]> {
-                POPPED_FIELD subject_id <id>
-                FIELD target_id <id>
-                FIELD type <type>
-				POPPED_FIELD source_id <source_id>
-				POPPED_FIELD source_type <source_type>
-            }
-        }
-        ITERATOR loc_cop <[?(@.field=='locationOfCopies' && @.source.id)]> {
-            FIELD description <description>
-            ITERATOR targets <targets[*]> {
-                POPPED_FIELD subject_id <id>
-                FIELD target_id <id>
-                FIELD type <type>
-				POPPED_FIELD source_id <source_id>
-				POPPED_FIELD source_type <source_type>
-            }
-        }
-    }
 }
 
 EXPRESSION organization <repositories.repositories_iterator>
@@ -184,53 +160,3 @@ ehri:Country ehri_countries:[transformers.toLowerCase(organization.descriptions.
 	rico:containsOrContained ehri_regions:[organization.descriptions.addresses.region] ;
 	rico:containsOrContained ehri_cities:[organization.descriptions.addresses.municipality] ;
 }
-
-#####################################
-### Copies links for repositories ###
-#####################################
-
-# In these links it is not possible to put the description unless we reify the data model, TBD.
-
-## Location of Originals ##
-# institution to unit or institution to institution
-ehri:InstitutionLocationOfOriginals ehri_institutions:[organization.links.loc_org.targets.source_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(organization.links.loc_org.targets.source_id, organization.links.loc_org.targets.target_id, organization.links.loc_org.targets.source_type)] {
-    # The object is a documentary unit
-    ehri:isCopyOf ehri_units:[organization.links.loc_org.targets.target_id IF validators.isDocumentaryUnit(organization.links.loc_org.targets.type)] ;
-    # The object is an institution
-    ehri:isCopyOf ehri_institutions:[organization.links.loc_org.targets.target_id IF validators.isInstitution(organization.links.loc_org.targets.type)] ;
-}
-# unit to institution
-ehri:InstitutionLocationOfOriginalsUnitSubject ehri_units:[organization.links.loc_org.targets.source_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(organization.links.loc_org.targets.source_id, organization.links.loc_org.targets.target_id, organization.links.loc_org.targets.source_type)] {
-	ehri:isCopyOf ehri_institutions:[organization.links.loc_org.targets.target_id IF validators.isInstitution(organization.links.loc_org.targets.type)] ;
-}
-# unit to institution or institution to institution (inverse)
-ehri:InstitutionLocationOfOriginalsInverse ehri_institutions:[organization.links.loc_org.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(organization.links.loc_org.targets.source_id, organization.links.loc_org.targets.target_id, organization.links.loc_org.targets.type)] {
-    ehri:hasCopy ehri_institutions:[organization.links.loc_org.targets.source_id IF validators.isInstitution(organization.links.loc_org.targets.source_type)] ;
-	ehri:hasCopy ehri_units:[organization.links.loc_org.targets.source_id IF validators.isDocumentaryUnit(organization.links.loc_org.targets.source_type)] ;
-}
-# institution to unit (inverse)
-ehri:InstitutionLocationOfOriginalsInverseHoldingSubject ehri_units:[organization.links.loc_org.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(organization.links.loc_org.targets.source_id, organization.links.loc_org.targets.target_id, organization.links.loc_org.targets.type)] { 
-    ehri:hasCopy ehri_institutions:[organization.links.loc_org.targets.source_id IF validators.isInstitution(organization.links.loc_org.targets.source_type)] ;
-}    
-
-## Location of Copies ##
-# institution to unit or institution to institution
-ehri:InstitutionLocationOfCopies ehri_institutions:[organization.links.loc_cop.targets.source_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(organization.links.loc_cop.targets.source_id, organization.links.loc_cop.targets.target_id, organization.links.loc_cop.targets.source_type)] {
-    # The object is a documentary unit
-    ehri:hasCopy ehri_units:[organization.links.loc_cop.targets.target_id IF validators.isDocumentaryUnit(organization.links.loc_cop.targets.type)] ;
-    # The object is an institution
-    ehri:hasCopy ehri_institutions:[organization.links.loc_cop.targets.target_id IF validators.isInstitution(organization.links.loc_cop.targets.type)] ;
-}
-# unit to institution
-ehri:InstitutionLocationOfCopiesUnitSubject ehri_units:[organization.links.loc_cop.targets.source_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(organization.links.loc_cop.targets.source_id, organization.links.loc_cop.targets.target_id, organization.links.loc_cop.targets.source_type)] {
-	ehri:hasCopy ehri_institutions:[organization.links.loc_cop.targets.target_id IF validators.isInstitution(organization.links.loc_cop.targets.type)] ;
-}
-# unit to institution or institution to institution (inverse)
-ehri:InstitutionLocationOfCopiesInverse ehri_institutions:[organization.links.loc_cop.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(organization.links.loc_cop.targets.source_id, organization.links.loc_cop.targets.target_id, organization.links.loc_cop.targets.type)] {
-    ehri:isCopyOf ehri_institutions:[organization.links.loc_cop.targets.source_id IF validators.isInstitution(organization.links.loc_cop.targets.source_type)] ;
-	ehri:isCopyOf ehri_units:[organization.links.loc_cop.targets.source_id IF validators.isDocumentaryUnit(organization.links.loc_cop.targets.source_type)] ;
-}
-# institution to unit (inverse)
-ehri:InstitutionLocationOfCopiesInverseHoldingSubject ehri_units:[organization.links.loc_cop.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(organization.links.loc_cop.targets.source_id, organization.links.loc_cop.targets.target_id, organization.links.loc_cop.targets.type)] { 
-    ehri:isCopyOf ehri_institutions:[organization.links.loc_cop.targets.source_id IF validators.isInstitution(organization.links.loc_cop.targets.source_type)] ;
-} 

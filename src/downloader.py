@@ -96,6 +96,38 @@ ehri_repositories_start = """{
 ehri_countries_start = """{
   countries(first: 100, after: \""""
 
+ehri_links_start = """{
+  links(first: 100, after: \""""
+
+ehri_links_end = """\") {
+    items {
+      id
+      type
+      description
+      field
+      body {
+        id
+        name
+        type
+      }
+      targets {
+        id
+        type
+      }
+      source {
+        id
+        type
+      }
+    }
+    pageInfo {
+      hasPreviousPage
+      previousPage
+      hasNextPage
+      nextPage
+    }
+  }
+}"""
+
 ehri_holdings_end = """\") {
     items {
       id
@@ -151,25 +183,6 @@ ehri_holdings_end = """\") {
       itemCount
       repository {
         id
-      }
-      links {
-        id
-        type
-        description
-        field
-        body {
-          id
-          name
-          type
-        }
-        targets {
-          id
-          type
-        }
-        source {
-          id
-          type
-        }
       }
     }
     pageInfo {
@@ -232,23 +245,6 @@ ehri_repositories_end = """\") {
       }
       country {
         id
-      }
-      links {
-        id
-        type
-        description
-        field
-        body {
-          type
-        }
-        targets {
-          id
-          type
-        }
-        source {
-          id
-          type
-        }
       }
     }
     pageInfo {
@@ -318,6 +314,9 @@ def download_from_graphql(type_name, url, query_start, query_end, wait_seconds=0
                 elif 'countries' in data['data']:
                     next_page = data['data']['countries']['pageInfo']['hasNextPage']
                     after = data['data']['countries']['pageInfo']['nextPage']
+                elif 'links' in data['data']:
+                    next_page = data['data']['links']['pageInfo']['hasNextPage']
+                    after = data['data']['links']['pageInfo']['nextPage']
                 else:
                     raise Exception("Unsupported data type")
                 success = True
@@ -363,3 +362,7 @@ if __name__ == '__main__':
     print("Downloading EHRI corporate bodies...")
     query_start = ehri_historical_query_start + "ehri_cb" + ehri_historical_query_middle
     download_from_graphql("cb", grapql_url, query_start, ehri_historical_query_end, wait_seconds)
+
+    print("Downloading EHRI links...")
+    query_start = ehri_links_start
+    download_from_graphql("links", grapql_url, query_start, ehri_links_end, wait_seconds)

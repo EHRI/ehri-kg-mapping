@@ -56,34 +56,6 @@ ITERATOR components_iterator <jsonpath: $.data.documentaryUnits.items[*]> {
 		FIELD identifier <[*]>
 		POPPED_FIELD holding_id <holding_id>
 	}
-	ITERATOR links <links[*]> {
-		PUSHED_FIELD source_id <source.id>
-		PUSHED_FIELD source_type <source.type>
-        ITERATOR loc_org <[?(@.field=='locationOfOriginals' && @.source.id)]> {
-            FIELD description <description>
-            ITERATOR targets <targets[*]> {
-                POPPED_FIELD subject_id <holding_id>
-                FIELD target_id <id>
-                FIELD type <type>
-				POPPED_FIELD source_id <source_id>
-				POPPED_FIELD source_type <source_type>
-            }
-        }
-        ITERATOR loc_cop <[?(@.field=='locationOfCopies' && @.source.id)]> {
-            FIELD description <description>
-            ITERATOR targets <targets[*]> {
-                POPPED_FIELD subject_id <holding_id>
-                FIELD target_id <id>
-                FIELD type <type>
-				POPPED_FIELD source_id <source_id>
-				POPPED_FIELD source_type <source_type>
-            }
-        }
-        ITERATOR creators <[?(@.body[0].type=='creator')]> {
-            FIELD unit_id <targets[?(@.type=='DocumentaryUnit')].id>
-            FIELD cb_id <targets[?(@.type=='HistoricalAgent')].id> 
-        }
-    }
 }
 
 EXPRESSION holding <holdings.components_iterator>
