@@ -37,6 +37,9 @@ python createShExMLFilesForCamps.py camps
 echo "Converting ghettos..."
 python createShExMLFilesForGhettos.py ghettos
 
+echo "Converting ghettos..."
+python createShExMLFilesForLinks.py links
+
 echo "Mixing all the institutions in a single big Turtle file..."
 sh createSingleInstitutionsFile.sh
 
@@ -57,6 +60,9 @@ sh createSingleCampsFile.sh
 
 echo "Mixing all the ghettos in a single big Turtle file..."
 sh createSingleGhettosFile.sh
+
+echo "Mixing all the links in a single big Turtle file..."
+sh createSingleLinksFile.sh
 
 echo "Creating a single file with all the data..."
 sh createSingleFileForDocker.sh
