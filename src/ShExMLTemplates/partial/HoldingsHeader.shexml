@@ -8,6 +8,7 @@ PREFIX ehri_languages: <http://lod.ehri-project-test.eu/languages/>
 PREFIX ehri_parallel_name: <http://lod.ehri-project-test.eu/parallelNames/>
 PREFIX ehri_material_script: <http://lod.ehri-project-test.eu/materialScripts/>
 PREFIX ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/>
+PREFIX ehri_dates: <http://lod.ehri-project-test.eu/dates/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 PREFIX schema: <http://schema.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>

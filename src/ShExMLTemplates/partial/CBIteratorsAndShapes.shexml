@@ -94,13 +94,13 @@ ehri:AgentParallelName ehri_cb:[parallel_name_id] {
 	rico:isOrWasAgentNameOf ehri_cb:[cbs.parallelFormsOfName.name] ;
 }
 
-ehri:CBBeginningDate _:[transformers.toBeginningDateID(cbs.dates.cb_id, cbs.dates.cb_id.index()) IF validators.nonEmpty(cbs.dates.startDate)] { 
+ehri:CBBeginningDate ehri_dates:[cbs.dates.startDate] { 
 	a rico:Date ;
 	rico:normalizedDateValue [cbs.dates.startDate] ;
 	rico:isBeginningDateOf ehri_cb:[cbs.dates.cb_id] ;
 }
 
-ehri:CBEndDate _:[transformers.toEndDateID(cbs.dates.cb_id, cbs.dates.cb_id.index()) IF validators.nonEmpty(cbs.dates.endDate)] { 
+ehri:CBEndDate ehri_dates:[cbs.dates.endDate] { 
 	a rico:Date ;
 	rico:normalizedDateValue [cbs.dates.endDate] ;
 	rico:isEndDateOf ehri_cb:[cbs.dates.cb_id] ;

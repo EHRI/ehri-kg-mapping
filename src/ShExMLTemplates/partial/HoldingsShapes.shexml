@@ -63,13 +63,13 @@ ehri:HoldingParralelFormOfName ehri_units:[parallel_name_id] {
 	rico:isOrWasTitleOf ehri_units:[holding.descriptions.parallelFormsOfName.holding_id] ;
 }
 
-ehri:HoldingBeginningDate _:[holding.descriptions.dates.startDate] { 
+ehri:HoldingBeginningDate ehri_dates:[holding.descriptions.dates.startDate] { 
 	a rico:Date ;
 	rico:normalizedDateValue [holding.descriptions.dates.startDate] ;
 	rico:isBeginningDateOf ehri_units:[holding.descriptions.dates.holding_id] ;
 }
 
-ehri:HoldingEndDate _:[holding.descriptions.dates.endDate] { 
+ehri:HoldingEndDate ehri_dates:[holding.descriptions.dates.endDate] { 
 	a rico:Date ;
 	rico:normalizedDateValue [holding.descriptions.dates.endDate] ;
 	rico:isEndDateOf ehri_units:[holding.descriptions.dates.holding_id] ;

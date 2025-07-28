@@ -5,7 +5,7 @@ RUN apt update
 #RUN apt install software-properties-common
 #RUN add-apt-repository -y -s "deb http://archive.ubuntu.com/ubuntu/ jammy main universe" 
 RUN apt install -y openjdk-17-jdk git curl tomcat9 maven
-RUN curl https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-5.4.0.tar.gz --output fuseki.tar.gz
+RUN curl https://dlcdn.apache.org/jena/binaries/apache-jena-fuseki-5.5.0.tar.gz --output fuseki.tar.gz
 RUN tar -xvzf fuseki.tar.gz
 RUN git clone https://github.com/EHRI/LodView.git
 RUN cd LodView && mvn compile war:war
