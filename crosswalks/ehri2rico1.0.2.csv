@@ -14,8 +14,8 @@ Institution,http://lod.ehri-project-test.eu/institutions/{id},,Subject,,Reposito
 ,openingTimes,schema:openingHours,Literal,schema:ArchiveOrganization,Repositories @ EHRI GraphQL API
 ,history,rico:history,Literal,rico:CorporateBody,Repositories @ EHRI GraphQL API
 ,holdings,rico:generalDescription,Literal,rico:CorporateBody,Repositories @ EHRI GraphQL API
-,conditions,ehri:institutionConditionsOfAccess,Literal,ehri:Institution,Repositories @ EHRI GraphQL API
-,reproductionServices,ehri:institutionReproductionServices,Literal,ehri:Institution,Repositories @ EHRI GraphQL API
+,conditions,ehri:conditionsOfAccess,Literal,ehri:Institution,Repositories @ EHRI GraphQL API
+,reproductionServices,ehri:reproductionServices,Literal,ehri:Institution,Repositories @ EHRI GraphQL API
 ,geoculturalContext,ehri:generalContext,Literal,ehri:Institution,Repositories @ EHRI GraphQL API
 ,administrativeStructure,ehri:administrativeStructure,Literal,ehri:Institution,Repositories @ EHRI GraphQL API
 ,records,ehri:recordsManagementAndCollectingPolicies,Literal,ehri:Institution,Repositories @ EHRI GraphQL API
@@ -98,12 +98,12 @@ Holding,http://lod.ehri-project-test.eu/units/{id},,Subject,rico:Record | rico:R
 ,conditionsOfAccess,rico:conditionsOfAccess,Literal,rico:Record | rico:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,conditionsOfReproduction,rico:conditionsOfUse,Literal,rico:Record | rico:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,conditionsOfUse,rico:conditionsOfUse,Literal,rico:Record | rico:RecordSet,
-,scriptOfMaterial,ehri:scriptOfMaterials,IRI -> MaterialScript,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
+,scriptOfMaterial,ehri:hasOrHadScript,IRI -> MaterialScript,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,physicalCharacteristics,ehri:physicalCharacterisiticsAndTechnicalRequirements,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,findingAids,ehri:otherFindingAids,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,locationOfOriginals,ehri:locationOfOriginals,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,locationOfCopies,ehri:locationOfCopies,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
-,publicationNote,ehri:wasUsedAsSourceIn,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
+,publicationNote,ehri:publicationNote,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,sources,ehri:sources,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,notes,ehri:notes,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,archivistNote,ehri:archivistNote,Literal,ehri:Record | ehri:RecordSet,DocumentaryUnits @ EHRI GraphQL API

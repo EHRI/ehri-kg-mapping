@@ -1,5 +1,5 @@
 @prefix ehri_other_name: <http://lod.ehri-project-test.eu/otherNames/> .
-@prefix ehri_date: <http://lod.ehri-project-test.eu/dates/> .
+@prefix ehri_dates: <http://lod.ehri-project-test.eu/dates/> .
 @prefix ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .

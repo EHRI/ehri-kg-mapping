@@ -42,12 +42,12 @@ ehri:Holding IRI {
 	rico:accruals rdf:langString * ;
 	rico:conditionsOfAccess rdf:langString * ;
 	rico:conditionsOfUse rdf:langString * ;
-	ehri:scriptOfMaterials @ehri:MaterialScript * ;
+	ehri:hasOrHadScript @ehri:MaterialScript * ;
 	ehri:physicalCharacterisiticsAndTechnicalRequirements rdf:langString * ;
 	ehri:otherFindingAids rdf:langString * ;
 	ehri:locationOfOriginals rdf:langString * ;
 	ehri:locationOfCopies rdf:langString * ;
-	ehri:wasUsedAsSourceIn rdf:langString * ;
+	ehri:publicationNote rdf:langString * ;
 	ehri:sources rdf:langString * ;
 	ehri:notes rdf:langString * ;
 	ehri:archivistNote rdf:langString * ;
@@ -90,6 +90,7 @@ ehri:Acquisition IRI {
 ehri:MaterialScript IRI {
 	rdf:type [ ehri:MaterialScript ] ;
 	rico:name xsd:string  ;
+	ehri:isOrWasScriptOf [ ehri_units:~ ] + ;
 }
 ehri:AlternateIds IRI {
 	rdf:type [ rico:Identifier ] ;

@@ -185,7 +185,7 @@ ehri:Institution  a     sh:NodeShape ;
                         ] ;
         sh:property     [ sh:datatype  rdf:langString ;
                           sh:maxCount  1 ;
-                          sh:path      ehri:institutionConditionsOfAccess
+                          sh:path      ehri:conditionsOfAccess
                         ] ;
         sh:property     [ sh:datatype  rdf:langString ;
                           sh:maxCount  1 ;
@@ -210,7 +210,7 @@ ehri:Institution  a     sh:NodeShape ;
                         ] ;
         sh:property     [ sh:datatype  rdf:langString ;
                           sh:maxCount  1 ;
-                          sh:path      ehri:institutionReproductionServices
+                          sh:path      ehri:reproductionServices
                         ] ;
         sh:property     [ sh:datatype  rdf:langString ;
                           sh:maxCount  1 ;

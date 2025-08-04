@@ -21,8 +21,8 @@ ehri:Institution IRI {
 	rico:history rdf:langString ? ;
 	schema:openingHours rdf:langString ? ;
 	rico:generalDescription rdf:langString ? ;
-	ehri:institutionConditionsOfAccess rdf:langString ? ;
-	ehri:institutionReproductionServices rdf:langString ?  ;
+	ehri:conditionsOfAccess rdf:langString ? ;
+	ehri:reproductionServices rdf:langString ?  ;
 	ehri:generalContext rdf:langString ? ;
 	ehri:administrativeStructure rdf:langString ? ;
 	ehri:recordsManagementAndCollectingPolicies rdf:langString ? ;

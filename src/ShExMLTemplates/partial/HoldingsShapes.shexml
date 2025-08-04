@@ -37,12 +37,12 @@ ehri:Holding ehri_units:[holding.holding_id] { # common shape
 	rico:conditionsOfAccess [holding.descriptions.conditionsOfAccess] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
 	rico:conditionsOfUse [holding.descriptions.conditionsOfUse] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
 	rico:conditionsOfUse [holding.descriptions.conditionsOfReproduction] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
-	ehri:scriptOfMaterials @ehri:MaterialScript ;
+	ehri:hasOrHadScript @ehri:MaterialScript ;
 	ehri:physicalCharacterisiticsAndTechnicalRequirements [holding.descriptions.physicalCharacteristics] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
 	ehri:otherFindingAids [holding.descriptions.findingAids] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
 	ehri:locationOfOriginals [holding.descriptions.locationOfOriginals] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
 	ehri:locationOfCopies [holding.descriptions.locationOfCopies] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
-	ehri:wasUsedAsSourceIn [holding.descriptions.publicationNote] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
+	ehri:publicationNote [holding.descriptions.publicationNote] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
 	ehri:sources [holding.descriptions.sources] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
 	ehri:notes [holding.descriptions.notes] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
 	ehri:archivistNote [holding.descriptions.archivistNote] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ; 
@@ -93,6 +93,7 @@ ehri:Acquisition ehri_units:[transformers.combinedPathHoldingAcquisition(holding
 ehri:MaterialScript ehri_material_script:[holding.descriptions.scriptOfMaterial.script] {
 	a ehri:MaterialScript ;
 	rico:name [holding.descriptions.scriptOfMaterial.script] ;
+	ehri:isOrWasScriptOf ehri_units:[holding.descriptions.scriptOfMaterial.holding_id] ;
 }
 
 ehri:AlternateIds ehri_units:[transformers.combinedPathHoldingAlternateIDs(holding.otherIdentifiers.holding_id, holding.otherIdentifiers.holding_id.index()) IF validators.nonEmpty(holding.otherIdentifiers.identifier)] {

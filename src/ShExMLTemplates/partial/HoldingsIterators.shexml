@@ -45,6 +45,7 @@ ITERATOR components_iterator <jsonpath: $.data.documentaryUnits.items[*]> {
 		}
 		ITERATOR scriptOfMaterial <scriptOfMaterial> {
 			FIELD script <[*]>
+			POPPED_FIELD holding_id <holding_id>
 		}
 		ITERATOR parallelFormsOfName <parallelFormsOfName> {
 			FIELD name <[*]>

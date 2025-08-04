@@ -30,7 +30,7 @@ sed -i "1i\@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ." all.ttl
 sed -i "1i\@prefix ehri_pers: <http://lod.ehri-project-test.eu/vocabularies/ehri-pers/> ." all.ttl
 sed -i "1i\@prefix ehri_other_name: <http://lod.ehri-project-test.eu/otherNames/> ." all.ttl
 sed -i "1i\@prefix ehri_parallel_name: <http://lod.ehri-project-test.eu/parallelNames/> ." all.ttl
-sed -i "1i\@prefix ehri_date: <http://lod.ehri-project-test.eu/dates/> ." all.ttl
+sed -i "1i\@prefix ehri_dates: <http://lod.ehri-project-test.eu/dates/> ." all.ttl
 sed -i "1i\@prefix ehri_legal_status: <http://lod.ehri-project-test.eu/legalStatuses/> ." all.ttl
 sed -i "1i\@prefix ehri_mandate: <http://lod.ehri-project-test.eu/mandates/> ." all.ttl
 sed -i "1i\@prefix ehri_activity: <http://lod.ehri-project-test.eu/activities/> ." all.ttl

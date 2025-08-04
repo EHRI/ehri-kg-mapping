@@ -25,6 +25,10 @@ ehri:MaterialScript  a  sh:NodeShape ;
                           sh:minCount  1 ;
                           sh:path      rico:name
                         ] ;
+        sh:property     [ sh:minCount  1 ;
+                          sh:nodeKind  sh:IRI ;
+                          sh:path      ehri:isOrWasScriptOf 
+                        ] ;
         sh:property     [ sh:in    ( ehri:MaterialScript ) ;
                           sh:path  rdf:type
                         ] ;
@@ -68,10 +72,10 @@ ehri:Holding  a         sh:NodeShape ;
                           sh:path      ehri:sources
                         ] ;
         sh:property     [ sh:node  ehri:MaterialScript ;
-                          sh:path  ehri:scriptOfMaterials
+                          sh:path  ehri:hasOrHadScript
                         ] ;
         sh:property     [ sh:datatype  rdf:langString ;
-                          sh:path      ehri:wasUsedAsSourceIn
+                          sh:path      ehri:publicationNote
                         ] ;
         sh:property     [ sh:maxCount  1 ;
                           sh:minCount  1 ;

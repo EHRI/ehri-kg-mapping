@@ -7,7 +7,7 @@ sed -i "1i\@prefix ehri_units: <http://lod.ehri-project-test.eu/units/> ." cb.tt
 sed -i "1i\@prefix ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/> ." cb.ttl
 sed -i "1i\@prefix ehri_other_name: <http://lod.ehri-project-test.eu/otherNames/> ." cb.ttl
 sed -i "1i\@prefix ehri_parallel_name: <http://lod.ehri-project-test.eu/parallelNames/> ." cb.ttl
-sed -i "1i\@prefix ehri_date: <http://lod.ehri-project-test.eu/dates/> ." cb.ttl
+sed -i "1i\@prefix ehri_dates: <http://lod.ehri-project-test.eu/dates/> ." cb.ttl
 sed -i "1i\@prefix ehri_legal_status: <http://lod.ehri-project-test.eu/legalStatuses/> ." cb.ttl
 sed -i "1i\@prefix ehri_mandate: <http://lod.ehri-project-test.eu/mandates/> ." cb.ttl
 sed -i "1i\@prefix ehri_activity: <http://lod.ehri-project-test.eu/activities/> ." cb.ttl

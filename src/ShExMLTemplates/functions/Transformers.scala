@@ -78,6 +78,7 @@ class Transformers {
         else if(levelOfDescription == "recordgrp") "RecordGroup"
         else if(levelOfDescription == "subgrp") "Subgroup"
         else if(levelOfDescription == "subcollection") "Subcollection"
+        else if(levelOfDescription == "otherlevel") "OtherLevel"
         else ""
     }
 }

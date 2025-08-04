@@ -74,8 +74,8 @@ ehri:Institution ehri_institutions:[organization.id] {
 	rico:history [organization.descriptions.history] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	schema:openingHours [organization.descriptions.openingTimes] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	rico:generalDescription [organization.descriptions.holdings] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
-	ehri:institutionConditionsOfAccess [organization.descriptions.conditions] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
-	ehri:institutionReproductionServices [organization.descriptions.reproductionServices] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:conditionsOfAccess [organization.descriptions.conditions] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
+	ehri:reproductionServices [organization.descriptions.reproductionServices] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	ehri:generalContext [organization.descriptions.geoculturalContext] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	ehri:administrativeStructure [organization.descriptions.administrativeStructure] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	ehri:recordsManagementAndCollectingPolicies [organization.descriptions.records] @[organization.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
