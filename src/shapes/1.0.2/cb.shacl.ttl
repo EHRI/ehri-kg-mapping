@@ -76,7 +76,7 @@ ehri:AgentOtherName  a  sh:NodeShape ;
 
 ehri:CBBeginningDate
         a               sh:NodeShape ;
-        sh:nodeKind     sh:BlankNode ;
+        sh:nodeKind     sh:IRI ;
         sh:property     [ sh:maxCount  1 ;
                           sh:minCount  1 ;
                           sh:nodeKind  sh:IRI ;
@@ -130,7 +130,7 @@ ehri:AuthorityMandate
         sh:targetClass  rico:Mandate .
 
 ehri:CBEndDate  a       sh:NodeShape ;
-        sh:nodeKind     sh:BlankNode ;
+        sh:nodeKind     sh:IRI ;
         sh:property     [ sh:maxCount  1 ;
                           sh:minCount  1 ;
                           sh:nodeKind  sh:IRI ;

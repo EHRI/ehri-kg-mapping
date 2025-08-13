@@ -2,20 +2,9 @@
 ### Documentary Units ###
 #########################
 
-# Shape for RecordSet
-ehri:RecordSet ehri_units:[holding.holding_id IF validators.isRecordSet(holding.itemCount)] { # Sometimes the level is not provided so we determine the type based on our own context
+ehri:Holding ehri_units:[holding.holding_id] { # common shape
 	a ehri:RecordSet ;
 	rico:hasOrHadSomeMembersWithLanguage @ehri:Language ;
-}
-
-# Shape for Record
-ehri:Record ehri_units:[holding.holding_id IF validators.isRecord(holding.itemCount)] { # Sometimes the level is not provided so we determine the type based on our own context
-	a ehri:Record ;
-	rico:hasOrHadLanguage @ehri:Language ;
-}
-
-ehri:Holding ehri_units:[holding.holding_id] { # common shape
-	# a ehri:[transformers.recordOrRecordSet(holding.descriptions.levelOfDescription, holding.itemCount)] ; # This allows for more fine-grained control of the type if needed
 	rico:hasRecordSetType ric_rst:[transformers.getRecordSetType(holding.descriptions.levelOfDescription) IF validators.isRecordSetTypeDefinedInRiC(holding.descriptions.levelOfDescription)] ;
 	rico:hasRecordSetType ehri_rst:[transformers.getEHRIDefinedRecordSetType(holding.descriptions.levelOfDescription) IF validators.isRecordSetTypeDefinedInEHRI(holding.descriptions.levelOfDescription)] ;
 	rico:title [holding.descriptions.name] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;

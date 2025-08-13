@@ -1,13 +1,5 @@
 class Validators {
     
-    def isRecord(itemCount: Int): Boolean = {
-        itemCount == 0
-    }
-
-    def isRecordSet(itemCount: Int): Boolean = {
-        !isRecord(itemCount)
-    }
-
     def nonEmpty(str: String): Boolean = {
         str.nonEmpty
     }
@@ -73,6 +65,8 @@ class Validators {
         levelOfDescription == "subseries" ||
         levelOfDescription == "recordgrp" ||
         levelOfDescription == "subgrp" ||
-        levelOfDescription == "subcollection"
+        levelOfDescription == "subcollection" ||
+        levelOfDescription == "item" ||
+        levelOfDescription == "otherlevel"
     }
 }

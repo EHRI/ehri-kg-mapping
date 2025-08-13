@@ -41,12 +41,12 @@ ehri:AgentParallelName IRI {
 	rico:name xsd:string  ;
 	rico:isOrWasAgentNameOf [ ehri_cb:~ ]  ;
 }
-ehri:CBBeginningDate Bnode {
+ehri:CBBeginningDate IRI {
 	rdf:type [ rico:Date ] ;
 	rico:normalizedDateValue Literal ;
 	rico:isBeginningDateOf [ ehri_cb:~ ]  ;
 }
-ehri:CBEndDate Bnode {
+ehri:CBEndDate IRI {
 	rdf:type [ rico:Date ] ;
 	rico:normalizedDateValue Literal ;
 	rico:isEndDateOf [ ehri_cb:~ ]  ;

@@ -189,35 +189,19 @@ ehri:Holding  a         sh:NodeShape ;
         sh:property     [ sh:nodeKind  sh:IRI ;
                           sh:path      rico:hasCreator
                         ] ;                                              
-        sh:targetClass  ehri:Holding ;
-        sh:or (
-          [ 
-            sh:property [ 
-                          sh:node  ehri:Language ;
-                          sh:path  rico:hasOrHadLanguage
-                        ] ;
-            sh:property [ 
-                          sh:in    ( ehri:Record ) ;
-                          sh:path  rdf:type
-                        ] ;
-            sh:targetClass  ehri:Record 
-          ]
-          [ 
-            sh:property [ 
+        sh:property     [ 
                           sh:node  ehri:Language ;
                           sh:path  rico:hasOrHadSomeMembersWithLanguage
                         ] ;
-            sh:property [ 
+        sh:property     [ 
                           sh:in    ( ehri:RecordSet ) ;
                           sh:path  rdf:type
                         ] ;
-            sh:targetClass  ehri:RecordSet 
-          ]
-        ) ;
+        sh:targetClass  ehri:RecordSet ;
         sh:nodeKind     sh:IRI .
 
 ehri:HoldingEndDate  a  sh:NodeShape ;
-        sh:nodeKind     sh:BlankNode ;
+        sh:nodeKind     sh:IRI ;
         sh:property     [ sh:minCount  1 ;
                           sh:nodeKind  sh:IRI ;
                           sh:path      rico:isEndDateOf
@@ -287,7 +271,7 @@ ehri:Language  a        sh:NodeShape ;
 
 ehri:HoldingBeginningDate
         a               sh:NodeShape ;
-        sh:nodeKind     sh:BlankNode ;
+        sh:nodeKind     sh:IRI ;
         sh:property     [ sh:minCount  1 ;
                           sh:nodeKind  sh:IRI ;
                           sh:path      rico:isBeginningDateOf
