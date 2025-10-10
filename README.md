@@ -1,63 +1,97 @@
-# EHRI2LOD 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8185859.svg)](https://doi.org/10.5281/zenodo.8185859)
+# EHRI KG mapping
 
-This is a project to download all the contents from the EHRI portal and transform them to Linked Open Data following the [Records in Context ontology](https://www.ica.org/standards/RiC/RiC-O_v0-2.html). The mapping rules try to align as much as possible to the EHRI data model (following EAD mostly) to the RiC data model. When this is not possible general vocabulary terms from [schema.org](https://schema.org/) are used. For particular terms that are only used inside the EHRI domain (mostly in the countries' information) custom predicates are used which at some point will be compiled into a custom and proper ontology.
+This repository hosts the mapping files and all the orchestating resources for converting the [EHRI Portal data](https://portal.ehri-project.eu/) to the [EHRI Knowledge Graph (EHRI-KG)](https://lod.ehri-project-test.eu/). The mapping rules follow the definitions of the [EHRI Ontology](https://lod.ehri-project-test.eu/ontology/) which aligns as much as possible to the [Records in Contexts Ontology (RiC-O)](https://www.ica.org/standards/RiC/ontology) and, where not possible, extends it using [schema.org](https://schema.org/) or custom properties.
 
-## Scientific publication
-This repository represents the companion data and software for our paper presented at ISWC 2023. Therefore, you can cite this repository when referring to the data but for scientific publications the preferred reference is:
+The latest conversion can be accesed through a dedicated LodView instance: [https://lod.ehri-project-test.eu/](https://lod.ehri-project-test.eu/).
+
+> To know more about this project and its current status you can visit the [EHRI-KG project website](https://ehri-kg.ehri-project.eu/).
+
+## Current conversion versions
+* EHRI Ontology: 0.0.3
+* RiC-O: 1.0.2
+
+## Crosswalks
+In order to facilitate an easier interpretation of the mapping rules, and how the different EHRI Portal attributes are aligned against their counterpart ones in RiC-O, schema.org and the EHRI Ontology, a set of crosswalks files are offered under the `crosswalks` folder:
+* ehri2rico0.2_old.csv: Contains the old conversion to the draft RiC-O 0.2 version.
+* ehri2rico1.0.2.csv: Contains the current alignment to RiC-O 1.0.2 as well as to the first release of the EHRI Ontology.
+
+## How to launch the conversion?
+The conversion process is designed to be unattended and you can start it by using the following command:
+
 ```
-García-González, H., & Bryant, M. (2023, October). The Holocaust Archival Material Knowledge Graph. 
-In International Semantic Web Conference (pp. 362-379). Cham: Springer Nature Switzerland.
+$ bash convertAll.sh
 ```
 
-## Before running the conversion
-Have in mind that all the ShExML scripts use absolute paths, so you would have to update them to match your actual path. Since ShExML v0.2.7 relative paths are supported for local files, so you can expect this to be adapted in the future.
+The script will generate several outputs (which are further explained later) and a final file (`allWithExtras.ttl`) containing the merged results from all the different conversion steps. This Turtle file is ready to be used by any application or directly uploaded to a triple store.
 
-## Steps to do the conversion
-1. Create the working folders `$ sh createWorkingFolders.sh`
-2. Download all the files from the portal `$ python downloader.py`
-3. Convert countries and institutions to Turtle
-```
-$ java -Dfile.encoding=UTF8 -jar ShExML-v0.4.0.jar -m ShExMLTemplates\EAD2SchemaorgLocalCountries.shexml -o countries.ttl
+Due to the high number of files and the long conversion time, the script incorporates a resuming mechanism, ensuring that already downloaded or converted files are not reprocessed. This allows to run the process at intervals or recuperate the process after an error (e.g., a network failure).
 
-$ java -Dfile.encoding=UTF8 -jar ShExML-v0.4.0.jar -m ShExMLTemplates\EAD2SchemaorgLocalRepositories.shexml -o repositories.ttl
-```
-4. Convert the holdings to Turtle `$ python createShExMLFilesForHoldings.py holdings`
-5. Convert the terms to Turtle `$ python createShExMLFilesForTerms.py terms`
-6. Convert the people (EHRI personalities) to Turtle `$ python createShExMLFilesForPeople.py people`
-7. Convert the corporate bodies to Turtle `$ python createShExMLFilesForCb.py cb`
-8. Convert the camps to Turtle `$ python createShExMLFilesForCamps.py camps`
-9. Convert the ghettos to Turtle `$ python createShExMLFilesForGhettos.py ghettos`
-10. Mix all the holdings in a single big Turtle file `$ sh createSingleFile.sh`
-11. Mix all the terms in a single big Turtle file `$ sh createSingleTermsFile.sh`
-12. Mix all the people in a single big Turtle file `$ sh createSinglePeopleFile.sh`
-13. Mix all the corporate bodies in a single big Turtle file `$ sh createSingleCbFile.sh`
-14. Mix all the camps in a single big Turtle file `$ sh createSingleCampsFile.sh`
-15. Mix all the ghettos in a single big Turtle file `$ sh createSingleGhettosFile.sh`
-16. (optional) Create a single file with all the data `$ sh createSingleFileForDocker.sh`
+If at any point, you desire to start from scratch, you can always invoke the command below to remove all the downloaded and converted files.
 
-Alternatively, you can run the whole process unattendedly using `$ sh convertAll.sh`
+```
+$ bash removeAll.sh
+```
 
-## Docker
-It is possible to launch a Docker container to visualise the generated data in a LOD viewer. For doing this you can use the the provided Dockerfile. You can either build or pull from Docker hub with the last generated data.
-Build:
-```
-$ docker build -t herminiogg/ehri2lod .
-```
-or Pull:
-```
-$ docker pull herminiogg/ehri2lod
-```
-Launch:
-```
-$ docker run -p 8080:8080 -p 3030:3030 herminiogg/ehri2lod
-```
-## Additional resources
-As part of the process additional resources were also generated and are attached to this repository for documentation purpouses. You can find these files under the auxFile folder which contains fragments of queries and other constructions used in the development of the whole workflow.
+### Editing mapping rules
+The mapping rules are centralised under the `ShExMLTemplates` folder. Be aware that some of the file import content from other files or use common features centralised in auxiliary files (e.g., functions in Scala under the `functions` folder).
 
-### Shapes
-One special output from the process are the ShEx and SHACL shapes generated directly from the ShExML mapping rules (see [ShEx generation from ShExML](http://shexml.herminiogarcia.com/validation/shex.html)). Take into account that, due to the big amount of data, these shapes are generated from a small set of data, meaning that cardinalities and data types may not be 100% accurate. The files can be found in the shapes folder.
+Therefore, changes pertaining to how the output should be generated should be introduced here. Introducing changes in other files or folders will drive to unexpected results or even the loss of the introduced changes.
 
-## Future work
-* Create a process to incrementally update the data
+### Steps of the conversion
+The download and conversion processes are divided per entity type, guaranteeing that the conversion of each entity can be rerun separately and that a change on one entity type does not mean having to recreate the whole conversion. Moreover, the download script creates a single file for each of the pages on the API which makes the conversion much more approachable than converting a big file in one go.
 
+Presently, the following entities are included in the conversion:
+* Countries
+* Institutions
+* Holdings (or Documentary Units)
+* People
+* Corporate Bodies (including Families)
+* Terms (links to terms only)
+* Ghettos (links to ghettos only)
+* Camps (links to camps only)
+* Links (creator and copy links)
+
+Based on this division, each conversion will generate a number of dedicated folders and files according to the following schema.
+
+Example for countries:
+* countries (this folder will contain the downloaded files from the API for the countries)
+* shexmlRulesCountries (the created mapping rules based on the ShExML template and on the downloaded files)
+* shexmlOutputCountries (the Turtle files obtained after the conversion)
+* countries.ttl (the unified Turtle file obtained after merging all the files under the folder shexmlOutputCountries)
+
+### Additional data
+The conversion is enriched with additional data which does not require to be transformed in order to be part of the final output. As such, this data is included in the final output by the `convertAll.sh` script. Nevertheless, the `all.ttl` file contains the results without the mentioned enrichment, in case a standalone version is needed for testing or debugging purposes.
+
+Right now, the following data is added to the final result:
+* EHRI Terms (as SKOS thesaurus)
+* EHRI Ghettos (as SKOS thesaurus)
+* EHRI Camps (as SKOS thesaurus)
+* owl:sameAs links to DBpedia (languages)
+* owl:sameAs links to CDEC (people)
+
+## Validation
+In order to validate the results of the conversion and its adherence to the EHRI Ontology, a set of SHACL and ShEx validation rules are provided under the `shapes` folder. These were initially generated using ShExML capability to generate ShEx and SHACL from a provided set of mapping rules and further fine-tuned to cover all the requirements imposed by the data model. The validation process for both SHACL and ShEx can be executed using the following script:
+
+```
+$ bash validateAll.sh > validationResults.txt
+```
+
+This script will validate all the different files per entity and produce the subsequent output files:
+* validationResults.txt (contains the validation results for each file as well as an aggregated summary per entity)
+* validationReport.txt (contains the validation results as extracted from the Apache Jena output)
+* shaclCommandOutput.txt (contains any possible erros encountered during the execution of the SHACL validation)
+* shexCommandOutput.txt (contains any possible erros encountered during the execution of the ShEx validation)
+
+> Disclaimer: This part of the project is still a work in progress, so not all the converted files will validate succesfully. A full working validation may require further formalisation of the data and/or further fine-tuning of the validation rules.
+
+## Minimum Requirements
+| Tool | Version |
+----------|----------
+| JRE     | 17.x    |
+| Python  | 3.x     |
+
+The following libraries are downloaded during the conversion process:
+| Library | Version |
+----------|----------
+| ShExML  | 0.5.4   |
+| Apache Jena (for validation) | 5.5.0 | 
