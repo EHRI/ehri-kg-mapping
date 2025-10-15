@@ -1,4 +1,6 @@
 # EHRI KG mapping
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17359135.svg)](https://doi.org/10.5281/zenodo.17359135)
+[![SWH](https://archive.softwareheritage.org/badge/origin/https://github.com/EHRI/ehri-kg-mapping/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/EHRI/ehri-kg-mapping)
 
 This repository hosts the mapping files and all the orchestating resources for converting the [EHRI Portal data](https://portal.ehri-project.eu/) to the [EHRI Knowledge Graph (EHRI-KG)](https://lod.ehri-project-test.eu/). The mapping rules follow the definitions of the [EHRI Ontology](https://lod.ehri-project-test.eu/ontology/) which aligns as much as possible to the [Records in Contexts Ontology (RiC-O)](https://www.ica.org/standards/RiC/ontology) and, where not possible, extends it using [schema.org](https://schema.org/) or custom properties.
 
