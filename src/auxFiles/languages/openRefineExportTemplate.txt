@@ -1,0 +1,4 @@
+Prefix: MATCHER langcode_two_digit_equivalent <
+Row template: {{cells["ISO 639-2 Code"].value}} AS {{cells["ISO 639-1 Code"].value}}
+Row separator: & 
+Suffix: >

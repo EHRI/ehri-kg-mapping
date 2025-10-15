@@ -14,6 +14,8 @@ rm ghettos.ttl
 rm holdings.ttl
 rm people.ttl
 rm terms.ttl
+rm institutions.ttl
+rm links.ttl
 
 echo "Removing folders..."
 
@@ -26,17 +28,22 @@ rm -rf holdings_hash
 rm -rf institutions
 rm -rf terms
 rm -rf people
-rm -rf shexmlOutput
+rm -rf links
+rm -rf shexmlOutputHoldings
 rm -rf shexmlOutputCamps
 rm -rf shexmlOutputCb
 rm -rf shexmlOutputGhettos
 rm -rf shexmlOutputPeople
 rm -rf shexmlOutputTerms
-rm -rf shexmlRules
+rm -rf shexmlOutputInstitutions
+rm -rf shexmlOutputLinks
+rm -rf shexmlRulesHoldings
 rm -rf shexmlRulesCamps
 rm -rf shexmlRulesCb
 rm -rf shexmlRulesGhettos
 rm -rf shexmlRulesPeople
 rm -rf shexmlRulesTerms
+rm -rf shexmlRulesInstitutions
+rm -rf shexmlRulesLinks
 
 echo "Everything has been removed. You can start anew!"

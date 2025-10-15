@@ -1,0 +1,133 @@
+ITERATOR cb_iterator <jsonpath: $.data.AuthoritativeSet.authorities.items[*]> {
+	PUSHED_FIELD id <identifier>
+    FIELD name <description.name>
+    FIELD lastName <description.lastName>
+    FIELD firstName <description.firstName>
+    PUSHED_FIELD languageCode <description.languageCode>
+    FIELD sourceLink <description.source>
+    FIELD datesOfExistence <description.datesOfExistence>
+    FIELD biographicalHistory <description.biographicalHistory>
+    FIELD typeOfEntity <description.typeOfEntity>
+    FIELD legalStatus <description.legalStatus>
+    FIELD structure <description.structure>
+    FIELD generalContext <description.generalContext>
+    FIELD occupation <description.occupation>
+  	ITERATOR links <links[*]> {
+        ITERATOR targets <targets[?(@.type=='DocumentaryUnit')]> {
+            FIELD unit_id <id>
+            POPPED_FIELD parent_id <id>
+        }    
+    }
+    ITERATOR dates <description.dates[*]> {
+        FIELD startDate <startDate>
+        FIELD endDate <endDate>
+        POPPED_FIELD cb_id <id>
+    }
+    ITERATOR otherFormsOfName <description.otherFormsOfName> {
+        FIELD name<[*]>
+        POPPED_FIELD cb_id <id>
+    }
+    ITERATOR parallelFormsOfName <description.parallelFormsOfName> {
+        FIELD name<[*]>
+        POPPED_FIELD cb_id <id>
+    }
+    ITERATOR funcs <description.functions> {
+        FIELD func <[*]>
+        POPPED_FIELD langCode <languageCode>
+        POPPED_FIELD cb_id <id>
+    }
+    ITERATOR place <description.place> {
+        FIELD place <[*]>
+        POPPED_FIELD cb_id <id>
+    }
+    ITERATOR mandates <description.mandates> {
+        FIELD mandate <[*]>
+        POPPED_FIELD langCode <languageCode>
+        POPPED_FIELD cb_id <id>
+    }
+}
+
+EXPRESSION cbs <cb.cb_iterator>
+EXPRESSION other_name_id <cb.cb_iterator.otherFormsOfName.cb_id + "/otherNames/" + cb.cb_iterator.otherFormsOfName.name>
+EXPRESSION parallel_name_id <cb.cb_iterator.parallelFormsOfName.cb_id + "/parallelNames/" + cb.cb_iterator.parallelFormsOfName.name>
+
+ehri:CB ehri_cb:[cbs.id IF validators.isCB(cbs.typeOfEntity)] { # it is possible to use different prefixes for families and cbs
+    a ehri:CorporateBody ;
+}
+
+ehri:Family ehri_cb:[cbs.id IF validators.isFamily(cbs.typeOfEntity)] { # it is possible to use different prefixes for families and cbs
+    a ehri:Family ;
+}
+
+ehri:CBAndFamily ehri_cb:[cbs.id] { # it is possible to use different prefixes for families and cbs
+    rico:name [cbs.name] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
+    rico:history [cbs.biographicalHistory] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
+    rico:hasOrHadAgentName @ehri:AgentParallelName ;
+    rico:hasOrHadAgentName @ehri:AgentOtherName ;
+    rdfs:seeAlso [transformers.removeSquareBrackets(cbs.sourceLink) IF validators.isURL(cbs.sourceLink)] ;
+    ehri:sources [transformers.removeSquareBrackets(cbs.sourceLink) IF validators.nonURL(cbs.sourceLink)] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ; 
+    rico:date [cbs.datesOfExistence] ; 
+	rico:hasBeginningDate @ehri:CBBeginningDate ;
+	rico:hasEndDate @ehri:CBEndDate ;
+    # rico:agentHasOrHadLocation @ehri:AuthorityPlace ; # This is not present in the API and it will be difficult to determine the correct prefix among cities, countries and regions.
+    rico:hasOrHadLegalStatus @ehri:AuthorityLegalStatus ;
+    rico:performsOrPerformed @ehri:AuthorityOccupation ;
+    rico:performsOrPerformed @ehri:AuthorityFunction ;
+    rico:authorizedBy @ehri:AuthorityMandate ;
+    ehri:structureOrGenealogy [cbs.structure] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ; # This can be divided in structure of cb and genealogy of family if needed
+    rico:generalDescription [cbs.generalContext] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
+}
+
+ehri:Link ehri_units:[cbs.links.targets.unit_id] { 
+    rico:hasOrHadSubject ehri_cb:[cbs.links.targets.parent_id] ; # it is possible to use different prefixes for families and cbs
+}
+
+ehri:AgentOtherName ehri_cb:[other_name_id] { 
+	a ehri:AlternateAgentName ;
+	rico:name [cbs.otherFormsOfName.name] ;
+	rico:isOrWasAgentNameOf ehri_cb:[cbs.otherFormsOfName.name] ;
+}
+
+ehri:AgentParallelName ehri_cb:[parallel_name_id] { 
+	a ehri:ParallelAgentName ;
+	rico:name [cbs.parallelFormsOfName.name] ;
+	rico:isOrWasAgentNameOf ehri_cb:[cbs.parallelFormsOfName.name] ;
+}
+
+ehri:CBBeginningDate ehri_dates:[cbs.dates.startDate] { 
+	a rico:Date ;
+	rico:normalizedDateValue [cbs.dates.startDate] ;
+	rico:isBeginningDateOf ehri_cb:[cbs.dates.cb_id] ;
+}
+
+ehri:CBEndDate ehri_dates:[cbs.dates.endDate] { 
+	a rico:Date ;
+	rico:normalizedDateValue [cbs.dates.endDate] ;
+	rico:isEndDateOf ehri_cb:[cbs.dates.cb_id] ;
+}
+
+ehri:AuthorityLegalStatus ehri_cb:[transformers.combinedPathHistoricalAgentLegalStatus(cbs.id) IF validators.nonEmpty(cbs.legalStatus)] { 
+    a rico:LegalStatus ;
+    rico:generalDescription [cbs.legalStatus] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
+    rico:isOrWasLegalStatusOf ehri_cb:[cbs.id] ;
+}
+
+ehri:AuthorityOccupation ehri_cb:[transformers.combinedPathHistoricalAgentOccupation(cbs.id) IF validators.nonEmpty(cbs.occupation)] {
+    a rico:Activity ;
+    rico:hasOrHadActivityType rico:OccupationType ;
+    rico:generalDescription [cbs.occupation] @[cbs.languageCode MATCHING langcode_two_digit_equivalent] ;
+    rico:isOrWasPerformedBy ehri_cb:[cbs.id] ;
+}
+
+ehri:AuthorityFunction ehri_cb:[transformers.combinedPathHistoricalAgentFunction(cbs.funcs.cb_id, cbs.funcs.func.index())] {
+    a rico:Activity ;
+    rico:hasOrHadActivityType ehri:FunctionType ;
+    rico:generalDescription [cbs.funcs.func] @[cbs.funcs.langCode MATCHING langcode_two_digit_equivalent] ;
+    rico:isOrWasPerformedBy ehri_cb:[cbs.funcs.cb_id] ;
+}
+
+ehri:AuthorityMandate ehri_cb:[transformers.combinedPathHistoricalAgentMandate(cbs.mandates.cb_id, cbs.mandates.mandate.index())] {
+    a rico:Mandate ;
+    rico:generalDescription [cbs.mandates.mandate] @[cbs.mandates.langCode MATCHING langcode_two_digit_equivalent] ;
+    rico:authorizes ehri_cb:[cbs.mandates.cb_id] ;
+} 

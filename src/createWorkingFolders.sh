@@ -2,8 +2,10 @@ mkdir countries
 mkdir holdings
 mkdir holdings_hash
 mkdir institutions
-mkdir shexmlOutput
-mkdir shexmlRules
+mkdir shexmlOutputInstitutions
+mkdir shexmlRulesInstitutions
+mkdir shexmlOutputHoldings
+mkdir shexmlRulesHoldings
 mkdir terms
 mkdir shexmlOutputTerms
 mkdir shexmlRulesTerms
@@ -19,3 +21,6 @@ mkdir shexmlRulesPeople
 mkdir cb
 mkdir shexmlOutputCb
 mkdir shexmlRulesCb
+mkdir links
+mkdir shexmlOutputLinks
+mkdir shexmlRulesLinks

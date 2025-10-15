@@ -7,9 +7,14 @@ src/camps/*
 src/ghettos/*
 src/people/*
 src/cb/*
+src/links/*
 src/institutions/*
-src/shexmlOutput/*
-src/shexmlRules/*
+src/holdingsCopiesAndLinks/*
+src/institutionsCopiesAndLinks/*
+src/shexmlOutputHoldings/*
+src/shexmlRulesHoldings/*
+src/shexmlOutputInstitutions/*
+src/shexmlRulesInstitutions/*
 src/shexmlOutputTerms/*
 src/shexmlRulesTerms/*
 src/shexmlOutputCamps/*
@@ -20,6 +25,8 @@ src/shexmlOutputPeople/*
 src/shexmlRulesPeople/*
 src/shexmlOutputCb/*
 src/shexmlRulesCb/*
+src/shexmlOutputLinks/*
+src/shexmlRulesLinks/*
 src/holdings.ttl
 src/repositories.ttl
 src/institutions.ttl
@@ -32,8 +39,15 @@ src/ehri-camps.ttl
 src/ehri-ghettos.ttl
 src/people.ttl
 src/cb.ttl
+src/links.ttl
 src/all.ttl
 src/allWithExtras.ttl
+src/*.jar
+src/apache-jena
+src/shaclCommandOutput.txt
+src/shexCommandOutput.txt
+src/validationReport.txt
+src/validationResults.txt
 
 ### Generic for Python
 

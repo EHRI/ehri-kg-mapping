@@ -7,46 +7,17 @@ import multiprocessing as mp
 from functools import partial
 
 shexml_first_part = r"""
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX : <http://example.com/>
-PREFIX ehri: <http://lod.ehri-project-test.eu/>
-PREFIX ehri_country: <http://lod.ehri-project-test.eu/countries/>
-#TODO instutions with mixed paths
-PREFIX ehri_institution: <http://lod.ehri-project-test.eu/institutions/>
-PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
-PREFIX ehri_ghettos: <http://lod.ehri-project-test.eu/vocabularies/ehri-ghettos/>
-PREFIX dbr: <http://dbpedia.org/resource/>
-PREFIX schema: <http://schema.org/>
-PREFIX xs: <http://www.w3.org/2001/XMLSchema#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX rico: <https://www.ica.org/standards/RiC/ontology#>
-SOURCE terms <file:///C:\Users\Herminio\Downloads\EHRI2LOD\src\ghettos\ghettos_"""
+IMPORT <ShExMLTemplates/partial/GhettosHeader.shexml>
+SOURCE terms <ghettos/ghettos_"""
 
 shexml_second_part = r""".json>
-
-ITERATOR terms_iterator <jsonpath: $.data.CvocVocabulary.concepts.items[*]> {
-	PUSHED_FIELD item_id <identifier>
-  	ITERATOR links <links[*]> {
-          FIELD fakefield <fakefield>
-          ITERATOR targets <targets[?(@.type=='DocumentaryUnit')]> {
-              FIELD unit_id <id>
-              POPPED_FIELD parent_id <item_id>
-          }    
-      }
-}
-
-EXPRESSION term <terms.terms_iterator>
-
-ehri:Ghetto ehri_units:[term.links.targets.unit_id] {
-    rico:hasOrHadSubject ehri_ghettos:[term.links.targets.parent_id] ;
-}
+IMPORT <ShExMLTemplates/partial/GhettosIteratorsAndShapes.shexml>
 """
 
 created_files = []
 
 def call_shexml(i, output_filename):
-    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "ShExML-v0.5.1.jar", "-m", i, "-o", output_filename, "-id", "-nu"])
+    subprocess.call(["java", "-Dfile.encoding=UTF-8", "-jar", "shexml.jar", "-m", i, "-o", output_filename, "-id", "-nu"])
 
 def convert_to_rdf(i, created_files, folder):
     index = created_files.index(i)
