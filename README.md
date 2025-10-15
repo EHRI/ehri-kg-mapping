@@ -7,7 +7,7 @@ The latest conversion can be accesed through a dedicated LodView instance: [http
 > To know more about this project and its current status you can visit the [EHRI-KG project website](https://ehri-kg.ehri-project.eu/).
 
 ## Current conversion versions
-* EHRI Ontology: 0.0.3
+* EHRI Ontology: 0.1.0
 * RiC-O: 1.0.2
 
 ## Crosswalks
