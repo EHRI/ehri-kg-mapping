@@ -5,6 +5,8 @@ curl https://portal.ehri-project.eu/vocabularies/ehri_ghettos/export?format=TTL 
 sed -i 's/http:\/\/data.ehri-project.eu/http:\/\/lod.ehri-project-test.eu/g' ehri-terms.ttl
 sed -i 's/http:\/\/data.ehri-project.eu/http:\/\/lod.ehri-project-test.eu/g' ehri-camps.ttl
 sed -i 's/http:\/\/data.ehri-project.eu/http:\/\/lod.ehri-project-test.eu/g' ehri-ghettos.ttl
+# Fixes the different URL in the Portal version of the EHRI Ghettos dataset
+sed -i 's/http:\/\/lod.ehri-project-test.eu\/ghettos/http:\/\/lod.ehri-project-test.eu\/vocabularies\/ehri-ghettos/g' ehri-ghettos.ttl
 
 rm all.ttl
 rm allWithExtras.ttl
