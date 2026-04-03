@@ -44,6 +44,22 @@ class Transformers {
         holdingID + "/alternateIDs/" + (index.toInt + 1)
     }
 
+    def combinedPathPersonLegalStatus(historicalAgentID: String): String = {
+        historicalAgentID + "/legalStatuses/1"
+    }
+
+    def combinedPathPersonOccupation(historicalAgentID: String): String = {
+        historicalAgentID + "/occupations/1"
+    }
+
+    def combinedPathPersonFunction(historicalAgentID: String, index: String): String = {
+        historicalAgentID + "/functions/" + (index.toInt + 1)
+    }
+
+    def combinedPathPersonMandate(historicalAgentID: String, index: String): String = {
+        historicalAgentID + "/mandates/" + (index.toInt + 1)
+    }
+
     def combinedPathHistoricalAgentLegalStatus(historicalAgentID: String, cbType: String): String = {
         s"${getFamilyOrCbPrefix(historicalAgentID, cbType)}/legalStatuses/1"
     }
@@ -64,11 +80,11 @@ class Transformers {
         if(levelOfDescription == "item" && itemCount == 0) "Record" else "RecordSet"
     }
 
-    def combinedPathOtherNamesCbs(id: String, cbType: String, name: String): String {
+    def combinedPathOtherNamesCbs(id: String, cbType: String, name: String): String = {
         getFamilyOrCbPrefix(id, cbType) + "/otherNames/" + name
     }
 
-    def combinedPathParallelNamesCbs(id: String, cbType: String, name: String): String {
+    def combinedPathParallelNamesCbs(id: String, cbType: String, name: String): String = {
         getFamilyOrCbPrefix(id, cbType) + "/parallelNames/" + name
     }
 
@@ -99,7 +115,7 @@ class Transformers {
         !isFamily(cbType)
     }
 
-    def getFamilyOrCbPrefix(id: String, cbType: String: Boolean) = {
+    def getFamilyOrCbPrefix(id: String, cbType: String): String = {
         if(isFamily(cbType)) s"ehri-families/$id"
         else s"ehri-cb/$id"
     }
