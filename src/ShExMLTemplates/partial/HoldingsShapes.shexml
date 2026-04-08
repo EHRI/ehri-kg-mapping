@@ -71,7 +71,7 @@ ehri:ArchiveComponent ehri_units:[holding.parentId] {
 ehri:Language ehri_languages:[holding.descriptions.languageOfMaterial.lang] {
    	a rico:Language ;
    	rico:name [holding.descriptions.languageOfMaterial.lang] ;
-	rico:isOrWasLanguageOfSomeMembersOf [holding.descriptions.languageOfMaterial.holding_id] ;
+	rico:isOrWasLanguageOfSomeMembersOf ehri_units:[holding.descriptions.languageOfMaterial.holding_id] ;
 }
 
 ehri:Acquisition ehri_units:[transformers.combinedPathHoldingAcquisition(holding.holding_id) IF validators.nonEmpty(holding.descriptions.acquisition)] {

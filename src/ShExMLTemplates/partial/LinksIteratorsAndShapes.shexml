@@ -3,7 +3,7 @@ ITERATOR components_iterator <jsonpath: $.data.links.items[*]> {
     PUSHED_FIELD source_type <source.type>
     ITERATOR loc_org <[?(@.field=='locationOfOriginals' && @.source.id)]> {
         PUSHED_FIELD loc_org_id <id>
-        PUSHED_FIELD description <description>
+        PUSHED_FIELD loc_org_description <description>
         ITERATOR targets <targets[*]> {
             POPPED_FIELD subject_id <holding_id>
             FIELD target_id <id>
@@ -11,12 +11,12 @@ ITERATOR components_iterator <jsonpath: $.data.links.items[*]> {
             POPPED_FIELD source_id <source_id>
             POPPED_FIELD source_type <source_type>
             POPPED_FIELD identifier <loc_org_id>
-            POPPED_FIELD description <description>
+            POPPED_FIELD description <loc_org_description>
         }
     }
     ITERATOR loc_cop <[?(@.field=='locationOfCopies' && @.source.id)]> {
         PUSHED_FIELD loc_cop_id <id>
-        PUSHED_FIELD description <description>
+        PUSHED_FIELD loc_cop_description <description>
         ITERATOR targets <targets[*]> {
             POPPED_FIELD subject_id <holding_id>
             FIELD target_id <id>
@@ -24,7 +24,7 @@ ITERATOR components_iterator <jsonpath: $.data.links.items[*]> {
             POPPED_FIELD source_id <source_id>
             POPPED_FIELD source_type <source_type>
             POPPED_FIELD identifier <loc_cop_id>
-            POPPED_FIELD description <description>
+            POPPED_FIELD description <loc_cop_description>
         }
     }
     ITERATOR creators <[?(@.body[0].type=='creator')]> {
@@ -57,9 +57,9 @@ ehri:IsCopyOfLocOrg ehri_is_copy_of_relations:[links.loc_org.targets.identifier]
     a ehri:IsCopyOfRelation ;
     rico:generalDescription [links.loc_org.targets.description] ;
     # The object is a documentary unit
-    rico:relationHasTarget ehri_units:[links.loc_org.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(links.loc_org.targets.source_id, links.loc_org.targets.target_id, links.loc_org.targets.source_type)] ;
+    rico:relationHasTarget ehri_units:[links.loc_org.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(links.loc_org.targets.source_id, links.loc_org.targets.target_id, links.loc_org.targets.type)] ;
     # The object is an institution
-    rico:relationHasTarget ehri_institutions:[links.loc_org.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(links.loc_org.targets.source_id, links.loc_org.targets.target_id, links.loc_org.targets.source_type)] ;
+    rico:relationHasTarget ehri_institutions:[links.loc_org.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(links.loc_org.targets.source_id, links.loc_org.targets.target_id, links.loc_org.targets.type)] ;
     # The subject is a documentary unit
     rico:relationHasSource ehri_units:[links.loc_org.targets.source_id IF validators.isDocumentaryUnit(links.loc_org.targets.source_type)] ;
     # The subject is an institution
@@ -109,9 +109,9 @@ ehri:HasCopyLocCop ehri_has_copy_relations:[links.loc_cop.targets.identifier] {
     a ehri:HasCopyRelation ;
     rico:generalDescription [links.loc_cop.targets.description] ;
     # The object is a documentary unit
-    rico:relationHasTarget ehri_units:[links.loc_cop.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(links.loc_cop.targets.source_id, links.loc_cop.targets.target_id, links.loc_cop.targets.source_type)] ;
+    rico:relationHasTarget ehri_units:[links.loc_cop.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectDocumentaryUnit(links.loc_cop.targets.source_id, links.loc_cop.targets.target_id, links.loc_cop.targets.type)] ;
     # The object is an institution
-    rico:relationHasTarget ehri_institutions:[links.loc_cop.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(links.loc_cop.targets.source_id, links.loc_cop.targets.target_id, links.loc_cop.targets.source_type)] ;
+    rico:relationHasTarget ehri_institutions:[links.loc_cop.targets.target_id IF validators.areSourceAndTargetDifferentAndIsSubjectInstitution(links.loc_cop.targets.source_id, links.loc_cop.targets.target_id, links.loc_cop.targets.type)] ;
     # The subject is a documentary unit
     rico:relationHasSource ehri_units:[links.loc_cop.targets.source_id IF validators.isDocumentaryUnit(links.loc_cop.targets.source_type)] ;
     # The subject is an institution

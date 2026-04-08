@@ -56,6 +56,11 @@ ITERATOR repositories_iterator <jsonpath: $.data.repositories.items[*]> {
 			FIELD name<[*]>
         	POPPED_FIELD repository_id <id>
 		}
+		ITERATOR cityIfNotRegion <addresses[?(@.firstdem == null)]> {
+			FIELD municipality <municipality>
+			FIELD countryCode <countryCode>
+			POPPED_FIELD repository_id <id>
+		}
 	}
 }
 
@@ -130,8 +135,6 @@ ehri:City ehri_cities:[organization.descriptions.addresses.municipality] {
 	a ehri:City ;
 	rico:name [organization.descriptions.addresses.municipality] ;
 	rico:isContainedByTransitive ehri_regions:[organization.descriptions.addresses.region IF validators.nonEmpty(organization.descriptions.addresses.region)] ;
-	#If no region this is used as fallback
-	rico:isContainedByTransitive ehri_countries:[transformers.toLowerCase(organization.descriptions.addresses.countryCode) IF validators.empty(organization.descriptions.addresses.region)] ;
 	# To be implemented owl:sameAs
 }
 
@@ -157,6 +160,13 @@ ehri:Country ehri_countries:[transformers.toLowerCase(organization.descriptions.
 	a ehri:Country ;
 	rico:isOrWasLocationOfAgent ehri_institutions:[organization.descriptions.addresses.repository_id] ;
 	rico:containsTransitive ehri_regions:[organization.descriptions.addresses.region IF validators.nonEmpty(organization.descriptions.addresses.region)] ;
+}
+ehri:CountryFallback ehri_countries:[transformers.toLowerCase(organization.descriptions.cityIfNotRegion.countryCode)] { 
 	#If no region this is used as fallback
-	rico:containsTransitive ehri_cities:[organization.descriptions.addresses.municipality IF validators.empty(organization.descriptions.addresses.region)] ;
+	rico:containsTransitive ehri_cities:[organization.descriptions.cityIfNotRegion.municipality] ;
+}
+
+ehri:CityFallback ehri_cities:[organization.descriptions.cityIfNotRegion.municipality] { 
+	#If no region this is used as fallback
+	rico:isContainedByTransitive ehri_countries:[transformers.toLowerCase(organization.descriptions.cityIfNotRegion.countryCode)] ;
 }

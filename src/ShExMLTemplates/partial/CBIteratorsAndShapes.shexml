@@ -96,13 +96,13 @@ ehri:LinkInverse ehri_vocabularies:[transformers.getFamilyOrCbPrefix(cbs.links.t
 ehri:AgentOtherName ehri_vocabularies:[transformers.combinedPathOtherNamesCbs(cb.cb_iterator.otherFormsOfName.cb_id, cb.cb_iterator.otherFormsOfName.typeOfEntity, cb.cb_iterator.otherFormsOfName.name)] { 
 	a ehri:AlternateAgentName ;
 	rico:name [cbs.otherFormsOfName.name] ;
-	rico:isOrWasAgentNameOf ehri_vocabularies:[transformers.combinedPathOtherNamesCbs(cb.cb_iterator.otherFormsOfName.cb_id, cb.cb_iterator.otherFormsOfName.typeOfEntity, cb.cb_iterator.otherFormsOfName.name)] ;
+	rico:isOrWasAgentNameOf ehri_vocabularies:[transformers.getFamilyOrCbPrefix(cb.cb_iterator.otherFormsOfName.cb_id, cb.cb_iterator.otherFormsOfName.typeOfEntity)] ;
 }
 
 ehri:AgentParallelName ehri_vocabularies:[transformers.combinedPathParallelNamesCbs(cb.cb_iterator.parallelFormsOfName.cb_id, cb.cb_iterator.parallelFormsOfName.typeOfEntity, cb.cb_iterator.parallelFormsOfName.name)] { 
 	a ehri:ParallelAgentName ;
 	rico:name [cbs.parallelFormsOfName.name] ;
-	rico:isOrWasAgentNameOf ehri_vocabularies:[transformers.combinedPathParallelNamesCbs(cb.cb_iterator.parallelFormsOfName.cb_id, cb.cb_iterator.parallelFormsOfName.typeOfEntity, cb.cb_iterator.parallelFormsOfName.name)] ;
+	rico:isOrWasAgentNameOf ehri_vocabularies:[transformers.getFamilyOrCbPrefix(cb.cb_iterator.parallelFormsOfName.cb_id, cb.cb_iterator.parallelFormsOfName.typeOfEntity)] ;
 }
 
 ehri:CBBeginningDate ehri_dates:[cbs.dates.startDate] { 
@@ -130,14 +130,14 @@ ehri:AuthorityOccupation ehri_vocabularies:[transformers.combinedPathHistoricalA
     rico:isOrWasPerformedBy ehri_vocabularies:[transformers.getFamilyOrCbPrefix(cbs.id, cbs.typeOfEntity)] ;
 }
 
-ehri:AuthorityFunction ehri_vocabularies:[transformers.combinedPathHistoricalAgentFunction(cbs.funcs.cb_id, cbs.funcs.typeOfEntity, cbs.funcs.func.index())] {
+ehri:AuthorityFunction ehri_vocabularies:[transformers.combinedPathHistoricalAgentFunction(cbs.funcs.cb_id, cbs.funcs.typeOfEntity, cbs.funcs.func.index()) IF validators.nonEmpty(cbs.funcs.func)] {
     a rico:Activity ;
     rico:hasActivityType ehri:FunctionType ;
     rico:generalDescription [cbs.funcs.func] @[cbs.funcs.langCode MATCHING langcode_two_digit_equivalent] ;
     rico:isOrWasPerformedBy ehri_vocabularies:[transformers.getFamilyOrCbPrefix(cbs.funcs.cb_id, cbs.funcs.typeOfEntity)] ;
 }
 
-ehri:AuthorityMandate ehri_vocabularies:[transformers.combinedPathHistoricalAgentMandate(cbs.mandates.cb_id, cbs.mandates.typeOfEntity, cbs.mandates.mandate.index())] {
+ehri:AuthorityMandate ehri_vocabularies:[transformers.combinedPathHistoricalAgentMandate(cbs.mandates.cb_id, cbs.mandates.typeOfEntity, cbs.mandates.mandate.index()) IF validators.nonEmpty(cbs.mandates.mandate)] {
     a rico:Mandate ;
     rico:generalDescription [cbs.mandates.mandate] @[cbs.mandates.langCode MATCHING langcode_two_digit_equivalent] ;
     rico:authorizes ehri_vocabularies:[transformers.getFamilyOrCbPrefix(cbs.mandates.cb_id, cbs.mandates.typeOfEntity)] ;
