@@ -39,6 +39,10 @@ sed -i "1i\@prefix ehri_activity: <http://lod.ehri-project-test.eu/activities/> 
 sed -i "1i\@prefix ehri_camps: <http://lod.ehri-project-test.eu/vocabularies/ehri-camps/> ." all.ttl
 sed -i "1i\@prefix ehri_ghettos: <http://lod.ehri-project-test.eu/vocabularies/ehri-ghettos/> ." all.ttl
 sed -i "1i\@prefix ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/> ." all.ttl
+sed -i "1i\@prefix ehri_families: <http://lod.ehri-project-test.eu/vocabularies/ehri-families/> ." all.ttl
+sed -i "1i\@prefix ehri_vocabularies: <http://lod.ehri-project-test.eu/vocabularies/> ." all.ttl
+sed -i "1i\@prefix ehri_is_copy_of_relations: <http://lod.ehri-project-test.eu/isCopyOfRelations/> ." all.ttl
+sed -i "1i\@prefix ehri_has_copy_relations: <http://lod.ehri-project-test.eu/hasCopyRelations/> ." all.ttl
 sed -i "1i\@prefix ehri_languages: <http://lod.ehri-project-test.eu/languages/> ." all.ttl
 sed -i "1i\@prefix ehri_material_script: <http://lod.ehri-project-test.eu/materialScripts/> ." all.ttl
 sed -i "1i\@prefix ric_rst: <https://www.ica.org/standards/RiC/vocabularies/recordSetTypes#> ." all.ttl
