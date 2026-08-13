@@ -2,6 +2,8 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX ehri: <http://lod.ehri-project-test.eu/ontology#>
 PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
 PREFIX ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/>
+PREFIX ehri_families: <http://lod.ehri-project-test.eu/vocabularies/ehri-families/>
+PREFIX ehri_vocabularies: <http://lod.ehri-project-test.eu/vocabularies/>
 PREFIX ehri_other_name: <http://lod.ehri-project-test.eu/otherNames/>
 PREFIX ehri_parallel_name: <http://lod.ehri-project-test.eu/parallelNames/>
 PREFIX ehri_dates: <http://lod.ehri-project-test.eu/dates/>

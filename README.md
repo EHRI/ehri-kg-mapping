@@ -87,11 +87,11 @@ This script will validate all the different files per entity and produce the sub
 ## Minimum Requirements
 | Tool | Version |
 ----------|----------
-| JRE     | 17.x    |
+| JRE     | 21.x    |
 | Python  | 3.x     |
 
 The following libraries are downloaded during the conversion process:
 | Library | Version |
 ----------|----------
-| ShExML  | 0.5.4   |
-| Apache Jena (for validation) | 5.5.0 | 
+| ShExML  | 0.6.1   |
+| Apache Jena (for validation) | 6.0.0 | 
