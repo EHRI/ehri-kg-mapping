@@ -2,7 +2,7 @@
 
 if [ ! -f shexml.jar ]; then
     echo "Downloading ShExML..."
-    curl -L https://github.com/herminiogg/ShExML/releases/download/v0.5.4/ShExML-v0.5.4.jar -o shexml.jar
+    curl -L https://github.com/herminiogg/ShExML/releases/download/v0.6.1/ShExML-v0.6.1.jar -o shexml.jar
 fi
 
 echo "Creating working folders..."

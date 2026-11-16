@@ -4,6 +4,10 @@ class Validators {
         str.nonEmpty
     }
 
+    def empty(str: String): Boolean = {
+        str.isEmpty
+    }
+
     def isFamily(cbType: String): Boolean = {
         cbType == "family"
     }

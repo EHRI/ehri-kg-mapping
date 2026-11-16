@@ -1,0 +1,2 @@
+{FOCUS <https://www.ica.org/standards/RiC/ontology#hasOrHadSubject> _}@<http://lod.ehri-project-test.eu/ontology#Ghetto>
+{FOCUS <https://www.ica.org/standards/RiC/ontology#isOrWasSubjectOf> _}@<http://lod.ehri-project-test.eu/ontology#Ghetto>

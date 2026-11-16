@@ -37,6 +37,7 @@ ITERATOR components_iterator <jsonpath: $.data.documentaryUnits.items[*]> {
 		FIELD notes <notes>
 		ITERATOR languageOfMaterial <languageOfMaterial> {
 			FIELD lang <[*]>
+			POPPED_FIELD holding_id <holding_id>
 		}
 		ITERATOR dates <dates[*]> {
 			FIELD startDate <startDate>

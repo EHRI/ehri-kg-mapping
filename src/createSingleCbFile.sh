@@ -11,4 +11,6 @@ sed -i "1i\@prefix ehri_dates: <http://lod.ehri-project-test.eu/dates/> ." cb.tt
 sed -i "1i\@prefix ehri_legal_status: <http://lod.ehri-project-test.eu/legalStatuses/> ." cb.ttl
 sed -i "1i\@prefix ehri_mandate: <http://lod.ehri-project-test.eu/mandates/> ." cb.ttl
 sed -i "1i\@prefix ehri_activity: <http://lod.ehri-project-test.eu/activities/> ." cb.ttl
+sed -i "1i\@prefix ehri_families: <http://lod.ehri-project-test.eu/vocabularies/ehri-families/> ." cb.ttl
+sed -i "1i\@prefix ehri_vocabularies: <http://lod.ehri-project-test.eu/vocabularies/> ." cb.ttl
 sed -i "1i\@prefix rico: <https://www.ica.org/standards/RiC/ontology#> ." cb.ttl

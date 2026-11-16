@@ -13,3 +13,7 @@ EXPRESSION term <terms.terms_iterator>
 ehri:Ghetto ehri_units:[term.links.targets.unit_id] {
     rico:hasOrHadSubject ehri_ghettos:[term.links.targets.parent_id] ;
 }
+
+ehri:GhettoInverse ehri_ghettos:[term.links.targets.parent_id] {
+    rico:isOrWasSubjectOf ehri_units:[term.links.targets.unit_id] ;
+}

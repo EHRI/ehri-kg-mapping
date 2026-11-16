@@ -10,6 +10,8 @@ sed -i "1i\@prefix ehri_cities: <http://lod.ehri-project-test.eu/cities/> ." lin
 sed -i "1i\@prefix ehri_institutions: <http://lod.ehri-project-test.eu/institutions/> ." links.ttl
 sed -i "1i\@prefix ehri_units: <http://lod.ehri-project-test.eu/units/> ." links.ttl
 sed -i "1i\@prefix ehri_terms: <http://lod.ehri-project-test.eu/vocabularies/ehri-terms/> ." links.ttl
+sed -i "1i\@prefix ehri_is_copy_of_relations: <http://lod.ehri-project-test.eu/isCopyOfRelations/> ." links.ttl
+sed -i "1i\@prefix ehri_has_copy_relations: <http://lod.ehri-project-test.eu/hasCopyRelations/> ." links.ttl
 sed -i "1i\@prefix dbr:   <http://dbpedia.org/resource/> ." links.ttl
 sed -i "1i\@prefix schema: <http://schema.org/> ." links.ttl
 sed -i "1i\@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> ." links.ttl
