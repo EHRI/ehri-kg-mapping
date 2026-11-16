@@ -1,4 +1,6 @@
 # EHRI KG mapping
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17359136.svg)](https://doi.org/10.5281/zenodo.17359136)
+[![SWH](https://archive.softwareheritage.org/badge/origin/https://doi.org/10.5281/zenodo.17359135/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://doi.org/10.5281/zenodo.17359135)
 
 This repository hosts the mapping files and all the orchestating resources for converting the [EHRI Portal data](https://portal.ehri-project.eu/) to the [EHRI Knowledge Graph (EHRI-KG)](https://lod.ehri-project-test.eu/). The mapping rules follow the definitions of the [EHRI Ontology](https://lod.ehri-project-test.eu/ontology/) which aligns as much as possible to the [Records in Contexts Ontology (RiC-O)](https://www.ica.org/standards/RiC/ontology) and, where not possible, extends it using [schema.org](https://schema.org/) or custom properties.
 
@@ -7,13 +9,14 @@ The latest conversion can be accesed through a dedicated LodView instance: [http
 > To know more about this project and its current status you can visit the [EHRI-KG project website](https://ehri-kg.ehri-project.eu/).
 
 ## Current conversion versions
-* EHRI Ontology: 0.1.0
-* RiC-O: 1.0.2
+* EHRI Ontology: 0.2.0
+* RiC-O: 1.1
 
 ## Crosswalks
 In order to facilitate an easier interpretation of the mapping rules, and how the different EHRI Portal attributes are aligned against their counterpart ones in RiC-O, schema.org and the EHRI Ontology, a set of crosswalks files are offered under the `crosswalks` folder:
 * ehri2rico0.2_old.csv: Contains the old conversion to the draft RiC-O 0.2 version.
-* ehri2rico1.0.2.csv: Contains the current alignment to RiC-O 1.0.2 as well as to the first release of the EHRI Ontology.
+* ehri2rico1.0.2.csv: Contains the previous alignment to RiC-O 1.0.2 as well as to the first release of the EHRI Ontology.
+* ehri2rico1.1.csv: Contains the latest alignment to RiC 1.1 alongside the EHRI Ontology 0.2.0
 
 ## How to launch the conversion?
 The conversion process is designed to be unattended and you can start it by using the following command:
@@ -94,4 +97,29 @@ The following libraries are downloaded during the conversion process:
 | Library | Version |
 ----------|----------
 | ShExML  | 0.6.1   |
-| Apache Jena (for validation) | 6.0.0 | 
+| Apache Jena (for validation) | 6.1.0 | 
+
+## Scientific publications
+The current architecture for batch conversion is described in this paper:
+
+```
+H. García-González and M. Bryant, ‘Implementing the EHRI-KG: From Declarative
+Mapping Rules to a Three-Layered KG Construction Architecture’, in Proceedings
+of the 7th International Workshop on Knowledge Graph Construction (KGCW
+2026) co-located with the Extended Semantic Web Conference 2026 (ESWC
+2026), Dubrovnik, Croatia, May 10, D. C. Fraga, A. Dimou, C. Debruyne, E. Iglesias,
+A. Martínez, and S. M. OO, Eds, CEUR-WS, 2026, pp. 33–47. Available:
+https://ceur-ws.org/Vol-4245/paper7.pdf.
+```
+
+For a more general vision on the EHRI-KG project you can also cite our first paper on the subject:
+```
+H. García-González and M. Bryant, ‘The Holocaust Archival Material Knowledge
+Graph’, in The Semantic Web – ISWC 2023, T. R. Payne, V. Presutti, G. Qi, M.
+Poveda-Villalón, G. Stoilos, L. Hollink, Z. Kaoudi, G. Cheng, and J. Li, Eds, Cham:
+Springer Nature Switzerland, 2023, pp. 362–379. doi: 10.1007/978-3-031-47243-
+5_20.
+```
+
+## Funding
+This work has been carried out in the context of the OSCARS project, which has received funding from the European Commission’s Horizon Europe Research and Innovation programme under grant agreement No. 101129751.
