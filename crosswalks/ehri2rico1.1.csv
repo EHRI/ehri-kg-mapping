@@ -82,7 +82,6 @@ Holding,http://lod.ehri-project-test.eu/units/{id},,Subject,rico:RecordSet,Docum
 ,unitDates (left part),rico:hasBeginningDate,IRI -> HoldingBeginningDate,rico:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,unitDates (right part),rico:hasEndDate,IRI -> HoldingEndDate,rico:RecordSet,DocumentaryUnits @ EHRI GraphQL API
 ,unitDates,rico:date,Literal,rico:RecordSet,DocumentaryUnits @ EHRI GraphQL API
-,datesOfDescription,rico:date,Literal,rico:RecordSet,CvocVocabulary @ EHRI GraphQL API
 ,parent.id,rico:isOrWasIncludedIn,IRI (as ehri_units:_),rico:RecordSet,CvocVocabulary @ EHRI GraphQL API
 ,id,rico:includesOrIncluded,IRI (as ehri_units:_),rico:RecordSet,CvocVocabulary @ EHRI GraphQL API
 ,identifier,rico:hasOrHadSubject,IRI (as ehri_terms:_),rico:RecordSet,AuthoritativeSet @ EHRI GraphQL API
