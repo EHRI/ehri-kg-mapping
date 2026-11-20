@@ -1,0 +1,3 @@
+IMPORT <ShExMLTemplates/partial/CountriesHeader.shexml>
+SOURCE countries <countries/countries_*.json>
+IMPORT <ShExMLTemplates/partial/CountriesIteratorsAndShapes.shexml>

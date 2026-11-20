@@ -14,7 +14,7 @@ echo "Downloading contents from the EHRI portal"
 python downloader.py
 
 echo "Converting countries..."
-java -Dfile.encoding=UTF8 -jar shexml.jar -m ShExMLTemplates/Countries.shexml -o countries.ttl -id -nu
+java -Dfile.encoding=UTF8 -jar shexml.jar -m Countries.shexml -o countries.ttl -id -nu
 
 echo "Converting institutions..."
 python createShExMLFilesForInstitutions.py institutions
