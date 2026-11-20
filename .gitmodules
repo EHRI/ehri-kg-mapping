@@ -1,0 +1,3 @@
+[submodule "src/ShExMLTemplates"]
+	path = src/ShExMLTemplates
+	url = https://github.com/EHRI/ehri-kg-shexml-mapping-rules.git
