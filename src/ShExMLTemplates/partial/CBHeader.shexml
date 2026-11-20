@@ -1,4 +1,5 @@
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX ehri: <http://lod.ehri-project-test.eu/ontology#>
 PREFIX ehri_units: <http://lod.ehri-project-test.eu/units/>
 PREFIX ehri_cb: <http://lod.ehri-project-test.eu/vocabularies/ehri-cb/>
