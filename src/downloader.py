@@ -155,7 +155,6 @@ ehri_holdings_end = """\") {
         biographicalHistory
         conditionsOfAccess
         conditionsOfReproduction
-        datesOfDescriptions
         extentAndMedium
         levelOfDescription
         relatedUnitsOfDescription
@@ -235,7 +234,6 @@ ehri_repositories_end = """\") {
         publicAreas
         rulesAndConventions
         status
-        datesOfDescriptions
         maintenanceNotes
         otherFormsOfName
         parallelFormsOfName
