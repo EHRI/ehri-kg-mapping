@@ -12,7 +12,6 @@ ehri:Holding ehri_units:[holding.holding_id] { # common shape
 	rico:scopeAndContent [holding.descriptions.scopeAndContent] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	rico:recordResourceExtent [holding.descriptions.extentAndMedium] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
 	rico:recordResourceStructure [holding.descriptions.systemOfArrangement] @[holding.descriptions.languageCode MATCHING langcode_two_digit_equivalent] ;
-	rico:date [holding.descriptions.datesOfDescription] ;
 	rico:date [holding.descriptions.unitDates] xsd:string ;
 	rico:hasBeginningDate @ehri:HoldingBeginningDate ;
 	rico:hasEndDate @ehri:HoldingEndDate ;
